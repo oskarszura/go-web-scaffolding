@@ -4,6 +4,8 @@ import (
     goWebServer "github.com/oskarszura/gowebserver"
 )
 
+var server goWebServer.WebServer
+
 func main() {
-    goWebServer.SetupServer("9090")
+    server.RunServer("9090")
 }
