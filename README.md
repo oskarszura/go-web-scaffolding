@@ -20,3 +20,5 @@ A complete, full-stack, generic website scaffolding project for Go based website
 
 ## In Plans:
 1. Currently random implementations 
+
+See [Demo page](https://golang-scaffolding.herokuapp.com)
