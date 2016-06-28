@@ -1,1 +1,1 @@
-web: ./gowebscaffolding -port 9090
+web: gowebscaffolding
