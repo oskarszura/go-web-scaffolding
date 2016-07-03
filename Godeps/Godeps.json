@@ -3,17 +3,6 @@
 	"GoVersion": "go1.6",
 	"GodepVersion": "v74",
 	"Deps": [
-		{
-			"ImportPath": "github.com/oskarszura/gowebserver",
-			"Rev": "f44dfa2ff15e02839b7c27887d75d5b387626afc"
-		},
-		{
-			"ImportPath": "github.com/oskarszura/gowebserver/controllers",
-			"Rev": "f44dfa2ff15e02839b7c27887d75d5b387626afc"
-		},
-		{
-			"ImportPath": "github.com/oskarszura/gowebserver/models",
-			"Rev": "f44dfa2ff15e02839b7c27887d75d5b387626afc"
-		}
+
 	]
 }
