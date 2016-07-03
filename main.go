@@ -18,8 +18,6 @@ func determineListenAddress() (string, error) {
 var server goWebServer.WebServer
 
 func main() {
-    fmt.Printf("LOG>> Starting app")
-    
     addr, err := determineListenAddress()
     if err != nil {
         log.Fatal(err)
