@@ -5,15 +5,15 @@
 	"Deps": [
 		{
 			"ImportPath": "github.com/oskarszura/gowebserver",
-			"Rev": "eaff6481819adc2437c4c324b16b6de39fd4d03b"
+			"Rev": "fba10d5514ab9ad819fdf085f1e37a91c15f994f"
 		},
 		{
 			"ImportPath": "github.com/oskarszura/gowebserver/controllers",
-			"Rev": "eaff6481819adc2437c4c324b16b6de39fd4d03b"
+			"Rev": "fba10d5514ab9ad819fdf085f1e37a91c15f994f"
 		},
 		{
 			"ImportPath": "github.com/oskarszura/gowebserver/models",
-			"Rev": "eaff6481819adc2437c4c324b16b6de39fd4d03b"
+			"Rev": "fba10d5514ab9ad819fdf085f1e37a91c15f994f"
 		}
 	]
 }
