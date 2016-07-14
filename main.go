@@ -25,8 +25,8 @@ func main() {
     }
 
     server.Router.AddRoute(`^\/$`, controllers.ControllerFront)
+    server.Router.AddRoute(`^\/api`, controllers.ControllerApi)
     server.Router.AddRoute(`\d`, controllers.ControllerDigits)
-    server.Router.AddRoute(`^(\/api)(\/?\?{0}|\/?\?{1}.*)$`, controllers.ControllerApi)
     server.Router.AddPageNotFoundRoute(controllers.Controller404)
     server.RunServer(addr)
 }
