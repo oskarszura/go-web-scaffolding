@@ -18,5 +18,9 @@
   "homepage": "https://github.com/oskarszura/gowebscaffolding",
   "dependencies" : {
     "webpack": "1.13.1"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "postinstall": "npm run build"
   }
 }
