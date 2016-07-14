@@ -1,10 +1,11 @@
 package main
 
 import (
-    goWebServer "github.com/oskarszura/gowebserver"
     "os"
     "log"
     "fmt"
+    goWebServer "github.com/oskarszura/gowebserver"
+    "github.com/oskarszura/gowebscaffolding/controllers"
 )
 
 func determineListenAddress() (string, error) {
@@ -23,5 +24,9 @@ func main() {
         log.Fatal(err)
     }
 
+    server.Router.AddRoute(`^\/$`, controllers.ControllerFront)
+    server.Router.AddRoute(`\d`, controllers.ControllerDigits)
+    server.Router.AddRoute(`^(\/api)(\/?\?{0}|\/?\?{1}.*)$`, controllers.ControllerApi)
+    server.Router.AddPageNotFoundRoute(controllers.Controller404)
     server.RunServer(addr)
 }
