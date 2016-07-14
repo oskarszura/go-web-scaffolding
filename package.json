@@ -1,0 +1,22 @@
+{
+  "name": "gowebscaffolding",
+  "version": "1.0.0",
+  "description": "## About the project A complete, full-stack, generic website scaffolding project for Go based websites.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oskarszura/gowebscaffolding.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oskarszura/gowebscaffolding/issues"
+  },
+  "homepage": "https://github.com/oskarszura/gowebscaffolding",
+  "dependencies" : {
+    "webpack": "1.13.1"
+  }
+}
