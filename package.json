@@ -4,7 +4,8 @@
   "description": "## About the project A complete, full-stack, generic website scaffolding project for Go based websites.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack.config.js",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -16,11 +17,15 @@
     "url": "https://github.com/oskarszura/gowebscaffolding/issues"
   },
   "homepage": "https://github.com/oskarszura/gowebscaffolding",
-  "dependencies" : {
+  "dependencies": {
+    "postcss": "^5.2.4",
     "webpack": "1.13.1"
   },
-  "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "postinstall": "npm run build"
+  "devDependencies": {
+    "autoprefixer": "^6.5.0",
+    "css-loader": "^0.25.0",
+    "postcss-loader": "^0.13.0",
+    "precss": "^1.4.0",
+    "style-loader": "^0.13.1"
   }
 }

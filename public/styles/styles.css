@@ -1,3 +1,11 @@
 .app {
     background: #999988;
 }
+
+.app-2 {
+    background: #f00;
+}
+
+a {
+    display: flex;
+}
