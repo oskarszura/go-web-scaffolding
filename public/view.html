@@ -9,6 +9,13 @@
 </head>
 <body>
     {{.Body}}
+
+    <form method="post" action="/authenticate" >
+        <input name="username" type="text" />
+        <input name="password" type="password" />
+        <input type="submit" />
+    </form>
+
     <script src="/static/dist/app.bundle.js"></script>
 </body>
 

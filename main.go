@@ -24,6 +24,8 @@ func main() {
         log.Fatal(err)
     }
 
+    server.Router.AddRoute(`^\/authenticate`, controllers.ControllerAuthenticate)
+
     server.Router.AddRoute(`^\/$`, controllers.ControllerFront)
     server.Router.AddRoute(`^\/api`, controllers.ControllerApi)
     server.Router.AddRoute(`\d`, controllers.ControllerDigits)
