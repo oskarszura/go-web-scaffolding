@@ -3,8 +3,6 @@ package controllers
 import (
 	"net/http"
 	"time"
-	"io/ioutil"
-	"fmt"
 )
 
 func ControllerAuthenticate(w http.ResponseWriter, r *http.Request) {
@@ -16,17 +14,18 @@ func ControllerAuthenticate(w http.ResponseWriter, r *http.Request) {
 		_, err := r.Cookie("sid")
 
 		if(err != nil) {
+			user := r.PostFormValue("username")
+			password := r.PostFormValue("password")
 			expiration := time.Now().Add(365 * 24 * time.Hour)
 
-			cookie := http.Cookie {
-				Name: "sid",
-				Value: "sid-value",
-				Expires: expiration }
+			if(authenticateUser(user, password)) {
+				cookie := http.Cookie {
+					Name: "sid",
+					Value: user + password,
+					Expires: expiration }
 
-			buf, _ := ioutil.ReadAll(r.Body)
-			fmt.Println(string(buf))
-
-			http.SetCookie(w, &cookie)
+				http.SetCookie(w, &cookie)
+			}
 		}
 
 		http.Redirect(w, r, "/", http.StatusSeeOther)
@@ -35,4 +34,8 @@ func ControllerAuthenticate(w http.ResponseWriter, r *http.Request) {
 	default:
 	}
 
+}
+
+func authenticateUser(user string, password string) bool {
+	return bool(user == "admin" && password == "password")
 }
