@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 	"html/template"
-	"github.com/oskarszura/gowebserver/models"
+	"github.com/oskarszura/gowebscaffolding/gowebserver/models"
 	"os"
 	"path/filepath"
 	"log"
@@ -17,6 +17,6 @@ func ControllerFront(w http.ResponseWriter, r *http.Request) {
 	}
 
 	p, _ := models.LoadPage("index")
-	t, _ := template.ParseFiles(dir + "/public/view.html")
+	t, _ := template.ParseFiles(dir + "/views/view.html")
 	t.Execute(w, p)
 }

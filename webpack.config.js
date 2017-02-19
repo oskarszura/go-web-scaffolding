@@ -1,21 +1,34 @@
-const precss       = require('precss');
-const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: './public/scripts/index.js',
+  context: `${__dirname}/client`,
+  entry: {
+    scripts: './app.js',
+    css: './app.scss',
+  },
   output: {
-    path: './public/dist',
-    filename: 'app.bundle.js'
+    path: `${__dirname}/public`,
+    filename: 'scripts.js',
   },
   module: {
     loaders: [
       {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader!postcss-loader'
-      }
-    ]
+        test: /\.jsx?$/,
+        exclude: /(node_modules)/,
+        loader: 'babel-loader',
+      }, {
+        test: /\.scss/,
+        loader: ExtractTextPlugin.extract(
+          'style-loader',
+          'css-loader!postcss-loader!sass-loader'
+        ),
+      },
+    ],
   },
-  postcss: function () {
-    return [precss, autoprefixer];
-  }
-}
+  resolve: {
+    extensions: ['', '.js', '.jsx'],
+  },
+  plugins: [
+    new ExtractTextPlugin('styles.css', { allChunks: true }),
+  ],
+};

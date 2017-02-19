@@ -4,7 +4,7 @@ import (
     "os"
     "log"
     "fmt"
-    goWebServer "github.com/oskarszura/gowebserver"
+    goWebServer "github.com/oskarszura/gowebscaffolding/gowebserver"
     "github.com/oskarszura/gowebscaffolding/controllers"
 )
 

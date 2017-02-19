@@ -2,13 +2,6 @@
 	"ImportPath": "github.com/oskarszura/gowebscaffolding",
 	"GoVersion": "go1.6",
 	"GodepVersion": "v74",
-	"Packages": [
-		"github.com/oskarszura/gowebserver"
-	],
-	"Deps": [
-		{
-			"ImportPath": "github.com/oskarszura/gowebserver",
-			"Rev": "701f27c278c6d897ebab87aaf6212e01c39a98c6"
-		}
-	]
+	"Packages": [],
+	"Deps": []
 }

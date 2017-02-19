@@ -3,6 +3,11 @@ package controllers
 import (
 	"net/http"
 	"time"
+	"html/template"
+	"github.com/oskarszura/gowebscaffolding/gowebserver/models"
+	"path/filepath"
+	"os"
+	"log"
 )
 
 func ControllerAuthenticate(w http.ResponseWriter, r *http.Request) {
@@ -10,6 +15,15 @@ func ControllerAuthenticate(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case "GET":
+		dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		p, _ := models.LoadPage("login")
+		t, _ := template.ParseFiles(dir + "/views/view.html")
+		t.Execute(w, p)
 	case "POST":
 		_, err := r.Cookie("sid")
 
