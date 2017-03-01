@@ -12,6 +12,7 @@ type WebServer struct {
 
 func (s *WebServer) RunServer(port string) {
 	staticFileServer := http.FileServer(http.Dir("public"))
+
 	http.Handle("/static/", http.StripPrefix("/static/", staticFileServer))
 	http.HandleFunc("/", s.Router.route)
 

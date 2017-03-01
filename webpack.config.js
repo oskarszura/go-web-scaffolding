@@ -22,8 +22,13 @@ module.exports = {
           'style-loader',
           'css-loader!postcss-loader!sass-loader'
         ),
+      }, {
+        test:    /\.elm$/,
+        exclude: [/elm-stuff/, /node_modules/],
+        loader:  'elm-webpack?verbose=true&warn=true',
       },
     ],
+    noParse: /\.elm$/,
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],

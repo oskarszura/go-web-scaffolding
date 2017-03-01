@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{define "base"}}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    {{.Navigation}}
-    {{.Body}}
+    {{template "navigation" .}}
+    {{template "body" .}}
     <script src="/static/scripts.js"></script>
 </body>
-
 </html>
+{{end}}
