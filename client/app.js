@@ -1,4 +1,4 @@
-var Elm = require('./Main.elm');
+const Elm = require('./Trips.elm');
 
-//var mountNode = document.querySelector('.main-content');
-//var app = Elm.Main.embed(mountNode);
+const mountNode = document.querySelector('.js-trips');
+const app = Elm.Main.embed(mountNode);

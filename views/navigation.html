@@ -18,19 +18,21 @@
                     Login
                 </a>
             </li>
+            {{end}}
+            {{if not .IsLogged}}
             <li class="header__navigation-option"
                 role="presentation">
-                <a href="/authenticate/register">
-                    Sign up
+                <a href="/trips">
+                    Trips
                 </a>
             </li>
-            {{end}}
             <li class="header__navigation-option"
                 role="presentation">
                 <a href="/authenticate/logout">
                     Logout
                 </a>
             </li>
+            {{end}}
         </ul>
     </nav>
 </header>
