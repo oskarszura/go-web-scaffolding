@@ -1,8 +1,8 @@
 module Main exposing (..)
 
-import Html exposing (Html, div, ul, li, button, text, program)
-import Html.Attributes exposing (class)
-import Html.Events exposing (onClick)
+import Html exposing (Html, div, ul, li, button, input, text, program)
+import Html.Attributes exposing (class, value)
+import Html.Events exposing (onClick, onInput)
 
 -- MODEL
 
@@ -14,7 +14,7 @@ type alias Model =
 
 initModel : Model
 initModel =
-  { trips = ["Trip1", "Trip2"]
+  { trips = []
   , tripName = ""
   }
 
@@ -28,7 +28,9 @@ init =
 
 
 type Msg
-    = NoOp | AddTrip
+    = NoOp
+    | AddTrip
+    | ChangeTripName String
 
 
 -- VIEW
@@ -41,6 +43,9 @@ view model =
           model.trips
              |> List.map (\l -> li [] [ text l ])
              |> ul []
+        , input [ onInput ChangeTripName
+                , value model.tripName ]
+                []
         , button [ onClick AddTrip ]
                  [ text "Add trip" ]
         ]
@@ -53,9 +58,15 @@ view model =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        ChangeTripName newName ->
+            ( { model
+                  |   tripName = newName
+            }
+            , Cmd.none )
         AddTrip ->
             ( { model
-                  |   trips = List.append model.trips ["Trip"]
+                  |   trips = List.append model.trips [model.tripName]
+                  ,   tripName = ""
             }
             , Cmd.none )
         NoOp ->
