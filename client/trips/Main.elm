@@ -1,4 +1,4 @@
-module Trips.Main exposing (..)
+port module Trips.Main exposing (..)
 
 import Navigation exposing (Location)
 
@@ -6,6 +6,8 @@ import Trips.Model exposing (..)
 import Trips.Routing exposing (..)
 import Trips.View exposing (..)
 import Trips.Messages exposing (..)
+
+port sentTrip : String -> Cmd msg
 
 init : Location -> ( Model, Cmd Msg )
 init location =
@@ -17,7 +19,6 @@ init location =
 
 
 -- UPDATE
-
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -43,7 +44,7 @@ update msg model =
                                                         }]
                   ,   tripName = ""
             }
-            , Cmd.none )
+            , sentTrip tripId )
         NoOp ->
             ( model, Cmd.none )
 
