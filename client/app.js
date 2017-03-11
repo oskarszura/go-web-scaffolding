@@ -1,4 +1,4 @@
-const Elm = require('./Trips.elm');
+const Elm = require('./Trips/Main.elm');
 
 const mountNode = document.querySelector('.js-trips');
-const app = Elm.Main.embed(mountNode);
+const app = Elm.Trips.Main.embed(mountNode);
