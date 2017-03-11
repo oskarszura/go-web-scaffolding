@@ -34,8 +34,13 @@ update msg model =
             }
             , Cmd.none )
         AddTrip ->
+            let tripId =
+                    toString (List.length model.trips + 1)
+            in
             ( { model
-                  |   trips = List.append model.trips [model.tripName]
+                  |   trips = List.append model.trips [{ name = model.tripName
+                                                       , id = tripId
+                                                        }]
                   ,   tripName = ""
             }
             , Cmd.none )

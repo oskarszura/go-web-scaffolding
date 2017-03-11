@@ -1,7 +1,7 @@
 module Trips.View exposing (..)
 
-import Html exposing (Html, div, ul, li, button, input, text, program)
-import Html.Attributes exposing (class, value)
+import Html exposing (Html, div, ul, li, a, button, input, text, program)
+import Html.Attributes exposing (class, value, href)
 import Html.Events exposing (onClick, onInput)
 
 import Trips.Messages exposing (..)
@@ -29,7 +29,8 @@ tripsPage model =
     div [ class "trips"]
         [
           model.trips
-             |> List.map (\l -> li [] [ text l ])
+             |> List.map (\l -> li []
+                                   [ a [ href ("#/trips/" ++ l.id) ] [ text l.name ] ])
              |> ul []
         , input [ onInput ChangeTripName
                 , value model.tripName ]

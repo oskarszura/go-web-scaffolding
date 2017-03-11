@@ -6,14 +6,14 @@ type Route
     | NotFoundRoute
 
 type alias Model =
-    { trips: List String
+    { trips: List Trip
     , tripName: String
     , route: Route
     }
 
 type alias Trip =
-    {
-
+    { name: String
+    , id: String
     }
 
 initModel : Route -> Model
