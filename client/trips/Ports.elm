@@ -1,3 +1,7 @@
 port module Trips.Ports exposing (..)
 
-port sentTrip : String -> Cmd msg
+import Navigation exposing (Location)
+
+port addTrip : String -> Cmd msg
+
+port openTrip : Location -> Cmd msg

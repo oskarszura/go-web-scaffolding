@@ -7,18 +7,18 @@ import UrlParser exposing (..)
 
 matchers : Parser (Route -> a) a
 matchers =
-    oneOf
-        [ map TripsRoute top
-        , map TripRoute (s "trips" </> int)
-        , map TripsRoute (s "trips")
-        ]
+  oneOf
+    [ map TripsRoute top
+    , map TripRoute (s "trips" </> int)
+    , map TripsRoute (s "trips")
+    ]
 
 
 parseLocation : Location -> Route
 parseLocation location =
-    case (parseHash matchers location) of
-        Just route ->
-            route
+  case (parseHash matchers location) of
+    Just route ->
+      route
 
-        Nothing ->
-            NotFoundRoute
+    Nothing ->
+      NotFoundRoute

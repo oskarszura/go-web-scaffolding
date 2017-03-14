@@ -10,23 +10,20 @@ import Trips.Pages.Trip exposing (..)
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ page model ]
+  div [] [ page model ]
 
 page : Model -> Html Msg
 page model =
-    case model.route of
-        TripsRoute ->
-            tripsPage model
+  case model.route of
+    TripsRoute ->
+      tripsPage model
 
-        TripRoute id ->
-            tripPage model id
+    TripRoute id ->
+      tripPage model id
 
-        NotFoundRoute ->
-            notFoundView
+    NotFoundRoute ->
+      notFoundView
 
 notFoundView : Html msg
 notFoundView =
-    div []
-        [ text "Not found"
-        ]
+  div [] [ text "Not found" ]

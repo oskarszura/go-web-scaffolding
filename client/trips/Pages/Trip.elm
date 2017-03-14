@@ -8,14 +8,14 @@ import Trips.Model exposing (..)
 
 tripPage : Model -> Int -> Html Msg
 tripPage model tripId =
-        let
-            trip = get (tripId - 1) (fromList model.trips)
-        in
-            case trip of
-              Just trp ->
-                  div []
-                      [ h1 [] [ text trp.name ]
-                      ]
-              Nothing ->
-                  div []
-                      [ text "No trip found" ]
+  let
+    trip = get (tripId - 1) (fromList model.trips)
+  in
+    case trip of
+      Just trp ->
+        div []
+          [ h1 [] [ text trp.name
+          , div [ class "js-map" ] [] ]
+          ]
+      Nothing ->
+        div [] [ text "No trip found" ]

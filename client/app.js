@@ -1,8 +1,15 @@
 const Elm = require('./Trips/Main.elm');
 
 const mountNode = document.querySelector('.js-trips');
-const app = Elm.Trips.Main.embed(mountNode);
 
-app.ports.sentTrip.subscribe(id => {
-  console.log("received trip-", id);
-});
+if (mountNode) {
+  const app = Elm.Trips.Main.embed(mountNode);
+
+  app.ports.addTrip.subscribe(id => {
+    console.log("add trip-", id);
+  });
+
+  app.ports.openTrip.subscribe(id => {
+    console.log("open trip-", id);
+  });
+};

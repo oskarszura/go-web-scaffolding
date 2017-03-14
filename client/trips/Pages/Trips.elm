@@ -8,17 +8,17 @@ import Trips.Model exposing (..)
 
 tripsPage : Model -> Html Msg
 tripsPage model =
-    div [ class "trips"]
-        [
-          model.trips
-             |> List.map (\l -> li []
-                                   [ a [ href ("#/trips/" ++ l.id) ] [ text l.name ] ])
-             |> ul []
-        , input [ onInput ChangeTripName
-                , value model.tripName ]
-                []
-        , button [ onClick AddTrip ]
-                 [ text "Add trip" ]
-        , div []
-              [ text "Trips" ]
-        ]
+  div [ class "trips"]
+    [ model.trips
+      |> List.map (\l ->
+        let
+          tripUrl =
+            "#/trips/" ++ l.id
+        in
+          li [] [ a [ href tripUrl ] [ text l.name ] ]
+       )
+      |> ul []
+    , input [ onInput ChangeTripName , value model.tripName ] []
+    , button [ onClick AddTrip ] [ text "Add trip" ]
+    , div [] [ text "Trips" ]
+    ]

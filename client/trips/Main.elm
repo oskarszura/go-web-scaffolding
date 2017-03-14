@@ -6,67 +6,59 @@ import Trips.Model exposing (..)
 import Trips.Routing exposing (..)
 import Trips.View exposing (..)
 import Trips.Messages exposing (..)
-
-port sentTrip : String -> Cmd msg
+import Trips.Ports exposing (..)
 
 init : Location -> ( Model, Cmd Msg )
 init location =
-    let
-        currentRoute =
-            Trips.Routing.parseLocation location
-    in
-    ( Trips.Model.initModel currentRoute, Cmd.none )
+  let
+    currentRoute =
+      parseLocation location
+  in
+    ( initModel currentRoute, Cmd.none )
 
-
--- UPDATE
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
-        OnLocationChange location ->
-            let
-                newRoute =
-                    parseLocation location
-            in
-                ( { model | route = newRoute }, Cmd.none )
-        ChangeTripName newName ->
-            ( { model
-                  |   tripName = newName
-            }
-            , Cmd.none )
-        AddTrip ->
-            let tripId =
-                    toString (List.length model.trips + 1)
-            in
-            ( { model
-                  |   trips = List.append model.trips [{ name = model.tripName
-                                                       , id = tripId
-                                                        }]
-                  ,   tripName = ""
-            }
-            , sentTrip tripId )
-        NoOp ->
-            ( model, Cmd.none )
+  case msg of
+    OnLocationChange location ->
+      let
+        newRoute =
+          parseLocation location
+      in
+        ( { model | route = newRoute }, Cmd.none )
 
+    ChangeTripName newName ->
+      ( { model
+          | tripName = newName
+      }, Cmd.none )
 
+    AddTrip ->
+      let tripId =
+            toString (List.length model.trips + 1)
+          newTrip =
+            { name = model.tripName
+            , id = tripId }
+      in
+      ( { model
+          | trips = List.append model.trips [newTrip]
+          , tripName = ""
+      }
+      , addTrip tripId )
 
--- SUBSCRIPTIONS
+    NoOp ->
+        ( model, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
-
-
-
--- MAIN
+  Sub.none
 
 
 main : Program Never Model Msg
 main =
-    Navigation.program OnLocationChange
-        { init = init
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
-        }
+  Navigation.program OnLocationChange
+    { init = init
+    , view = view
+    , update = update
+    , subscriptions = subscriptions
+    }
