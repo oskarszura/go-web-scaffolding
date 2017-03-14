@@ -6,6 +6,7 @@ import (
     "fmt"
     goWebServer "github.com/oskarszura/gowebscaffolding/gowebserver"
     "github.com/oskarszura/gowebscaffolding/controllers"
+    "gopkg.in/mgo.v2"
 )
 
 func determineListenAddress() (string, error) {
@@ -24,8 +25,16 @@ func main() {
         log.Fatal(err)
     }
 
-    server.Router.AddRoute(`^\/authenticate$`, controllers.ControllerAuthenticate)
-    server.Router.AddRoute(`^\/authenticate/logout$`, controllers.ControllerAuthenticateLogout)
+    session, err := mgo.Dial("mongodb://localhost/go_db")
+    if err != nil {
+        panic(err)
+    }
+    defer session.Close()
+    session.SetMode(mgo.Monotonic, true)
+
+    server.Router.AddRoute(`^\/login/register$`, controllers.ControllerRegister(session))
+    server.Router.AddRoute(`^\/login/logout$`, controllers.ControllerAuthenticateLogout)
+    server.Router.AddRoute(`^\/login`, controllers.ControllerAuthenticate)
 
     server.Router.AddRoute(`^\/trips`, controllers.ControllerTrips)
 
