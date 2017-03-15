@@ -25,7 +25,7 @@ update msg model =
         newRoute =
           parseLocation location
       in
-        ( { model | route = newRoute }, Cmd.none )
+        ( { model | route = newRoute }, openTrip location )
 
     ChangeTripName newName ->
       ( { model
