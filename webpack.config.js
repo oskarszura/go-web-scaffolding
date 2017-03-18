@@ -3,13 +3,17 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   context: `${__dirname}/client`,
   entry: {
-    scripts: './app.js',
+    scripts: './app.jsx',
     css: './app.scss',
   },
   output: {
     path: `${__dirname}/public`,
     filename: 'scripts.js',
   },
+  externals: {
+    "gmaps": "google.maps"
+  },
+  devtool: '#inline-source-map',
   module: {
     loaders: [
       {

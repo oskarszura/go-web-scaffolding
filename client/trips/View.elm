@@ -1,8 +1,6 @@
 module Trips.View exposing (..)
 
 import Html exposing (Html, div, ul, li, a, button, input, text, program)
-import Html.Attributes exposing (class, value, href)
-import Html.Events exposing (onClick, onInput)
 import Trips.Messages exposing (..)
 import Trips.Model exposing (..)
 import Trips.Pages.Trips exposing (..)

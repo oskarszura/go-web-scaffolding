@@ -1,0 +1,14 @@
+.trip {
+  &__plan {
+    float: left;
+  }
+
+  &__location {
+    @extend .form-control;
+  }
+
+  &__add-location {
+    @extend .btn;
+    @extend .btn-default;
+  }
+}

@@ -8,3 +8,8 @@
 @import "template/main-content";
 @import "template/left-menu";
 @import "template/login-box";
+
+@import "./Trips/Pages/trips";
+@import "./Trips/Pages/trip";
+
+@import "components/trip-map";

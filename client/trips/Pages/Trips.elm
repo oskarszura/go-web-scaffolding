@@ -15,10 +15,24 @@ tripsPage model =
           tripUrl =
             "#/trips/" ++ l.id
         in
-          li [] [ a [ href tripUrl ] [ text l.name ] ]
+          li
+            [ class "trips__list-item" ]
+            [ a [ href tripUrl ] [ text l.name ] ]
        )
-      |> ul []
-    , input [ onInput ChangeTripName , value model.tripName ] []
-    , button [ onClick AddTrip ] [ text "Add trip" ]
-    , div [] [ text "Trips" ]
+      |> ul [ class "trips__list" ]
+
+    , div
+        [ class "trips__adder" ]
+        [ input [
+            class "trips__name"
+          , onInput ChangeTripName
+          , value model.tripName ] []
+        , div
+            [ class "trips__actions" ]
+            [ button [
+                class "trips__add"
+              , onClick AddTrip ]
+              [ text "Add trip" ]
+            ]
+        ]
     ]

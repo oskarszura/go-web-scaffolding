@@ -1,0 +1,30 @@
+.trips {
+  margin-top: 20px;
+  width: 50%;
+  margin: 0 auto;
+
+  &__list {
+    @extend .list-group;
+  }
+
+  &__list-item {
+    @extend .list-group-item;
+  }
+
+  &__adder {
+    @extend .input-group;
+  }
+
+  &__name {
+    @extend .form-control;
+  }
+
+  &__actions {
+    @extend .input-group-btn;
+  }
+
+  &__add {
+    @extend .btn;
+    @extend .btn-default;
+  }
+}

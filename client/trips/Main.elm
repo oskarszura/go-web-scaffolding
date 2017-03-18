@@ -28,8 +28,13 @@ update msg model =
         ( { model | route = newRoute }, openTrip location )
 
     ChangeTripName newName ->
+                         ( { model
+                             | tripName = newName
+                         }, Cmd.none )
+
+    ChangePlaceName newName ->
       ( { model
-          | tripName = newName
+          | placeName = newName
       }, Cmd.none )
 
     AddTrip ->
@@ -44,6 +49,19 @@ update msg model =
           , tripName = ""
       }
       , addTrip tripId )
+
+    AddPlace ->
+      let placeId =
+            toString (List.length model.places + 1)
+          newPlace =
+            { name = model.placeName
+            , id = placeId }
+      in
+      ( { model
+          | places = List.append model.places [newPlace]
+          , placeName = ""
+      }
+      , addPlace newPlace )
 
     NoOp ->
         ( model, Cmd.none )
