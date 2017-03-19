@@ -34,7 +34,7 @@ func main() {
 
     server.Router.AddRoute(`^\/login/register$`, controllers.ControllerRegister(session))
     server.Router.AddRoute(`^\/login/logout$`, controllers.ControllerAuthenticateLogout)
-    server.Router.AddRoute(`^\/login`, controllers.ControllerAuthenticate)
+    server.Router.AddRoute(`^\/login`, controllers.ControllerAuthenticate(session))
 
     server.Router.AddRoute(`^\/trips`, controllers.ControllerTrips)
 
