@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func ControllerAuthenticateLogout(w http.ResponseWriter, r *http.Request) {
+func AuthenticateLogout(w http.ResponseWriter, r *http.Request) {
 	cookie := http.Cookie {
 		Path: "/",
 		Name: "sid",

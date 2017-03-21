@@ -4,9 +4,11 @@ import (
     "os"
     "log"
     "fmt"
+    "gopkg.in/mgo.v2"
     goWebServer "github.com/oskarszura/gowebscaffolding/gowebserver"
     "github.com/oskarszura/gowebscaffolding/controllers"
-    "gopkg.in/mgo.v2"
+    "github.com/oskarszura/gowebscaffolding/apicontrollers"
+    "github.com/oskarszura/gowebscaffolding/utils"
 )
 
 func determineListenAddress() (string, error) {
@@ -32,15 +34,25 @@ func main() {
     defer session.Close()
     session.SetMode(mgo.Monotonic, true)
 
-    server.Router.AddRoute(`^\/login/register$`, controllers.ControllerRegister(session))
-    server.Router.AddRoute(`^\/login/logout$`, controllers.ControllerAuthenticateLogout)
-    server.Router.AddRoute(`^\/login`, controllers.ControllerAuthenticate(session))
+    utils.SetSession(session)
 
-    server.Router.AddRoute(`^\/trips`, controllers.ControllerTrips)
+    // Login
+    server.Router.AddRoute(`^\/login/register$`, controllers.Register)
+    server.Router.AddRoute(`^\/login/logout$`, controllers.AuthenticateLogout)
+    server.Router.AddRoute(`^\/login`, controllers.Authenticate)
 
-    server.Router.AddRoute(`^\/$`, controllers.ControllerFront)
-    server.Router.AddRoute(`^\/api`, controllers.ControllerApi)
-    server.Router.AddRoute(`\d`, controllers.ControllerDigits)
-    server.Router.AddPageNotFoundRoute(controllers.Controller404)
+    // Trips
+    server.Router.AddRoute(`^\/trips`, controllers.Trips)
+
+    // Front
+    server.Router.AddRoute(`^\/$`, controllers.Front)
+
+    // Api
+    server.Router.AddRoute(`^\/api/trips`, apicontrollers.Trips)
+    server.Router.AddRoute(`^\/api`, controllers.Api)
+
+    // Errors
+    server.Router.AddPageNotFoundRoute(controllers.NotFound)
+
     server.RunServer(addr)
 }

@@ -12,7 +12,7 @@ type Model struct {
 
 type Models []Model
 
-func ControllerApi(w http.ResponseWriter, r *http.Request) {
+func Api(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 
