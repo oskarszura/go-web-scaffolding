@@ -26,5 +26,6 @@
   &__add {
     @extend .btn;
     @extend .btn-default;
+    height: 34px;
   }
 }

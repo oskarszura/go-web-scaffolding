@@ -7,6 +7,7 @@ import Trips.Routing exposing (..)
 import Trips.View exposing (..)
 import Trips.Messages exposing (..)
 import Trips.Ports exposing (..)
+import Trips.Commands exposing (fetchAll)
 
 init : Location -> ( Model, Cmd Msg )
 init location =
@@ -14,7 +15,7 @@ init location =
     currentRoute =
       parseLocation location
   in
-    ( initModel currentRoute, Cmd.none )
+    ( initModel currentRoute, fetchAll )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -62,6 +63,14 @@ update msg model =
           , placeName = ""
       }
       , addPlace newPlace )
+
+    OnFetchAllTrips (Ok fetchedTrips) ->
+        ( { model
+              | trips = fetchedTrips
+        }, Cmd.none )
+
+    OnFetchAllTrips (Err error) ->
+        ( model, Cmd.none )
 
     NoOp ->
         ( model, Cmd.none )
