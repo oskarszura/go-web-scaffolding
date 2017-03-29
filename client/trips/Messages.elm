@@ -12,3 +12,4 @@ type Msg =
   | ChangePlaceName String
   | OnLocationChange Location
   | OnFetchAllTrips (Result Http.Error (List Trip))
+  | OnInsertTrip (Result Http.Error Trip)

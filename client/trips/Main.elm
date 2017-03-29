@@ -1,13 +1,12 @@
 port module Trips.Main exposing (..)
 
 import Navigation exposing (Location)
-
-import Trips.Model exposing (..)
-import Trips.Routing exposing (..)
-import Trips.View exposing (..)
+import Trips.Model exposing (Model, initModel)
+import Trips.Routing exposing (parseLocation)
+import Trips.View exposing (view)
 import Trips.Messages exposing (..)
-import Trips.Ports exposing (..)
-import Trips.Commands exposing (fetchAll)
+import Trips.Ports exposing (addTrip, openTrip, addPlace)
+import Trips.Commands exposing (fetchAll, postTrip)
 
 init : Location -> ( Model, Cmd Msg )
 init location =
@@ -49,7 +48,7 @@ update msg model =
           | trips = List.append model.trips [newTrip]
           , tripName = ""
       }
-      , addTrip tripId )
+      , postTrip newTrip )
 
     AddPlace ->
       let placeId =
@@ -69,7 +68,13 @@ update msg model =
               | trips = fetchedTrips
         }, Cmd.none )
 
+    OnInsertTrip (Ok insertedTrip) ->
+        ( model, Cmd.none )
+
     OnFetchAllTrips (Err error) ->
+        ( model, Cmd.none )
+
+    OnInsertTrip (Err error) ->
         ( model, Cmd.none )
 
     NoOp ->

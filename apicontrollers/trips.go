@@ -12,25 +12,52 @@ import (
 type TripList []Trip
 
 func Trips(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	var trips []Trip
 
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	session := utils.GetSession()
 	c := session.DB("go_db").C("trips")
-	err := c.Find(nil).All(&trips)
 
-	if err != nil {
-		log.Fatal(err)
+	switch r.Method {
+	case "GET":
+		err := c.Find(nil).All(&trips)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		if trips == nil {
+			trips = TripList{}
+		}
+
+		output := trips
+
+		json.NewEncoder(w).Encode(output)
+	case "POST":
+		var newTrip Trip
+
+		decoder := json.NewDecoder(r.Body)
+		err := decoder.Decode(&newTrip)
+
+		if err != nil {
+			panic(err)
+		}
+
+		err = c.Insert(&Trip{
+			Name: newTrip.Name,
+			Id: newTrip.Id,
+		})
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		output := &utils.HalResponse{
+			Status: 200,
+		}
+
+		json.NewEncoder(w).Encode(output)
+	default:
 	}
-
-	log.Println("Found trips ", trips)
-
-	if trips == nil {
-		trips = TripList{}
-	}
-
-	output := trips
-
-	json.NewEncoder(w).Encode(output)
 }
 
