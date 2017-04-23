@@ -6,7 +6,7 @@ import Trips.Routing exposing (parseLocation)
 import Trips.View exposing (view)
 import Trips.Messages exposing (..)
 import Trips.Ports exposing (addTrip, openTrip, addPlace)
-import Trips.Commands exposing (fetchAll, postTrip)
+import Trips.Commands exposing (postTrip, fetchAll, deleteTrip)
 
 init : Location -> ( Model, Cmd Msg )
 init location =
@@ -50,6 +50,15 @@ update msg model =
       }
       , postTrip newTrip )
 
+    RemoveTrip id ->
+      let updatedTrips =
+            List.filter (\t -> t.id == id) model.trips
+      in
+        ( { model
+            | trips = updatedTrips
+        }
+        , deleteTrip id )
+
     AddPlace ->
       let placeId =
             toString (List.length model.places + 1)
@@ -63,12 +72,18 @@ update msg model =
       }
       , addPlace newPlace )
 
+    OnInsertTrip (Ok insertedTrip) ->
+        ( model, Cmd.none )
+
     OnFetchAllTrips (Ok fetchedTrips) ->
         ( { model
               | trips = fetchedTrips
         }, Cmd.none )
 
-    OnInsertTrip (Ok insertedTrip) ->
+    OnRemoveTrip (Ok removedTrip) ->
+        ( model, Cmd.none )
+
+    OnRemoveTrip (Err error) ->
         ( model, Cmd.none )
 
     OnFetchAllTrips (Err error) ->

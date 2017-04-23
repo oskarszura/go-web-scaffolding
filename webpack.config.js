@@ -11,7 +11,7 @@ module.exports = {
     filename: 'scripts.js',
   },
   externals: {
-    "gmaps": "google.maps"
+    gmaps: 'google.maps',
   },
   devtool: '#inline-source-map',
   module: {
@@ -27,9 +27,9 @@ module.exports = {
           'css-loader!postcss-loader!sass-loader'
         ),
       }, {
-        test:    /\.elm$/,
+        test: /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
-        loader:  'elm-webpack?verbose=true&warn=true',
+        loader: 'elm-webpack?verbose=true&warn=true',
       },
     ],
     noParse: /\.elm$/,

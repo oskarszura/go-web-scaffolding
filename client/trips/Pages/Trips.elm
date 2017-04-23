@@ -17,7 +17,15 @@ tripsPage model =
         in
           li
             [ class "trips__list-item" ]
-            [ a [ href tripUrl ] [ text l.name ] ]
+            [ div [ class "trips__list-item-buttons" ]
+              [ a [ class "trips__list-item-name"
+                            , href tripUrl ]
+                            [ text l.name ]
+              , a [ class "trips__list-item-delete"
+                  , onClick (RemoveTrip l.id) ]
+                  [ text "Delete" ]
+              ]
+            ]
        )
       |> ul [ class "trips__list" ]
 

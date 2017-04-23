@@ -7,9 +7,11 @@ import Trips.Model exposing (Trip)
 type Msg =
     NoOp
   | AddTrip
+  | RemoveTrip String
   | AddPlace
   | ChangeTripName String
   | ChangePlaceName String
   | OnLocationChange Location
-  | OnFetchAllTrips (Result Http.Error (List Trip))
   | OnInsertTrip (Result Http.Error Trip)
+  | OnFetchAllTrips (Result Http.Error (List Trip))
+  | OnRemoveTrip (Result Http.Error String)

@@ -9,6 +9,28 @@
 
   &__list-item {
     @extend .list-group-item;
+
+  }
+
+  &__list-item:hover {
+    .trips__list-item-delete {
+      display: inline-block;
+    }
+  }
+
+  &__list-item-buttons {
+    @extend .btn-group;
+  }
+
+  &__list-item-name {
+    @extend .btn;
+    @extend .btn-default;
+  }
+
+  &__list-item-delete {
+    @extend .btn;
+    @extend .btn-default;
+    display: none;
   }
 
   &__adder {
