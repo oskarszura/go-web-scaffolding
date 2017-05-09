@@ -1,6 +1,6 @@
-import React from 'react';
-import { render } from 'react-dom';
-import TripMap from './components/TripMap';
+// import React from 'react';
+// import { render } from 'react-dom';
+// import TripMap from './components/TripMap';
 
 const Elm = require('./Trips/Main.elm');
 
@@ -12,12 +12,12 @@ if (tripNode) {
   app.ports.addTrip.subscribe(() => {});
 
   app.ports.openTrip.subscribe(() => {
-    setTimeout(() => {
+    /* setTimeout(() => {
       const mapNode = document.querySelector('.js-map');
       render(<TripMap
         places={[]}
         onAddPlace={app.ports.addPlace.subscribe}
       />, mapNode);
-    }, 500);
+    }, 500); */
   });
 }

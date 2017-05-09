@@ -16,10 +16,6 @@ tripPage model tripId =
       Just trp ->
         div [ class "trip" ]
           [ h1 [] [ text trp.name ]
-          , div [
-              classList [ ("js-map", True)
-                , ("trip-map", True)]
-            ] []
           , div
               [ class "trip__plan" ]
               [ div [ class "trip__places"]
@@ -39,7 +35,7 @@ tripPage model tripId =
               , button [ class "trip__add-location"
                   , onClick AddPlace
                   ]
-                  [ text "Add Location" ]
+                  [ text "Add Place" ]
               ]
           ]
       Nothing ->

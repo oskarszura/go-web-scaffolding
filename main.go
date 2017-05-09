@@ -13,6 +13,7 @@ import (
 
 func determineListenAddress() (string, error) {
     port := os.Getenv("PORT")
+
     if port == "" {
         return "", fmt.Errorf("$PORT not set")
     }
@@ -22,12 +23,14 @@ func determineListenAddress() (string, error) {
 var server goWebServer.WebServer
 
 func main() {
+    mongoUri := os.Getenv("MONGOLAB_URI")
     addr, err := determineListenAddress()
+
     if err != nil {
         log.Fatal(err)
     }
 
-    session, err := mgo.Dial("mongodb://localhost/go_db")
+    session, err := mgo.Dial(mongoUri)
     if err != nil {
         panic(err)
     }

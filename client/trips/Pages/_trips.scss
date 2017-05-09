@@ -1,3 +1,8 @@
+%trips__list-item-action {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
 .trips {
   margin-top: 20px;
   width: 50%;
@@ -9,28 +14,35 @@
 
   &__list-item {
     @extend .list-group-item;
-
+    display: flex;
+    padding: 0;
   }
 
   &__list-item:hover {
     .trips__list-item-delete {
-      display: inline-block;
+      color: $color-white;
+      transition: opacity .2s ease-in-out;
+      opacity: 1;
     }
   }
 
-  &__list-item-buttons {
-    @extend .btn-group;
-  }
-
   &__list-item-name {
-    @extend .btn;
-    @extend .btn-default;
+    @extend %trips__list-item-action;
+    flex-basis: auto;
+    flex-basis: 90%;
   }
 
   &__list-item-delete {
-    @extend .btn;
-    @extend .btn-default;
-    display: none;
+    @extend %trips__list-item-action;
+    transition: opacity .2s ease-in-out;
+    color: $color-white;
+    opacity: 0;
+    background-color: $color-roman;
+
+    &:hover {
+      text-decoration: none;
+      background-color: $color-fuzzy-wozzy-brown;
+    }
   }
 
   &__adder {
