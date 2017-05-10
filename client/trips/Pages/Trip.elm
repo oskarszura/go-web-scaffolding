@@ -33,9 +33,9 @@ tripPage model tripId =
                   ]
                   []
               , button [ class "trip__add-location"
-                  , onClick AddPlace
+                  , onClick (AddPlace (toString tripId))
                   ]
-                  [ text "Add Place" ]
+                  [ text "Add Point" ]
               ]
           ]
       Nothing ->

@@ -16,6 +16,7 @@ type alias Model =
 type alias Place =
   { name: String
   , id: String
+  , tripId: String
   }
 
 type alias Trip =

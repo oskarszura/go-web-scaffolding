@@ -2,12 +2,16 @@ module Trips.Commands exposing (..)
 
 import Http
 import Json.Decode as Decode exposing (field)
-import Trips.Model exposing (Trip)
+import Trips.Model exposing (Trip, Place)
 import Trips.Messages exposing (..)
 
 postTripUrl : String
 postTripUrl =
     "/api/trips"
+
+postPlaceUrl : String
+postPlaceUrl =
+    "/api/places"
 
 fetchAllUrl : String
 fetchAllUrl =
@@ -24,6 +28,14 @@ postTrip newTrip =
     in
       Http.post postTripUrl payload postSuccessDecoder
           |> Http.send OnInsertTrip
+
+postPlace : Place -> Cmd Msg
+postPlace newPlace =
+    let
+      payload = Http.stringBody "application/json" ("""{ "name": \""""++newPlace.name++"""\", "id": """++(toString newPlace.id)++""", "tripId": """++newPlace.tripId++"""}""")
+    in
+      Http.post postPlaceUrl payload postSuccessDecoder
+          |> Http.send OnInsertPlace
 
 fetchAll : Cmd Msg
 fetchAll =

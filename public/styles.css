@@ -5227,9 +5227,6 @@ body {
   .trips__add {
     height: 34px; }
 
-.trip__plan {
-  float: left; }
-
 .trip-map {
   width: 600px;
   height: 400px;

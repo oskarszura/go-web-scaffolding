@@ -8,7 +8,8 @@ type Msg =
     NoOp
   | AddTrip
   | RemoveTrip String
-  | AddPlace
+  | AddPlace String
+  | OnInsertPlace (Result Http.Error Trip)
   | ChangeTripName String
   | ChangePlaceName String
   | OnLocationChange Location

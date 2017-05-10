@@ -5,8 +5,8 @@ import Trips.Model exposing (Model, initModel)
 import Trips.Routing exposing (parseLocation)
 import Trips.View exposing (view)
 import Trips.Messages exposing (..)
-import Trips.Ports exposing (addTrip, openTrip, addPlace)
-import Trips.Commands exposing (postTrip, fetchAll, deleteTrip)
+import Trips.Ports exposing (addTrip, openTrip)
+import Trips.Commands exposing (postTrip, fetchAll, deleteTrip, postPlace)
 
 init : Location -> ( Model, Cmd Msg )
 init location =
@@ -25,17 +25,19 @@ update msg model =
         newRoute =
           parseLocation location
       in
-        ( { model | route = newRoute }, openTrip location )
+        ({ model
+           | route = newRoute
+        }, openTrip location )
 
     ChangeTripName newName ->
-                         ( { model
-                             | tripName = newName
-                         }, Cmd.none )
+      ({ model
+         | tripName = newName
+      }, Cmd.none)
 
     ChangePlaceName newName ->
-      ( { model
-          | placeName = newName
-      }, Cmd.none )
+      ({ model
+         | placeName = newName
+      }, Cmd.none)
 
     AddTrip ->
       let tripId =
@@ -59,20 +61,10 @@ update msg model =
         }
         , deleteTrip id )
 
-    AddPlace ->
-      let placeId =
-            toString (List.length model.places + 1)
-          newPlace =
-            { name = model.placeName
-            , id = placeId }
-      in
-      ( { model
-          | places = List.append model.places [newPlace]
-          , placeName = ""
-      }
-      , addPlace newPlace )
-
     OnInsertTrip (Ok insertedTrip) ->
+        ( model, Cmd.none )
+
+    OnInsertTrip (Err error) ->
         ( model, Cmd.none )
 
     OnFetchAllTrips (Ok fetchedTrips) ->
@@ -89,7 +81,24 @@ update msg model =
     OnFetchAllTrips (Err error) ->
         ( model, Cmd.none )
 
-    OnInsertTrip (Err error) ->
+    AddPlace tripId ->
+      let placeId =
+            toString (List.length model.places + 1)
+          newPlace =
+            { name = model.placeName
+            , id = placeId
+            , tripId = tripId }
+      in
+      ( { model
+          | places = List.append model.places [newPlace]
+          , placeName = ""
+      }
+      , postPlace newPlace )
+
+    OnInsertPlace (Ok insertedPlace) ->
+        ( model, Cmd.none )
+
+    OnInsertPlace (Err error) ->
         ( model, Cmd.none )
 
     NoOp ->
