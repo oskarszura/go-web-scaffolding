@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 	"time"
+	"os"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"log"
@@ -45,7 +46,8 @@ func Authenticate(w http.ResponseWriter, r *http.Request) {
 
 func authenticateUser(session *mgo.Session, user string, password string) bool {
 	var foundUser models.User
-	c := session.DB("go_db").C("users")
+	dbName := os.Getenv("DB_NAME")
+	c := session.DB(dbName).C("users")
 	err := c.Find(bson.M{"username": user, "password": password}).One(&foundUser)
 
 	log.Println("Logged in as ", user, password)

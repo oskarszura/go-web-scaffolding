@@ -2,6 +2,7 @@ package apicontrollers
 
 import (
 	"log"
+	"os"
 	"net/http"
 	"encoding/json"
 	"github.com/oskarszura/gowebscaffolding/utils"
@@ -14,9 +15,10 @@ type TripList []Trip
 func Trips(w http.ResponseWriter, r *http.Request) {
 	var trips []Trip
 
+	dbName := os.Getenv("DB_NAME")
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	session := utils.GetSession()
-	c := session.DB("go_db").C("trips")
+	c := session.DB(dbName).C("trips")
 
 	switch r.Method {
 	case "GET":
