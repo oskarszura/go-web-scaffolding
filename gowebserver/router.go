@@ -33,6 +33,16 @@ func (router *UrlRouter) findRoute (path string) UrlRoute {
 	}
 }
 
+func (router *UrlRouter) route(w http.ResponseWriter, r *http.Request)  {
+	urlPath := r.URL.Path
+	route := router.findRoute(urlPath)
+
+	log.Println("Navigating to url = " + urlPath + " vs route = " + route.urlRegExp)
+
+	routeHandler := route.handler
+	routeHandler(w, r)
+}
+
 func (router *UrlRouter) AddRoute(urlPattern string, pathHandler ControllerHandler) {
 	pathRegExp := utils.UrlPatternToRegExp(urlPattern)
 
@@ -44,14 +54,4 @@ func (router *UrlRouter) AddRoute(urlPattern string, pathHandler ControllerHandl
 
 func (router *UrlRouter) AddPageNotFoundRoute(pathHandler ControllerHandler) {
 	router.pageNotFoundController = pathHandler
-}
-
-func (router *UrlRouter) route(w http.ResponseWriter, r *http.Request)  {
-	urlPath := r.URL.Path
-	route := router.findRoute(urlPath)
-
-	log.Print("Navigating to url = " + urlPath + " vs route = " + route.urlRegExp)
-
-	routeHandler := route.handler
-	routeHandler(w, r)
 }

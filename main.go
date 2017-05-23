@@ -26,7 +26,7 @@ func main() {
     mongoUri := os.Getenv("MONGOLAB_URI")
     addr, err := determineListenAddress()
 
-    log.Print("Connecting to mgo with " + mongoUri)
+    log.Println("Connecting to mgo with mongoUri = " + mongoUri)
 
     if err != nil {
         log.Fatal(err)
