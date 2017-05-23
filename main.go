@@ -26,6 +26,8 @@ func main() {
     mongoUri := os.Getenv("MONGOLAB_URI")
     addr, err := determineListenAddress()
 
+    log.Print("Connecting to mgo with " + mongoUri)
+
     if err != nil {
         log.Fatal(err)
     }
@@ -40,19 +42,20 @@ func main() {
     utils.SetSession(session)
 
     // Login
-    server.Router.AddRoute(`^\/login/register$`, controllers.Register)
-    server.Router.AddRoute(`^\/login/logout$`, controllers.AuthenticateLogout)
-    server.Router.AddRoute(`^\/login`, controllers.Authenticate)
+    server.Router.AddRoute("/login/register", controllers.Register)
+    server.Router.AddRoute("/login/logout", controllers.AuthenticateLogout)
+    server.Router.AddRoute("/login", controllers.Authenticate)
 
     // Trips
-    server.Router.AddRoute(`^\/trips`, controllers.Trips)
+    server.Router.AddRoute("/trips", controllers.Trips)
 
     // Front
-    server.Router.AddRoute(`^\/$`, controllers.Front)
+    server.Router.AddRoute("/", controllers.Front)
 
     // Api
-    server.Router.AddRoute(`^\/api/trips`, apicontrollers.Trips)
-    server.Router.AddRoute(`^\/api`, controllers.Api)
+    server.Router.AddRoute("/api/trips/{id}", apicontrollers.Trips)
+    server.Router.AddRoute("/api/places", apicontrollers.Places)
+    server.Router.AddRoute("/api", controllers.Api)
 
     // Errors
     server.Router.AddPageNotFoundRoute(controllers.NotFound)
