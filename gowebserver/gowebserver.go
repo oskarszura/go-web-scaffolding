@@ -1,7 +1,6 @@
 package gowebserver
 
 import (
-	"fmt"
 	"net/http"
 	"log"
 )
@@ -16,12 +15,11 @@ func (s *WebServer) RunServer(port string) {
 	http.Handle("/static/", http.StripPrefix("/static/", staticFileServer))
 	http.HandleFunc("/", s.Router.route)
 
-	fmt.Println("Setting up server on " + port + " port")
-	fmt.Println("Listening...")
+	log.Println("Server listening on port = " + port + " ...")
 
 	err := http.ListenAndServe(port, nil)
 
 	if err != nil {
-		log.Fatal("ListenAndServe: ", err)
+		log.Fatal("Server failed: ", err)
 	}
 }

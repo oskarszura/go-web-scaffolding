@@ -3,6 +3,8 @@ package gowebserver
 import (
 	"regexp"
 	"net/http"
+	"log"
+	"github.com/oskarszura/gowebscaffolding/utils"
 )
 
 type ControllerHandler func(http.ResponseWriter, *http.Request)
@@ -31,7 +33,19 @@ func (router *UrlRouter) findRoute (path string) UrlRoute {
 	}
 }
 
-func (router *UrlRouter) AddRoute(pathRegExp string, pathHandler ControllerHandler) {
+func (router *UrlRouter) route(w http.ResponseWriter, r *http.Request)  {
+	urlPath := r.URL.Path
+	route := router.findRoute(urlPath)
+
+	log.Println("Navigating to url = " + urlPath + " vs route = " + route.urlRegExp)
+
+	routeHandler := route.handler
+	routeHandler(w, r)
+}
+
+func (router *UrlRouter) AddRoute(urlPattern string, pathHandler ControllerHandler) {
+	pathRegExp := utils.UrlPatternToRegExp(urlPattern)
+
 	router.urlRoutes = append(router.urlRoutes, UrlRoute{
 		urlRegExp: pathRegExp,
 		handler: pathHandler,
@@ -40,11 +54,4 @@ func (router *UrlRouter) AddRoute(pathRegExp string, pathHandler ControllerHandl
 
 func (router *UrlRouter) AddPageNotFoundRoute(pathHandler ControllerHandler) {
 	router.pageNotFoundController = pathHandler
-}
-
-func (router *UrlRouter) route(w http.ResponseWriter, r *http.Request)  {
-	urlPath := r.URL.Path
-
-	routeHandler := router.findRoute(urlPath).handler
-	routeHandler(w, r)
 }
