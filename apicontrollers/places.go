@@ -5,57 +5,50 @@ import (
 	"os"
 	"net/http"
 	"encoding/json"
-	"gopkg.in/mgo.v2/bson"
 	"github.com/oskarszura/gowebscaffolding/utils"
 	. "github.com/oskarszura/gowebscaffolding/apicontrollers/models"
 )
 
-type TripList []Trip
 
-func Trips(w http.ResponseWriter, r *http.Request) {
-	var trips []Trip
+type PlaceList []Place
+
+func Places(w http.ResponseWriter, r *http.Request) {
+	var places []Place
 
 	dbName := os.Getenv("DB_NAME")
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	session := utils.GetSession()
-	c := session.DB(dbName).C("trips")
+	c := session.DB(dbName).C("places")
 
 	switch r.Method {
 	case "GET":
-		pipe := c.Pipe([]bson.M{{"$lookup": bson.M{
-			"from":"places",
-			"localField": "id",
-			"foreignField": "tripid",
-			"as": "places",
-		}}})
-
-		trips = TripList{}
-		err := pipe.All(&trips)
+		err := c.Find(nil).All(&places)
 
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		if trips == nil {
-			trips = TripList{}
+		if places == nil {
+			places = PlaceList{}
 		}
 
-		output := trips
+		output := places
 
 		json.NewEncoder(w).Encode(output)
 	case "POST":
-		var newTrip Trip
+		var newPlace Place
 
 		decoder := json.NewDecoder(r.Body)
-		err := decoder.Decode(&newTrip)
+		err := decoder.Decode(&newPlace)
 
 		if err != nil {
 			panic(err)
 		}
 
-		err = c.Insert(&Trip{
-			Name: newTrip.Name,
-			Id: newTrip.Id,
+		err = c.Insert(&Place{
+			Name: newPlace.Name,
+			Id: newPlace.Id,
+			TripId: newPlace.TripId,
 		})
 
 		if err != nil {

@@ -1,8 +1,8 @@
 package models
 
-type Trip struct {
+type Place struct {
 	Id	  string    `json:"id"`
 	Name      string    `json:"name"`
-	Places	  []Place   `json:"places"`
+	TripId    string    `json:"tripId"`
 }
 
