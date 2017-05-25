@@ -9,12 +9,8 @@ postTripUrl : String
 postTripUrl =
     "/api/trips"
 
-postPlaceUrl : String
-postPlaceUrl =
-    "/api/places"
-
-fetchAllUrl : String
-fetchAllUrl =
+fetchTripsUrl : String
+fetchTripsUrl =
     "/api/trips"
 
 deleteTripUrl : String -> String
@@ -29,17 +25,30 @@ postTrip newTrip =
       Http.post postTripUrl payload postSuccessDecoder
           |> Http.send OnInsertTrip
 
+postPlaceUrl : String
+postPlaceUrl =
+    "/api/places"
+
+fetchPlacesUrl : String -> String
+fetchPlacesUrl tripId =
+    "/api/places" ++ tripId
+
 postPlace : Place -> Cmd Msg
 postPlace newPlace =
     let
-      payload = Http.stringBody "application/json" ("""{ "name": \""""++newPlace.name++"""\", "id": """++(toString newPlace.id)++""", "tripId": """++newPlace.tripId++"""}""")
+      payload = Http.stringBody "application/json" ("""{ "name": \""""++newPlace.name++"""\", "id": """++(toString newPlace.id)++""", "tripId": """++(toString newPlace.tripId)++"""}""")
     in
-      Http.post postPlaceUrl payload postSuccessDecoder
+      Http.post postPlaceUrl payload postSuccessPlaceDecoder
           |> Http.send OnInsertPlace
 
-fetchAll : Cmd Msg
-fetchAll =
-    Http.get fetchAllUrl collectionDecoder
+fetchPlaces : String -> Cmd Msg
+fetchPlaces tripId =
+    Http.get (fetchPlacesUrl tripId) collectionPlaceDecoder
+        |> Http.send OnFetchAllPlaces
+
+fetchTrips : Cmd Msg
+fetchTrips =
+    Http.get fetchTripsUrl collectionTripDecoder
         |> Http.send OnFetchAllTrips
 
 deleteTrip : String -> Cmd Msg
@@ -55,18 +64,38 @@ deleteTrip tripId =
         }
         |> Http.send OnRemoveTrip
 
-collectionDecoder : Decode.Decoder (List Trip)
-collectionDecoder =
+collectionTripDecoder : Decode.Decoder (List Trip)
+collectionTripDecoder =
     Decode.list memberDecoder
 
 postSuccessDecoder : Decode.Decoder Trip
 postSuccessDecoder =
-    Decode.map2 Trip
+    Decode.map3 Trip
         (field "name" Decode.string)
         (field "id" Decode.string)
+        (field "places" (Decode.list memberPlaceDecoder))
 
 memberDecoder : Decode.Decoder Trip
 memberDecoder =
-    Decode.map2 Trip
+    Decode.map3 Trip
         (field "name" Decode.string)
         (field "id" Decode.string)
+        (field "places" (Decode.list memberPlaceDecoder))
+
+collectionPlaceDecoder : Decode.Decoder (List Place)
+collectionPlaceDecoder =
+    Decode.list memberPlaceDecoder
+
+postSuccessPlaceDecoder : Decode.Decoder Place
+postSuccessPlaceDecoder =
+    Decode.map3 Place
+        (field "name" Decode.string)
+        (field "id" Decode.string)
+        (field "tripId" Decode.string)
+
+memberPlaceDecoder : Decode.Decoder Place
+memberPlaceDecoder =
+    Decode.map3 Place
+        (field "name" Decode.string)
+        (field "id" Decode.string)
+        (field "tripId" Decode.string)

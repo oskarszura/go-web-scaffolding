@@ -1,20 +1,27 @@
 port module Trips.Main exposing (..)
 
 import Navigation exposing (Location)
-import Trips.Model exposing (Model, initModel)
+import Array exposing (get, fromList)
+import Trips.Model exposing (..)
 import Trips.Routing exposing (parseLocation)
 import Trips.View exposing (view)
 import Trips.Messages exposing (..)
-import Trips.Ports exposing (addTrip, openTrip)
-import Trips.Commands exposing (postTrip, fetchAll, deleteTrip, postPlace)
+import Trips.Commands exposing (postTrip, fetchTrips, deleteTrip, postPlace, fetchPlaces)
 
 init : Location -> ( Model, Cmd Msg )
 init location =
   let
-    currentRoute =
-      parseLocation location
+    currentRoute = parseLocation location
   in
-    ( initModel currentRoute, fetchAll )
+    case currentRoute of
+      TripsRoute ->
+        (initModel currentRoute, fetchTrips)
+
+      TripRoute id ->
+        (initModel currentRoute, fetchTrips)
+
+      NotFoundRoute ->
+        (initModel currentRoute, fetchTrips)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -22,12 +29,33 @@ update msg model =
   case msg of
     OnLocationChange location ->
       let
-        newRoute =
-          parseLocation location
+        newRoute = parseLocation location
       in
-        ({ model
-           | route = newRoute
-        }, openTrip location )
+        case newRoute of
+              TripsRoute ->
+                  ({ model
+                     | route = newRoute
+                   }, Cmd.none )
+
+              TripRoute id ->
+                  let
+                    trip = get (id - 1) (fromList model.trips)
+                  in
+                    case trip of
+                      Just trp ->
+                        ({ model
+                           | route = newRoute
+                           , places = trp.places
+                        }, Cmd.none )
+                      Nothing ->
+                        ({ model
+                           | route = newRoute
+                        }, Cmd.none )
+
+              NotFoundRoute ->
+                  ({ model
+                     | route = newRoute
+                  }, Cmd.none )
 
     ChangeTripName newName ->
       ({ model
@@ -44,7 +72,8 @@ update msg model =
             toString (List.length model.trips + 1)
           newTrip =
             { name = model.tripName
-            , id = tripId }
+            , id = tripId
+            , places = []}
       in
       ( { model
           | trips = List.append model.trips [newTrip]
@@ -67,16 +96,16 @@ update msg model =
     OnInsertTrip (Err error) ->
         ( model, Cmd.none )
 
-    OnFetchAllTrips (Ok fetchedTrips) ->
-        ( { model
-              | trips = fetchedTrips
-        }, Cmd.none )
-
     OnRemoveTrip (Ok removedTrip) ->
         ( model, Cmd.none )
 
     OnRemoveTrip (Err error) ->
         ( model, Cmd.none )
+
+    OnFetchAllTrips (Ok fetchedTrips) ->
+        ( { model
+              | trips = fetchedTrips
+        }, Cmd.none )
 
     OnFetchAllTrips (Err error) ->
         ( model, Cmd.none )
@@ -99,6 +128,14 @@ update msg model =
         ( model, Cmd.none )
 
     OnInsertPlace (Err error) ->
+        ( model, Cmd.none )
+
+    OnFetchAllPlaces (Ok fetchedPlaces) ->
+        ( { model
+              | places = fetchedPlaces
+        }, Cmd.none )
+
+    OnFetchAllPlaces (Err error) ->
         ( model, Cmd.none )
 
     NoOp ->
