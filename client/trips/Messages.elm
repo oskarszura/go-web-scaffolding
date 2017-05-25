@@ -2,14 +2,15 @@ module Trips.Messages exposing (..)
 
 import Navigation exposing (Location)
 import Http
-import Trips.Model exposing (Trip)
+import Trips.Model exposing (Trip, Place)
 
 type Msg =
     NoOp
   | AddTrip
   | RemoveTrip String
   | AddPlace String
-  | OnInsertPlace (Result Http.Error Trip)
+  | OnInsertPlace (Result Http.Error Place)
+  | OnFetchAllPlaces (Result Http.Error (List Place))
   | ChangeTripName String
   | ChangePlaceName String
   | OnLocationChange Location

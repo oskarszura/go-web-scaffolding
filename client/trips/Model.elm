@@ -22,6 +22,7 @@ type alias Place =
 type alias Trip =
   { name: String
   , id: String
+  , places: List Place
   }
 
 initModel : Route -> Model
