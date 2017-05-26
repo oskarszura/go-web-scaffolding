@@ -1,15 +1,21 @@
 package utils
 
 import (
+	"os"
 	"gopkg.in/mgo.v2"
 )
 
-var OpenSession *mgo.Session
+var DBSession *mgo.Session
 
 func SetSession(session *mgo.Session) {
-	OpenSession = session
+	DBSession = session
 }
 
 func GetSession() *mgo.Session {
-	return OpenSession
+	return DBSession
+}
+
+func GetDataSource() *mgo.Database {
+	dbName := os.Getenv("DB_NAME")
+	return DBSession.DB(dbName)
 }

@@ -2,7 +2,6 @@ package api
 
 import (
 	"log"
-	"os"
 	"net/http"
 	"encoding/json"
 	"gopkg.in/mgo.v2/bson"
@@ -15,10 +14,9 @@ type TripList []Trip
 func Trips(w http.ResponseWriter, r *http.Request) {
 	var trips []Trip
 
-	dbName := os.Getenv("DB_NAME")
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	session := utils.GetSession()
-	c := session.DB(dbName).C("trips")
+	ds := utils.GetDataSource()
+	c := ds.C("trips")
 
 	switch r.Method {
 	case "GET":
