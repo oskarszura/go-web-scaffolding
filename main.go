@@ -23,16 +23,16 @@ func determineListenAddress() (string, error) {
 var server goWebServer.WebServer
 
 func main() {
-    mongoUri := os.Getenv("MONGOLAB_URI")
+    dbUri := os.Getenv("MONGOLAB_URI")
     addr, err := determineListenAddress()
 
-    log.Println("Connecting to mgo with mongoUri = " + mongoUri)
+    log.Println("Connecting to mgo with URI = " + dbUri)
 
     if err != nil {
         panic(err)
     }
 
-    session, err := mgo.Dial(mongoUri)
+    session, err := mgo.Dial(dbUri)
     if err != nil {
         panic(err)
     }
@@ -49,8 +49,7 @@ func main() {
     server.Router.AddRoute("/", controllers.Front)
     server.Router.AddRoute("/api/trips/{id}", api.Trips)
     server.Router.AddRoute("/api/places", api.Places)
-    server.Router.AddRoute("/api", controllers.Api)
-    server.Router.AddPageNotFoundRoute(controllers.NotFound)
+    server.Router.AddNotFoundRoute(controllers.NotFound)
 
-    server.RunServer(addr)
+    server.Run(addr)
 }
