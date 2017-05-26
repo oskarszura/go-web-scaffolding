@@ -1,4 +1,4 @@
-package apicontrollers
+package api
 
 import (
 	"log"
@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"gopkg.in/mgo.v2/bson"
 	"github.com/oskarszura/gowebscaffolding/utils"
-	. "github.com/oskarszura/gowebscaffolding/apicontrollers/models"
+	. "github.com/oskarszura/gowebscaffolding/models"
 )
 
 type TripList []Trip

@@ -1,4 +1,4 @@
-package apicontrollers
+package api
 
 import (
 	"log"
@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"encoding/json"
 	"github.com/oskarszura/gowebscaffolding/utils"
-	. "github.com/oskarszura/gowebscaffolding/apicontrollers/models"
+	. "github.com/oskarszura/gowebscaffolding/models"
 )
 
 
