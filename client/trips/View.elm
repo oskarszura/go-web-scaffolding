@@ -8,7 +8,9 @@ import Trips.Pages.Trip exposing (..)
 
 view : Model -> Html Msg
 view model =
-  div [] [ page model ]
+  div
+    []
+    [ page model ]
 
 page : Model -> Html Msg
 page model =
@@ -24,4 +26,6 @@ page model =
 
 notFoundView : Html msg
 notFoundView =
-  div [] [ text "Not found" ]
+  div
+    []
+    [ text "Not found" ]
