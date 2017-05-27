@@ -1,6 +1,6 @@
 module Trips.Pages.Trip exposing (..)
 
-import Html exposing (Html, div, h1, text, input, button, ul, li)
+import Html exposing (Html, div, h1, text, input, button, ul, li, textarea)
 import Html.Attributes exposing (classList, class, value)
 import Html.Events exposing (onClick, onInput)
 import Array exposing (get, fromList)
@@ -18,21 +18,31 @@ tripPage model tripId =
           [ h1 [] [ text trp.name ]
           , div
               [ class "trip__plan" ]
-              [ div [ class "trip__places"]
+              [ div
+                  [ class "trip__places"]
                   [ model.places
                     |> List.map (\l ->
                         li
                           [ class "trips__place-item" ]
-                          [ text l.name ]
+                          [ text (l.name ++ " ( " ++ l.description ++ ")") ]
                      )
-                    |> ul [ class "trips__place-list" ]
+                    |> ul
+                        [ class "trips__place-list" ]
                   ]
-              , input [ class "trip__location"
-                      , onInput ChangePlaceName
-                      , value model.placeName
+              , input
+                  [ class "trip__location"
+                  , onInput ChangePlaceName
+                  , value model.placeName
                   ]
                   []
-              , button [ class "trip__add-location"
+              , textarea
+                  [ class "trip_place-description"
+                  , onInput ChangePlaceDescription
+                  , value model.placeDescription
+                  ]
+                  []
+              , button
+                  [ class "trip__add-location"
                   , onClick (AddPlace (toString tripId))
                   ]
                   [ text "Add Point" ]

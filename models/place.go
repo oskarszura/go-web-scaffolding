@@ -1,8 +1,9 @@
 package models
 
 type Place struct {
-	Id	  string    `json:"id"`
-	Name      string    `json:"name"`
-	TripId    string    `json:"tripId"`
+	Id	  	string    `json:"id"`
+	Name      	string    `json:"name"`
+	Description     string    `json:"description"`
+	TripId    	string    `json:"tripId"`
 }
 
