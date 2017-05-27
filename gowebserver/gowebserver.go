@@ -9,7 +9,7 @@ type WebServer struct {
 	Router		UrlRouter
 }
 
-func (s *WebServer) RunServer(port string) {
+func (s *WebServer) Run(port string) {
 	staticFileServer := http.FileServer(http.Dir("public"))
 
 	http.Handle("/static/", http.StripPrefix("/static/", staticFileServer))

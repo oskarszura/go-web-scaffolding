@@ -3,7 +3,6 @@ package controllers
 import (
 	"net/http"
 	"log"
-	"os"
 	"github.com/oskarszura/gowebscaffolding/utils"
 	"github.com/oskarszura/gowebscaffolding/gowebserver/models"
 )
@@ -13,9 +12,8 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	case "GET":
 		utils.RenderTemplate(w, r, "register")
 	case "POST":
-		dbName := os.Getenv("DB_NAME")
-		session := utils.GetSession()
-		c := session.DB(dbName).C("users")
+		ds := utils.GetDataSource()
+		c := ds.C("users")
 
 		err := c.Insert(&models.User{
 			Username: r.PostFormValue("username"),

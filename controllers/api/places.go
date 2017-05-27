@@ -1,12 +1,11 @@
-package apicontrollers
+package api
 
 import (
 	"log"
-	"os"
 	"net/http"
 	"encoding/json"
 	"github.com/oskarszura/gowebscaffolding/utils"
-	. "github.com/oskarszura/gowebscaffolding/apicontrollers/models"
+	. "github.com/oskarszura/gowebscaffolding/models"
 )
 
 
@@ -15,10 +14,9 @@ type PlaceList []Place
 func Places(w http.ResponseWriter, r *http.Request) {
 	var places []Place
 
-	dbName := os.Getenv("DB_NAME")
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	session := utils.GetSession()
-	c := session.DB(dbName).C("places")
+	ds := utils.GetDataSource()
+	c := ds.C("places")
 
 	switch r.Method {
 	case "GET":

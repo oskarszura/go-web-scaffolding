@@ -7,7 +7,7 @@ import (
     "gopkg.in/mgo.v2"
     goWebServer "github.com/oskarszura/gowebscaffolding/gowebserver"
     "github.com/oskarszura/gowebscaffolding/controllers"
-    "github.com/oskarszura/gowebscaffolding/apicontrollers"
+    "github.com/oskarszura/gowebscaffolding/controllers/api"
     "github.com/oskarszura/gowebscaffolding/utils"
 )
 
@@ -23,42 +23,33 @@ func determineListenAddress() (string, error) {
 var server goWebServer.WebServer
 
 func main() {
-    mongoUri := os.Getenv("MONGOLAB_URI")
+    dbUri := os.Getenv("MONGOLAB_URI")
     addr, err := determineListenAddress()
 
-    log.Println("Connecting to mgo with mongoUri = " + mongoUri)
+    log.Println("Connecting to mgo with URI = " + dbUri)
 
     if err != nil {
-        log.Fatal(err)
+        panic(err)
     }
 
-    session, err := mgo.Dial(mongoUri)
+    session, err := mgo.Dial(dbUri)
     if err != nil {
         panic(err)
     }
     defer session.Close()
+
     session.SetMode(mgo.Monotonic, true)
 
     utils.SetSession(session)
 
-    // Login
     server.Router.AddRoute("/login/register", controllers.Register)
     server.Router.AddRoute("/login/logout", controllers.AuthenticateLogout)
     server.Router.AddRoute("/login", controllers.Authenticate)
-
-    // Trips
     server.Router.AddRoute("/trips", controllers.Trips)
-
-    // Front
     server.Router.AddRoute("/", controllers.Front)
+    server.Router.AddRoute("/api/trips/{id}", api.Trips)
+    server.Router.AddRoute("/api/places", api.Places)
+    server.Router.AddNotFoundRoute(controllers.NotFound)
 
-    // Api
-    server.Router.AddRoute("/api/trips/{id}", apicontrollers.Trips)
-    server.Router.AddRoute("/api/places", apicontrollers.Places)
-    server.Router.AddRoute("/api", controllers.Api)
-
-    // Errors
-    server.Router.AddPageNotFoundRoute(controllers.NotFound)
-
-    server.RunServer(addr)
+    server.Run(addr)
 }

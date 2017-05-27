@@ -52,6 +52,6 @@ func (router *UrlRouter) AddRoute(urlPattern string, pathHandler ControllerHandl
 	})
 }
 
-func (router *UrlRouter) AddPageNotFoundRoute(pathHandler ControllerHandler) {
+func (router *UrlRouter) AddNotFoundRoute(pathHandler ControllerHandler) {
 	router.pageNotFoundController = pathHandler
 }
