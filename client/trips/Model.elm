@@ -10,6 +10,7 @@ type alias Model =
   , tripName: String
   , places:  List Place
   , placeName: String
+  , placeDescription: String
   , route: Route
   }
 
@@ -17,6 +18,7 @@ type alias Place =
   { name: String
   , id: String
   , tripId: String
+  , description: String
   }
 
 type alias Trip =
@@ -31,5 +33,6 @@ initModel route =
   , tripName = ""
   , places = []
   , placeName = ""
+  , placeDescription = ""
   , route = route
   }

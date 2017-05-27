@@ -36,7 +36,7 @@ fetchPlacesUrl tripId =
 postPlace : Place -> Cmd Msg
 postPlace newPlace =
     let
-      payload = Http.stringBody "application/json" ("""{ "name": \""""++newPlace.name++"""\", "id": """++(toString newPlace.id)++""", "tripId": """++(toString newPlace.tripId)++"""}""")
+      payload = Http.stringBody "application/json" ("""{ "name": \""""++newPlace.name++"""\", "id": """++(toString newPlace.id)++""", "tripId": """++(toString newPlace.tripId)++""", "description": \""""++newPlace.description++"""\"}""")
     in
       Http.post postPlaceUrl payload postSuccessPlaceDecoder
           |> Http.send OnInsertPlace
@@ -88,14 +88,16 @@ collectionPlaceDecoder =
 
 postSuccessPlaceDecoder : Decode.Decoder Place
 postSuccessPlaceDecoder =
-    Decode.map3 Place
+    Decode.map4 Place
         (field "name" Decode.string)
         (field "id" Decode.string)
         (field "tripId" Decode.string)
+        (field "description" Decode.string)
 
 memberPlaceDecoder : Decode.Decoder Place
 memberPlaceDecoder =
-    Decode.map3 Place
+    Decode.map4 Place
         (field "name" Decode.string)
         (field "id" Decode.string)
         (field "tripId" Decode.string)
+        (field "description" Decode.string)

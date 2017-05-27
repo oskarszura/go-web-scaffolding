@@ -67,6 +67,11 @@ update msg model =
          | placeName = newName
       }, Cmd.none)
 
+    ChangePlaceDescription description ->
+      ({ model
+         | placeDescription = description
+      }, Cmd.none)
+
     AddTrip ->
       let tripId =
             toString (List.length model.trips + 1)
@@ -116,11 +121,13 @@ update msg model =
           newPlace =
             { name = model.placeName
             , id = placeId
-            , tripId = tripId }
+            , tripId = tripId
+            , description = model.placeDescription }
       in
       ( { model
           | places = List.append model.places [newPlace]
           , placeName = ""
+          , placeDescription = ""
       }
       , postPlace newPlace )
 
