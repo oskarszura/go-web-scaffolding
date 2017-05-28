@@ -8,7 +8,8 @@ import Trips.Model exposing (..)
 
 tripsPage : Model -> Html Msg
 tripsPage model =
-  div [ class "trips"]
+  div
+    [ class "trips"]
     [ model.trips
       |> List.map (\l ->
         let

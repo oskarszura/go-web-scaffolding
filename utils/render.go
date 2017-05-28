@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"log"
-	"github.com/oskarszura/gowebscaffolding/gowebserver/models"
+	"github.com/oskarszura/trips/gowebserver/models"
 )
 
 func RenderTemplate(w http.ResponseWriter, r *http.Request, name string) {

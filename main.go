@@ -5,10 +5,10 @@ import (
     "log"
     "fmt"
     "gopkg.in/mgo.v2"
-    goWebServer "github.com/oskarszura/gowebscaffolding/gowebserver"
-    "github.com/oskarszura/gowebscaffolding/controllers"
-    "github.com/oskarszura/gowebscaffolding/controllers/api"
-    "github.com/oskarszura/gowebscaffolding/utils"
+    goWebServer "github.com/oskarszura/trips/gowebserver"
+    "github.com/oskarszura/trips/controllers"
+    "github.com/oskarszura/trips/controllers/api"
+    "github.com/oskarszura/trips/utils"
 )
 
 func determineListenAddress() (string, error) {

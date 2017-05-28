@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 	"encoding/json"
-	"github.com/oskarszura/gowebscaffolding/utils"
-	. "github.com/oskarszura/gowebscaffolding/models"
+	"github.com/oskarszura/trips/utils"
+	. "github.com/oskarszura/trips/models"
 )
 
 
