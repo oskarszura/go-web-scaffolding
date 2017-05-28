@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/oskarszura/gowebscaffolding",
+	"ImportPath": "github.com/oskarszura/trips",
 	"GoVersion": "go1.8.3",
 	"GodepVersion": "v74",
 	"Deps": [
