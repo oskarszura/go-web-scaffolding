@@ -1,1 +1,1 @@
-web: gowebscaffolding
+web: trips
