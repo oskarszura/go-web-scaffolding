@@ -1,5 +1,9 @@
 .idea/
 .env
+
 node_modules/
 elm-stuff/
-gowebscaffolding
+
+public/
+
+trips
