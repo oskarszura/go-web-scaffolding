@@ -1,6 +1,6 @@
 {
 	"ImportPath": "github.com/oskarszura/gowebscaffolding",
-	"GoVersion": "go1.6",
+	"GoVersion": "go1.8.3",
 	"GodepVersion": "v74",
 	"Deps": [
 		{
