@@ -27,29 +27,38 @@ tripPage model tripId =
                 [ model.places
                   |> List.map (\l ->
                       li
-                        [ class "trips__place-item" ]
-                        [ text (l.name ++ " ( " ++ l.description ++ ")") ]
+                        [ class "trip__place-item" ]
+                        [ div
+                            [ class "trip__place-name" ]
+                            [ text l.name ]
+                        , div
+                            [ class "trip__place-description" ]
+                            [ text l.description ]
+                        ]
                    )
                   |> ul
-                      [ class "trips__place-list" ]
+                      [ class "trip__place-list" ]
                 ]
-            , input
-                [ class "trip__location"
-                , onInput ChangePlaceName
-                , value model.placeName
-                ]
-                []
             , textarea
-                [ class "trip_place-description"
+                [ class "trip__place-adder-description"
                 , onInput ChangePlaceDescription
-                , value model.placeDescription
-                ]
+                , value model.placeDescription ]
                 []
-            , button
-                [ class "trip__add-location"
-                , onClick (AddPlace (toString tripId))
+            , div
+                [ class "trip__place-adder" ]
+                [ input
+                    [ class "trip__place-adder-name"
+                    , onInput ChangePlaceName
+                    , value model.placeName ]
+                    []
+                , div
+                    [ class "trip__place-adder-actions" ]
+                    [ button
+                        [ class "trip__place-adder-add"
+                        , onClick (AddPlace (toString tripId)) ]
+                        [ text "Add place" ]
+                    ]
                 ]
-                [ text "Add Place" ]
             ]
           ]
 

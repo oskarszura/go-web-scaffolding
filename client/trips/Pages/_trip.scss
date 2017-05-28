@@ -1,13 +1,48 @@
 .trip {
+  margin-top: 20px;
+  width: 50%;
+  margin: 0 auto;
+
   &__plan {
   }
 
-  &__location {
+  &__place-item {
+    @extend .panel;
+    @extend .panel-default;
+  }
+
+  &__place-list {
+    padding: 0;
+    list-style: none;
+  }
+
+  &__place-name {
+    @extend .panel-heading;
+  }
+
+  &__place-description {
+    @extend .panel-body;
+  }
+
+  &__place-adder-description {
     @extend .form-control;
   }
 
-  &__add-location {
+  &__place-adder {
+    @extend .input-group;
+  }
+
+  &__place-adder-actions {
+    @extend .input-group-btn;
+  }
+
+  &__place-adder-name {
+    @extend .form-control;
+  }
+
+  &__place-adder-add {
     @extend .btn;
     @extend .btn-default;
+    height: 34px;
   }
 }

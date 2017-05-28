@@ -47,6 +47,7 @@ func Places(w http.ResponseWriter, r *http.Request) {
 			Name: newPlace.Name,
 			Id: newPlace.Id,
 			TripId: newPlace.TripId,
+			Description: newPlace.Description,
 		})
 
 		if err != nil {
