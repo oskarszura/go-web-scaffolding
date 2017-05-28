@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"net/http"
-	"github.com/oskarszura/gowebscaffolding/utils"
+	"github.com/oskarszura/trips/utils"
 )
 
 func Front(w http.ResponseWriter, r *http.Request) {

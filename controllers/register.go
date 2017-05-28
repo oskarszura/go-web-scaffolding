@@ -3,8 +3,8 @@ package controllers
 import (
 	"net/http"
 	"log"
-	"github.com/oskarszura/gowebscaffolding/utils"
-	"github.com/oskarszura/gowebscaffolding/gowebserver/models"
+	"github.com/oskarszura/trips/utils"
+	"github.com/oskarszura/trips/gowebserver/models"
 )
 
 func Register(w http.ResponseWriter, r *http.Request) {

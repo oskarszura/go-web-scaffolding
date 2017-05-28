@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"net/http"
 	"log"
-	"github.com/oskarszura/gowebscaffolding/utils"
+	"github.com/oskarszura/trips/utils"
 )
 
 type ControllerHandler func(http.ResponseWriter, *http.Request)

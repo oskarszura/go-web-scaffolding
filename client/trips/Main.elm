@@ -11,7 +11,8 @@ import Trips.Commands exposing (postTrip, fetchTrips, deleteTrip, postPlace, fet
 init : Location -> ( Model, Cmd Msg )
 init location =
   let
-    currentRoute = parseLocation location
+    currentRoute =
+      parseLocation location
   in
     case currentRoute of
       TripsRoute ->

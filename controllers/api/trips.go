@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"encoding/json"
 	"gopkg.in/mgo.v2/bson"
-	"github.com/oskarszura/gowebscaffolding/utils"
-	. "github.com/oskarszura/gowebscaffolding/models"
+	"github.com/oskarszura/trips/utils"
+	. "github.com/oskarszura/trips/models"
 )
 
 type TripList []Trip
