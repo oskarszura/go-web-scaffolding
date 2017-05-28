@@ -32,8 +32,7 @@ tripsPage model =
 
     , div
         [ class "trips__adder" ]
-        [
-          input
+        [ input
             [ class "trips__name"
             , onInput ChangeTripName
             , value model.tripName ]
@@ -41,9 +40,9 @@ tripsPage model =
         , div
             [ class "trips__actions" ]
             [ button
-              [ class "trips__add"
-              , onClick AddTrip ]
-              [ text "Add trip" ]
+                [ class "trips__add"
+                , onClick AddTrip ]
+                [ text "Add trip" ]
             ]
         ]
     ]
