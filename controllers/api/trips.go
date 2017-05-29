@@ -6,13 +6,13 @@ import (
 	"encoding/json"
 	"gopkg.in/mgo.v2/bson"
 	"github.com/oskarszura/trips/utils"
-	. "github.com/oskarszura/trips/models"
+	"github.com/oskarszura/trips/models"
 )
 
-type TripList []Trip
+type TripList []models.Trip
 
 func Trips(w http.ResponseWriter, r *http.Request) {
-	var trips []Trip
+	var trips []models.Trip
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	ds := utils.GetDataSource()
@@ -20,7 +20,9 @@ func Trips(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case "GET":
-		pipe := c.Pipe([]bson.M{{"$lookup": bson.M{
+		pipe := c.Pipe([]bson.M{
+			{"$match": bson.M{"userid": utils.GetUser().Id}},
+			{"$lookup": bson.M{
 			"from":"places",
 			"localField": "id",
 			"foreignField": "tripid",
@@ -42,7 +44,7 @@ func Trips(w http.ResponseWriter, r *http.Request) {
 
 		json.NewEncoder(w).Encode(output)
 	case "POST":
-		var newTrip Trip
+		var newTrip models.Trip
 
 		decoder := json.NewDecoder(r.Body)
 		err := decoder.Decode(&newTrip)
@@ -51,7 +53,8 @@ func Trips(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 
-		err = c.Insert(&Trip{
+		err = c.Insert(&models.Trip{
+			UserId: utils.GetUser().Id,
 			Name: newTrip.Name,
 			Id: newTrip.Id,
 		})
