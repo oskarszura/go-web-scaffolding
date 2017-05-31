@@ -3,11 +3,10 @@ package controllers
 import (
 	"net/http"
 	"time"
-	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"log"
 	"github.com/oskarszura/trips/utils"
-	"github.com/oskarszura/trips/gowebserver/models"
+	"github.com/oskarszura/trips/models"
 )
 
 func Authenticate(w http.ResponseWriter, r *http.Request) {
@@ -17,15 +16,14 @@ func Authenticate(w http.ResponseWriter, r *http.Request) {
 	case "GET":
 		utils.RenderTemplate(w, r, "login")
 	case "POST":
-		session := utils.GetSession()
 		_, err := r.Cookie("sid")
 
-		if(err != nil) {
+		if err != nil {
 			user := r.PostFormValue("username")
 			password := r.PostFormValue("password")
 			expiration := time.Now().Add(365 * 24 * time.Hour)
 
-			if(authenticateUser(session, user, password)) {
+			if authenticateUser(user, password) {
 				cookie := http.Cookie {
 					Name: "sid",
 					Value: user + password,
@@ -37,24 +35,28 @@ func Authenticate(w http.ResponseWriter, r *http.Request) {
 		}
 
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
-	case "PUT":
-	case "DELETE":
 	default:
 	}
 }
 
-func authenticateUser(session *mgo.Session, user string, password string) bool {
-	var foundUser models.User
+func authenticateUser(user string, password string) bool {
+	var loggedUser models.User
+
 	ds := utils.GetDataSource()
 	c := ds.C("users")
-	err := c.Find(bson.M{"username": user, "password": password}).One(&foundUser)
 
-	log.Println("Logged in as ", user, password)
+	err := c.Find(bson.M{
+		"username": user,
+		"password": password,
+	}).One(&loggedUser)
 
 	if err != nil {
 		log.Println("User not found err=", err)
 		return false
 	}
+
+	log.Println("Logged in as user", loggedUser)
+	utils.SetUser(loggedUser)
 
 	return true
 }
