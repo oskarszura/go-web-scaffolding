@@ -34,6 +34,10 @@ fetchPlacesUrl : String -> String
 fetchPlacesUrl tripId =
   "/api/places" ++ tripId
 
+deletePlaceUrl : String -> String
+deletePlaceUrl placeId =
+  "/api/places/" ++ placeId
+
 postPlace : Place -> Cmd Msg
 postPlace newPlace =
   let
@@ -47,6 +51,20 @@ fetchPlaces : String -> Cmd Msg
 fetchPlaces tripId =
   Http.get (fetchPlacesUrl tripId) collectionPlaceDecoder
     |> Http.send OnFetchAllPlaces
+
+
+deletePlace : String -> Cmd Msg
+deletePlace placeId =
+  Http.request
+    { method = "DELETE"
+    , headers = []
+    , url = deletePlaceUrl placeId
+    , body = Http.emptyBody
+    , expect = Http.expectString
+    , timeout = Nothing
+    , withCredentials = False
+    }
+    |> Http.send OnRemovePlace
 
 fetchTrips : Cmd Msg
 fetchTrips =
