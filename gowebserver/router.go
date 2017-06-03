@@ -8,7 +8,7 @@ import (
 	"github.com/oskarszura/trips/gowebserver/utils"
 )
 
-type ControllerHandler func(http.ResponseWriter, *http.Request)
+type ControllerHandler func(http.ResponseWriter, *http.Request, struct{Params map[string]string})
 
 type UrlRoute struct {
 	urlRegExp string
@@ -38,11 +38,23 @@ func (router *UrlRouter) findRoute (path string) UrlRoute {
 func (router *UrlRouter) route(w http.ResponseWriter, r *http.Request)  {
 	urlPath := r.URL.Path
 	route := router.findRoute(urlPath)
+	params := make(map[string]string)
+	pathItems := strings.Split(urlPath, "/")
+
+	for k, v := range route.params {
+		if len(pathItems) > v {
+			params[k] = pathItems[v]
+		}
+	}
+
+	urlOptions := &struct{
+		Params map[string]string
+	}{params}
 
 	log.Println("Navigating to url = " + urlPath + " vs route = " + route.urlRegExp)
 
 	routeHandler := route.handler
-	routeHandler(w, r)
+	routeHandler(w, r, *urlOptions)
 }
 
 func (router *UrlRouter) AddRoute(urlPattern string, pathHandler ControllerHandler) {
@@ -56,7 +68,9 @@ func (router *UrlRouter) AddRoute(urlPattern string, pathHandler ControllerHandl
 		isParam, _ := regexp.MatchString(`{[a-zA-Z0-9]*}`, paramKey)
 
 		if isParam {
-			params[paramKey] = i
+			strippedParamKey := strings.Replace(strings.Replace(paramKey, "{", "", -1),
+				"}", "", -1)
+			params[strippedParamKey] = i
 		}
 	}
 

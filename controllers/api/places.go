@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"encoding/json"
+	"gopkg.in/mgo.v2/bson"
 	"github.com/oskarszura/trips/utils"
 	. "github.com/oskarszura/trips/models"
 )
@@ -11,7 +12,7 @@ import (
 
 type PlaceList []Place
 
-func Places(w http.ResponseWriter, r *http.Request) {
+func Places(w http.ResponseWriter, r *http.Request, options struct{Params map[string]string}) {
 	var places []Place
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
@@ -49,6 +50,19 @@ func Places(w http.ResponseWriter, r *http.Request) {
 			TripId: newPlace.TripId,
 			Description: newPlace.Description,
 		})
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		output := &utils.HalResponse{
+			Status: 200,
+		}
+
+		json.NewEncoder(w).Encode(output)
+	case "DELETE":
+		placeId := options.Params["id"]
+		err := c.Remove(bson.M{"id": placeId})
 
 		if err != nil {
 			log.Fatal(err)

@@ -10,7 +10,7 @@ import (
 
 var newUser *models.User
 
-func Register(w http.ResponseWriter, r *http.Request) {
+func Register(w http.ResponseWriter, r *http.Request, params struct{Params map[string]string}) {
 	switch r.Method {
 	case "GET":
 		utils.RenderTemplate(w, r, "register")

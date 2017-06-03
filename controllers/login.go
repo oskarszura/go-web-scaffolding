@@ -9,7 +9,7 @@ import (
 	"github.com/oskarszura/trips/models"
 )
 
-func Authenticate(w http.ResponseWriter, r *http.Request) {
+func Authenticate(w http.ResponseWriter, r *http.Request, params struct{Params map[string]string}) {
 	defer r.Body.Close()
 
 	switch r.Method {
