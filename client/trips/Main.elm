@@ -129,11 +129,40 @@ update msg model =
         ( model, Cmd.none )
 
     OnFetchAllTrips (Ok fetchedTrips) ->
-        ({
-          model
-          | trips = fetchedTrips
-        }
-        , Cmd.none )
+        case model.route of
+          TripsRoute ->
+            ({
+              model
+              | trips = fetchedTrips
+            }
+            , Cmd.none )
+
+          TripRoute id ->
+            let
+              trip =
+                get (id - 1) (fromList fetchedTrips)
+            in
+              case trip of
+                Just trp ->
+                  ({
+                    model
+                    | trips = fetchedTrips
+                    , places = trp.places
+                  }
+                  , Cmd.none )
+                Nothing ->
+                    ({
+                      model
+                      | trips = fetchedTrips
+                    }
+                    , Cmd.none )
+
+          NotFoundRoute ->
+            ({
+              model
+              | trips = fetchedTrips
+            }
+            , Cmd.none )
 
     OnFetchAllTrips (Err error) ->
         ( model, Cmd.none )
