@@ -8,7 +8,7 @@ import (
 func SidGenerator () string {
 	sid, err := exec.Command("uuidgen").Output()
 
-	if(err != nil) {
+	if err != nil {
 		log.Println(err)
 		return "guest"
 	}

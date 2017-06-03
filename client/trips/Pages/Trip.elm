@@ -30,7 +30,12 @@ tripPage model tripId =
                         [ class "trip__place-item" ]
                         [ div
                             [ class "trip__place-name" ]
-                            [ text l.name ]
+                            [ text l.name
+                            ,  button
+                                 [ class ""
+                                 , onClick (RemovePlace l.id) ]
+                                 [ text "Remove" ]
+                            ]
                         , div
                             [ class "trip__place-description" ]
                             [ text l.description ]

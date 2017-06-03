@@ -48,7 +48,7 @@ func main() {
     server.Router.AddRoute("/trips", controllers.Trips)
     server.Router.AddRoute("/", controllers.Front)
     server.Router.AddRoute("/api/trips/{id}", api.Trips)
-    server.Router.AddRoute("/api/places", api.Places)
+    server.Router.AddRoute("/api/places/{id}", api.Places)
     server.Router.AddNotFoundRoute(controllers.NotFound)
 
     server.Run(addr)
