@@ -19,4 +19,4 @@ type Msg =
   | OnInsertTrip (Result Http.Error Trip)
   | OnFetchAllTrips (Result Http.Error (List Trip))
   | OnRemoveTrip (Result Http.Error String)
-  | OnRemovePlace (Result Http.Error String)
+  | OnRemovePlace String (Result Http.Error String)

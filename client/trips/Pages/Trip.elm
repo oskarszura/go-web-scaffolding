@@ -1,6 +1,6 @@
 module Trips.Pages.Trip exposing (..)
 
-import Html exposing (Html, div, h1, text, input, button, ul, li, textarea)
+import Html exposing (Html, div, h1, text, input, button, ul, li, textarea, label)
 import Html.Attributes exposing (classList, class, value)
 import Html.Events exposing (onClick, onInput)
 import Array exposing (get, fromList)
@@ -32,7 +32,7 @@ tripPage model tripId =
                             [ class "trip__place-name" ]
                             [ text l.name
                             ,  button
-                                 [ class ""
+                                 [ class "trip__place-remove"
                                  , onClick (RemovePlace l.id) ]
                                  [ text "Remove" ]
                             ]
@@ -44,11 +44,17 @@ tripPage model tripId =
                   |> ul
                       [ class "trip__place-list" ]
                 ]
+            , label
+                []
+                [ text "Description" ]
             , textarea
                 [ class "trip__place-adder-description"
                 , onInput ChangePlaceDescription
                 , value model.placeDescription ]
                 []
+            , label
+                []
+                [ text "Name" ]
             , div
                 [ class "trip__place-adder" ]
                 [ input

@@ -64,7 +64,7 @@ deletePlace placeId =
     , timeout = Nothing
     , withCredentials = False
     }
-    |> Http.send OnRemovePlace
+    |> Http.send (OnRemovePlace placeId)
 
 fetchTrips : Cmd Msg
 fetchTrips =
