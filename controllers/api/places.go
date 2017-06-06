@@ -24,7 +24,7 @@ func Places(w http.ResponseWriter, r *http.Request, options struct{Params map[st
 		err := c.Find(nil).All(&places)
 
 		if err != nil {
-			log.Fatal(err)
+			log.Fatalln(err)
 		}
 
 		if places == nil {
@@ -44,25 +44,25 @@ func Places(w http.ResponseWriter, r *http.Request, options struct{Params map[st
 			panic(err)
 		}
 
-		err = c.Insert(&Place{
+		newPlace = Place{
+			Id: bson.NewObjectId(),
 			Name: newPlace.Name,
-			Id: newPlace.Id,
 			TripId: newPlace.TripId,
 			Description: newPlace.Description,
-		})
+		}
+
+		err = c.Insert(newPlace)
 
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		output := &utils.HalResponse{
-			Status: 200,
-		}
+		output := newPlace
 
 		json.NewEncoder(w).Encode(output)
 	case "DELETE":
 		placeId := options.Params["id"]
-		err := c.Remove(bson.M{"id": placeId})
+		err := c.Remove(bson.M{"_id": bson.ObjectIdHex(placeId)})
 
 		if err != nil {
 			log.Fatal(err)
