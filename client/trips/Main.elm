@@ -169,13 +169,21 @@ update msg model =
 
     AddPlace tripId ->
       let
-        placeId =
-          toString (List.length model.places + 1)
         newPlace =
           { name = model.placeName
-          , id = placeId
+          , id = ""
           , tripId = tripId
           , description = model.placeDescription }
+      in
+        ( model, postPlace newPlace )
+
+    OnInsertPlace (Ok insertedPlace) ->
+      let
+        newPlace =
+          { name = insertedPlace.name
+          , id = insertedPlace.id
+          , tripId = insertedPlace.tripId
+          , description = insertedPlace.description }
       in
         ({
           model
@@ -183,29 +191,26 @@ update msg model =
           , placeName = ""
           , placeDescription = ""
         }
-        , postPlace newPlace )
-
-    OnInsertPlace (Ok insertedPlace) ->
-        ( model, Cmd.none )
+        , Cmd.none )
 
     OnInsertPlace (Err error) ->
         ( model, Cmd.none )
 
     RemovePlace id ->
+      ( model, deletePlace id )
+
+    OnRemovePlace placeId (Ok removedPlace) ->
       let
         updatedPlaces =
-          List.filter (\t -> t.id == id) model.places
+          List.filter (\t -> t.id /= placeId) model.places
       in
         ({
           model
           | places = updatedPlaces
         }
-        , deletePlace id )
+        , Cmd.none )
 
-    OnRemovePlace (Ok removedPlace) ->
-        ( model, Cmd.none )
-
-    OnRemovePlace (Err error) ->
+    OnRemovePlace placeId (Err error) ->
         ( model, Cmd.none )
 
     OnFetchAllPlaces (Ok fetchedPlaces) ->

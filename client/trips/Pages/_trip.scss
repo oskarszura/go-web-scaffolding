@@ -20,6 +20,13 @@
     @extend .panel-heading;
   }
 
+  &__place-remove {
+    @extend .btn;
+    @extend .btn-danger;
+    @extend .pull-right;
+    @extend .btn-xs;
+  }
+
   &__place-description {
     @extend .panel-body;
   }
