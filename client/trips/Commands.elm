@@ -42,7 +42,7 @@ postPlace : Place -> Cmd Msg
 postPlace newPlace =
   let
     payload =
-      Http.stringBody "application/json" ("""{ "name": \""""++newPlace.name++"""\", "id": """++(toString newPlace.id)++""", "tripId": """++(toString newPlace.tripId)++""", "description": \""""++newPlace.description++"""\"}""")
+      Http.stringBody "application/json" ("""{ "name": \""""++newPlace.name++"""\", "tripId": """++(toString newPlace.tripId)++""", "description": \""""++newPlace.description++"""\"}""")
   in
     Http.post postPlaceUrl payload postSuccessPlaceDecoder
       |> Http.send OnInsertPlace

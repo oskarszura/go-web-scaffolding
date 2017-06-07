@@ -8,8 +8,6 @@ import Trips.View exposing (view)
 import Trips.Messages exposing (..)
 import Trips.Commands exposing (postTrip, fetchTrips, deleteTrip, postPlace, fetchPlaces, deletePlace)
 
-import Debug exposing (..)
-
 init : Location -> ( Model, Cmd Msg )
 init location =
   let
@@ -171,13 +169,21 @@ update msg model =
 
     AddPlace tripId ->
       let
-        placeId =
-          toString (List.length model.places + 1)
         newPlace =
           { name = model.placeName
-          , id = placeId
+          , id = ""
           , tripId = tripId
           , description = model.placeDescription }
+      in
+        ( model, postPlace newPlace )
+
+    OnInsertPlace (Ok insertedPlace) ->
+      let
+        newPlace =
+          { name = insertedPlace.name
+          , id = insertedPlace.id
+          , tripId = insertedPlace.tripId
+          , description = insertedPlace.description }
       in
         ({
           model
@@ -185,10 +191,7 @@ update msg model =
           , placeName = ""
           , placeDescription = ""
         }
-        , postPlace newPlace )
-
-    OnInsertPlace (Ok insertedPlace) ->
-        ( model, Cmd.none )
+        , Cmd.none )
 
     OnInsertPlace (Err error) ->
         ( model, Cmd.none )
@@ -199,11 +202,11 @@ update msg model =
     OnRemovePlace placeId (Ok removedPlace) ->
       let
         updatedPlaces =
-          List.filter (\t -> t.id == placeId) model.places
+          List.filter (\t -> t.id /= placeId) model.places
       in
         ({
           model
-          | places = (log "places-after" updatedPlaces)
+          | places = updatedPlaces
         }
         , Cmd.none )
 
