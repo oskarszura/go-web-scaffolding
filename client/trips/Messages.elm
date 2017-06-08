@@ -23,3 +23,5 @@ type Msg =
   | OnRemovePlace String (Result Http.Error String)
 
   | MouseMsg Mouse.Position
+  | MouseDragEnd Mouse.Position
+  | MouseDragStart Mouse.Position

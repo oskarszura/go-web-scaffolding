@@ -226,7 +226,24 @@ update msg model =
         ( model, Cmd.none )
 
     MouseMsg position ->
-        ( log "model" model, Cmd.none )
+        if model.drag == True then
+            ( log "MouseMsg" model, Cmd.none )
+        else
+            ( model, Cmd.none )
+
+    MouseDragEnd position ->
+        ( {
+            model
+            | drag = False
+        }
+        , Cmd.none )
+
+    MouseDragStart position ->
+        ( {
+            model
+            | drag = True
+        }
+        , Cmd.none )
 
     NoOp ->
         ( model, Cmd.none )

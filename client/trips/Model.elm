@@ -12,6 +12,7 @@ type alias Model =
   , placeName: String
   , placeDescription: String
   , route: Route
+  , drag: Bool
   }
 
 type alias Place =
@@ -35,4 +36,5 @@ initModel route =
   , placeName = ""
   , placeDescription = ""
   , route = route
+  , drag = False
   }
