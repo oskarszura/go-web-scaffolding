@@ -1,5 +1,6 @@
 module Trips.Messages exposing (..)
 
+import Mouse
 import Navigation exposing (Location)
 import Http
 import Trips.Model exposing (Trip, Place)
@@ -20,3 +21,5 @@ type Msg =
   | OnFetchAllTrips (Result Http.Error (List Trip))
   | OnRemoveTrip (Result Http.Error String)
   | OnRemovePlace String (Result Http.Error String)
+
+  | MouseMsg Mouse.Position

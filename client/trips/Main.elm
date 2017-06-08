@@ -6,7 +6,9 @@ import Trips.Model exposing (..)
 import Trips.Routing exposing (parseLocation)
 import Trips.View exposing (view)
 import Trips.Messages exposing (..)
+import Trips.Subscriptions exposing (..)
 import Trips.Commands exposing (postTrip, fetchTrips, deleteTrip, postPlace, fetchPlaces, deletePlace)
+import Debug exposing (..)
 
 init : Location -> ( Model, Cmd Msg )
 init location =
@@ -223,13 +225,11 @@ update msg model =
     OnFetchAllPlaces (Err error) ->
         ( model, Cmd.none )
 
+    MouseMsg position ->
+        ( log "model" model, Cmd.none )
+
     NoOp ->
         ( model, Cmd.none )
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-  Sub.none
 
 
 main : Program Never Model Msg
