@@ -9,6 +9,10 @@
   &__place-item {
     @extend .panel;
     @extend .panel-default;
+
+    &--dragging {
+        position: absolute;
+    }
   }
 
   &__place-list {

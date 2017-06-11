@@ -1,7 +1,7 @@
 module Trips.Pages.Trip exposing (..)
 
 import Html exposing (Html, div, h1, text, input, button, ul, li, textarea, label)
-import Html.Attributes exposing (classList, class, value)
+import Html.Attributes exposing (classList, class, value, style)
 import Html.Events exposing (onClick, onInput, on)
 import Array exposing (get, fromList)
 import Mouse exposing (..)
@@ -9,6 +9,8 @@ import Json.Decode as Decode
 
 import Trips.Messages exposing (..)
 import Trips.Model exposing (..)
+
+import Debug exposing (..)
 
 tripPage : Model -> Int -> Html Msg
 tripPage model tripId =
@@ -30,7 +32,11 @@ tripPage model tripId =
                 [ model.places
                   |> List.map (\l ->
                       li
-                        [ class "trip__place-item" ]
+                        [ classList
+                            [ ("trip__place-item", True)
+                            , ("trip__place-item--dragging", model.drag)
+                            ]
+                        ]
                         [ div
                             [ class "trip__place-name" ]
                             [ text l.name

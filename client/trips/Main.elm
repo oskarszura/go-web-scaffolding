@@ -227,7 +227,7 @@ update msg model =
 
     MouseMsg position ->
         if model.drag == True then
-            ( log "MouseMsg" model, Cmd.none )
+            ( model, Cmd.none )
         else
             ( model, Cmd.none )
 
