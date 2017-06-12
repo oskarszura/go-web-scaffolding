@@ -2,10 +2,11 @@ module Trips.Pages.Trip exposing (..)
 
 import Html exposing (Html, div, h1, text, input, button, ul, li, textarea, label)
 import Html.Attributes exposing (classList, class, value, style)
-import Html.Events exposing (onClick, onInput, on)
+import Html.Events exposing (onClick, onInput, onMouseDown, on)
 import Array exposing (get, fromList)
 import Mouse exposing (..)
 import Json.Decode as Decode
+import Json.Encode as Encode
 
 import Trips.Messages exposing (..)
 import Trips.Model exposing (..)
@@ -34,7 +35,7 @@ tripPage model tripId =
                       li
                         [ classList
                             [ ("trip__place-item", True)
-                            , ("trip__place-item--dragging", model.drag)
+                            , ("trip__place-item--dragging", model.drag == l.id)
                             ]
                         ]
                         [ div
@@ -46,7 +47,7 @@ tripPage model tripId =
                                  [ text "Remove" ]
                             ,  button
                                  [ class "trip__place-drag"
-                                 , on "mousedown" (Decode.map MouseDragStart Mouse.position) ]
+                                 , onMouseDown (MouseDragStart l.id) ]
                                  [ text "Drag" ]
                             ]
                         , div

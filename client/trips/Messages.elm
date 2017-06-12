@@ -4,6 +4,7 @@ import Mouse
 import Navigation exposing (Location)
 import Http
 import Trips.Model exposing (Trip, Place)
+import Json.Decode as Decode
 
 type Msg =
     NoOp
@@ -24,4 +25,4 @@ type Msg =
 
   | MouseMsg Mouse.Position
   | MouseDragEnd Mouse.Position
-  | MouseDragStart Mouse.Position
+  | MouseDragStart String

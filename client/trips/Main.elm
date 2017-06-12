@@ -8,7 +8,6 @@ import Trips.View exposing (view)
 import Trips.Messages exposing (..)
 import Trips.Subscriptions exposing (..)
 import Trips.Commands exposing (postTrip, fetchTrips, deleteTrip, postPlace, fetchPlaces, deletePlace)
-import Debug exposing (..)
 
 init : Location -> ( Model, Cmd Msg )
 init location =
@@ -226,22 +225,19 @@ update msg model =
         ( model, Cmd.none )
 
     MouseMsg position ->
-        if model.drag == True then
-            ( model, Cmd.none )
-        else
-            ( model, Cmd.none )
+        ( model, Cmd.none )
 
     MouseDragEnd position ->
         ( {
             model
-            | drag = False
+            | drag = ""
         }
         , Cmd.none )
 
-    MouseDragStart position ->
+    MouseDragStart placeId ->
         ( {
             model
-            | drag = True
+            | drag = placeId
         }
         , Cmd.none )
 
