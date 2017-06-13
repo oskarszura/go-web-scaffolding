@@ -225,7 +225,12 @@ update msg model =
         ( model, Cmd.none )
 
     MouseMsg position ->
-        ( model, Cmd.none )
+        ( {
+            model
+            | mousex = position.x
+            , mousey = position.y
+        }
+        , Cmd.none )
 
     MouseDragEnd position ->
         ( {

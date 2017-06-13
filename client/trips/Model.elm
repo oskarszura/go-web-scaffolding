@@ -13,6 +13,8 @@ type alias Model =
   , placeDescription: String
   , route: Route
   , drag: String
+  , mousex: Int
+  , mousey: Int
   }
 
 type alias Place =
@@ -37,4 +39,6 @@ initModel route =
   , placeDescription = ""
   , route = route
   , drag = ""
+  , mousex = 0
+  , mousey = 0
   }

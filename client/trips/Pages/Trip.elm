@@ -4,14 +4,9 @@ import Html exposing (Html, div, h1, text, input, button, ul, li, textarea, labe
 import Html.Attributes exposing (classList, class, value, style)
 import Html.Events exposing (onClick, onInput, onMouseDown, on)
 import Array exposing (get, fromList)
-import Mouse exposing (..)
-import Json.Decode as Decode
-import Json.Encode as Encode
 
 import Trips.Messages exposing (..)
 import Trips.Model exposing (..)
-
-import Debug exposing (..)
 
 tripPage : Model -> Int -> Html Msg
 tripPage model tripId =
@@ -36,6 +31,10 @@ tripPage model tripId =
                         [ classList
                             [ ("trip__place-item", True)
                             , ("trip__place-item--dragging", model.drag == l.id)
+                            ]
+                        , style
+                            [ ("left", toString model.mousex ++ "px")
+                            , ("top", toString model.mousey ++ "px")
                             ]
                         ]
                         [ div
