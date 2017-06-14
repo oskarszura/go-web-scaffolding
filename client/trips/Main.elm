@@ -9,6 +9,8 @@ import Trips.Messages exposing (..)
 import Trips.Subscriptions exposing (..)
 import Trips.Commands exposing (postTrip, fetchTrips, deleteTrip, postPlace, fetchPlaces, deletePlace)
 
+import Debug exposing (..)
+
 init : Location -> ( Model, Cmd Msg )
 init location =
   let
@@ -169,14 +171,15 @@ update msg model =
         ( model, Cmd.none )
 
     AddPlace tripId ->
-      let
-        newPlace =
-          { name = model.placeName
-          , id = ""
-          , tripId = tripId
-          , description = model.placeDescription }
-      in
-        ( model, postPlace newPlace )
+        let
+            newPlace =
+              { name = model.placeName
+              , id = ""
+              , tripId = tripId
+              , description = model.placeDescription
+              , order =  List.length model.places }
+        in
+            ( model, postPlace newPlace )
 
     OnInsertPlace (Ok insertedPlace) ->
       let
@@ -184,7 +187,8 @@ update msg model =
           { name = insertedPlace.name
           , id = insertedPlace.id
           , tripId = insertedPlace.tripId
-          , description = insertedPlace.description }
+          , description = insertedPlace.description
+          , order = insertedPlace.order }
       in
         ({
           model
@@ -246,6 +250,26 @@ update msg model =
         }
         , Cmd.none )
 
+    SwapPlace placeId ->
+        if model.drag /= "" then
+            let
+                draggedPlace =
+                    case List.head (List.filter (\t -> t.id == model.drag) model.places) of
+                        Just y -> y
+                        Nothing -> Debug.crash "error: fromJust Nothing"
+                hoveredPlace =
+                    case List.head (List.filter (\t -> t.id == placeId) model.places) of
+                        Just y -> y
+                        Nothing -> Debug.crash "error: fromJust Nothing"
+                sortedPlaces =
+                    model.places
+                    |> List.map (\place -> if place.order >= hoveredPlace.order then { place | order = place.order + 1 } else place)
+                    |> List.map (\place -> if place.id == draggedPlace.id then { place | order = hoveredPlace.order } else place)
+            in
+                    ( { model | places = sortedPlaces } , Cmd.none )
+        else
+            ( model, Cmd.none )
+
     NoOp ->
         ( model, Cmd.none )
 
@@ -258,3 +282,14 @@ main =
     , update = update
     , subscriptions = subscriptions
     }
+
+-- Utils
+getListElementByString : List a -> String -> Maybe a
+getListElementByString list id =
+    let
+        elementId =
+            Result.withDefault 0 (String.toInt id)
+        element =
+            get elementId (fromList list)
+    in
+        element

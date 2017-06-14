@@ -5,6 +5,8 @@ import Json.Decode as Decode exposing (field)
 import Trips.Model exposing (Trip, Place)
 import Trips.Messages exposing (..)
 
+import Debug exposing (..)
+
 postTripUrl : String
 postTripUrl =
   "/api/trips"
@@ -42,7 +44,7 @@ postPlace : Place -> Cmd Msg
 postPlace newPlace =
   let
     payload =
-      Http.stringBody "application/json" ("""{ "name": \""""++newPlace.name++"""\", "tripId": """++(toString newPlace.tripId)++""", "description": \""""++newPlace.description++"""\"}""")
+      Http.stringBody "application/json" ("""{ "name": \""""++newPlace.name++"""\", "tripId": """++(toString newPlace.tripId)++""", "description": \""""++newPlace.description++"""\", "order": """++(toString newPlace.order)++"""}""")
   in
     Http.post postPlaceUrl payload postSuccessPlaceDecoder
       |> Http.send OnInsertPlace
@@ -108,16 +110,18 @@ collectionPlaceDecoder =
 
 postSuccessPlaceDecoder : Decode.Decoder Place
 postSuccessPlaceDecoder =
-  Decode.map4 Place
+  Decode.map5 Place
     (field "name" Decode.string)
     (field "id" Decode.string)
     (field "tripId" Decode.string)
     (field "description" Decode.string)
+    (field "order" Decode.int)
 
 memberPlaceDecoder : Decode.Decoder Place
 memberPlaceDecoder =
-  Decode.map4 Place
+  Decode.map5 Place
     (field "name" Decode.string)
     (field "id" Decode.string)
     (field "tripId" Decode.string)
     (field "description" Decode.string)
+    (field "order" Decode.int)

@@ -22,6 +22,7 @@ type alias Place =
   , id: String
   , tripId: String
   , description: String
+  , order: Int
   }
 
 type alias Trip =

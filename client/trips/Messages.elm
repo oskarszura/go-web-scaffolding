@@ -23,6 +23,7 @@ type Msg =
   | OnRemoveTrip (Result Http.Error String)
   | OnRemovePlace String (Result Http.Error String)
 
+  | SwapPlace String
   | MouseMsg Mouse.Position
   | MouseDragEnd Mouse.Position
   | MouseDragStart String

@@ -49,6 +49,7 @@ func Places(w http.ResponseWriter, r *http.Request, options struct{Params map[st
 			Name: newPlace.Name,
 			TripId: newPlace.TripId,
 			Description: newPlace.Description,
+			Order: newPlace.Order,
 		}
 
 		err = c.Insert(newPlace)

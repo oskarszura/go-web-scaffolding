@@ -9,6 +9,7 @@
   &__place-item {
     @extend .panel;
     @extend .panel-default;
+    min-width: 500px;
 
     &--dragging {
         position: absolute;

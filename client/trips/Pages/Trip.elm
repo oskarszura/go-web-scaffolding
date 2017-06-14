@@ -2,7 +2,7 @@ module Trips.Pages.Trip exposing (..)
 
 import Html exposing (Html, div, h1, text, input, button, ul, li, textarea, label)
 import Html.Attributes exposing (classList, class, value, style)
-import Html.Events exposing (onClick, onInput, onMouseDown, on)
+import Html.Events exposing (onClick, onInput, onMouseDown, onMouseUp, on)
 import Array exposing (get, fromList)
 
 import Trips.Messages exposing (..)
@@ -26,12 +26,14 @@ tripPage model tripId =
             [ div
                 [ class "trip__places"]
                 [ model.places
+                  |> List.sortBy .order
                   |> List.map (\l ->
                       li
                         [ classList
                             [ ("trip__place-item", True)
                             , ("trip__place-item--dragging", model.drag == l.id)
                             ]
+                        , onMouseUp (SwapPlace l.id)
                         , style
                             [ ("left", toString model.mousex ++ "px")
                             , ("top", toString model.mousey ++ "px")
