@@ -2,7 +2,7 @@ module Trips.Model exposing (..)
 
 type Route =
     TripsRoute
-  | TripRoute Int
+  | TripRoute String
   | NotFoundRoute
 
 type alias Model =
@@ -18,16 +18,16 @@ type alias Model =
   }
 
 type alias Place =
-  { name: String
-  , id: String
+  { id: String
   , tripId: String
+  , name: String
   , description: String
   , order: Int
   }
 
 type alias Trip =
-  { name: String
-  , id: String
+  { id: String
+  , name: String
   , places: List Place
   }
 

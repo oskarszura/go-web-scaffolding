@@ -11,20 +11,20 @@ tripsPage model =
   div
     [ class "trips"]
     [ model.trips
-      |> List.map (\l ->
+      |> List.map (\trip ->
         let
           tripUrl =
-            "#/trips/" ++ l.id
+            "#/trips/" ++ trip.id
         in
           li
             [ class "trips__list-item" ]
             [ a
                 [ class "trips__list-item-name"
                 , href tripUrl ]
-                [ text l.name ]
+                [ text trip.name ]
             , a
                 [ class "trips__list-item-delete"
-                , onClick (RemoveTrip l.id) ]
+                , onClick (RemoveTrip trip.id) ]
                 [ text "Delete" ]
             ]
        )

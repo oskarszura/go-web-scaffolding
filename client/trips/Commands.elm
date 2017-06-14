@@ -5,8 +5,6 @@ import Json.Decode as Decode exposing (field)
 import Trips.Model exposing (Trip, Place)
 import Trips.Messages exposing (..)
 
-import Debug exposing (..)
-
 postTripUrl : String
 postTripUrl =
   "/api/trips"
@@ -23,7 +21,7 @@ postTrip : Trip -> Cmd Msg
 postTrip newTrip =
   let
     payload =
-      Http.stringBody "application/json" ("""{ "name": \""""++newTrip.name++"""\", "id": """++(toString newTrip.id)++"""}""")
+      Http.stringBody "application/json" ("""{ "name": \""""++newTrip.name++"""\"}""")
   in
     Http.post postTripUrl payload postSuccessDecoder
       |> Http.send OnInsertTrip
@@ -38,13 +36,13 @@ fetchPlacesUrl tripId =
 
 deletePlaceUrl : String -> String
 deletePlaceUrl placeId =
-  "/api/places/" ++ placeId
+  "/api/places/" ++ (toString placeId)
 
 postPlace : Place -> Cmd Msg
 postPlace newPlace =
   let
     payload =
-      Http.stringBody "application/json" ("""{ "name": \""""++newPlace.name++"""\", "tripId": """++(toString newPlace.tripId)++""", "description": \""""++newPlace.description++"""\", "order": """++(toString newPlace.order)++"""}""")
+      Http.stringBody "application/json" ("""{ "name": \""""++newPlace.name++"""\", "description": \""""++newPlace.description++"""\", "order": """++(toString newPlace.order)++""", "tripId": """++(toString newPlace.tripId)++"""}""")
   in
     Http.post postPlaceUrl payload postSuccessPlaceDecoder
       |> Http.send OnInsertPlace
@@ -93,15 +91,15 @@ collectionTripDecoder =
 postSuccessDecoder : Decode.Decoder Trip
 postSuccessDecoder =
   Decode.map3 Trip
-    (field "name" Decode.string)
     (field "id" Decode.string)
+    (field "name" Decode.string)
     (field "places" (Decode.list memberPlaceDecoder))
 
 memberDecoder : Decode.Decoder Trip
 memberDecoder =
   Decode.map3 Trip
-    (field "name" Decode.string)
     (field "id" Decode.string)
+    (field "name" Decode.string)
     (field "places" (Decode.list memberPlaceDecoder))
 
 collectionPlaceDecoder : Decode.Decoder (List Place)
@@ -111,17 +109,17 @@ collectionPlaceDecoder =
 postSuccessPlaceDecoder : Decode.Decoder Place
 postSuccessPlaceDecoder =
   Decode.map5 Place
-    (field "name" Decode.string)
     (field "id" Decode.string)
     (field "tripId" Decode.string)
+    (field "name" Decode.string)
     (field "description" Decode.string)
     (field "order" Decode.int)
 
 memberPlaceDecoder : Decode.Decoder Place
 memberPlaceDecoder =
   Decode.map5 Place
-    (field "name" Decode.string)
     (field "id" Decode.string)
     (field "tripId" Decode.string)
+    (field "name" Decode.string)
     (field "description" Decode.string)
     (field "order" Decode.int)

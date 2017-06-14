@@ -4,26 +4,26 @@ import Mouse
 import Navigation exposing (Location)
 import Http
 import Trips.Model exposing (Trip, Place)
-import Json.Decode as Decode
 
 type Msg =
     NoOp
+  | OnLocationChange Location
+  | MouseMsg Mouse.Position
+
+  | ChangeTripName String
   | AddTrip
   | RemoveTrip String
+  | OnInsertTrip (Result Http.Error Trip)
+  | OnFetchAllTrips (Result Http.Error (List Trip))
+  | OnRemoveTrip (Result Http.Error String)
+
+  | ChangePlaceName String
+  | ChangePlaceDescription String
   | AddPlace String
   | RemovePlace String
   | OnInsertPlace (Result Http.Error Place)
   | OnFetchAllPlaces (Result Http.Error (List Place))
-  | ChangeTripName String
-  | ChangePlaceName String
-  | ChangePlaceDescription String
-  | OnLocationChange Location
-  | OnInsertTrip (Result Http.Error Trip)
-  | OnFetchAllTrips (Result Http.Error (List Trip))
-  | OnRemoveTrip (Result Http.Error String)
   | OnRemovePlace String (Result Http.Error String)
-
-  | SwapPlace String
-  | MouseMsg Mouse.Position
-  | MouseDragEnd Mouse.Position
-  | MouseDragStart String
+  | PlaceDrop String
+  | PlaceDragEnd Mouse.Position
+  | PlaceDragStart String

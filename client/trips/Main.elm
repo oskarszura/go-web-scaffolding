@@ -1,15 +1,13 @@
 port module Trips.Main exposing (..)
 
 import Navigation exposing (Location)
-import Array exposing (get, fromList)
 import Trips.Model exposing (..)
 import Trips.Routing exposing (parseLocation)
 import Trips.View exposing (view)
 import Trips.Messages exposing (..)
 import Trips.Subscriptions exposing (..)
 import Trips.Commands exposing (postTrip, fetchTrips, deleteTrip, postPlace, fetchPlaces, deletePlace)
-
-import Debug exposing (..)
+import Trips.Utilities exposing (valueFromMaybe)
 
 init : Location -> ( Model, Cmd Msg )
 init location =
@@ -31,96 +29,44 @@ init location =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
   case msg of
-    OnLocationChange location ->
-      let
-        newRoute =
-          parseLocation location
-      in
-        case newRoute of
-          TripsRoute ->
-            ({
-              model
-              | route = newRoute
-            }
-            , Cmd.none )
+    ChangeTripName tripName ->
+      ( { model | tripName = tripName }, Cmd.none)
 
-          TripRoute id ->
-            let
-              trip =
-                get (id - 1) (fromList model.trips)
-            in
-              case trip of
-                Just trp ->
-                  ({
-                    model
-                    | route = newRoute
-                    , places = trp.places
-                  }
-                  , Cmd.none )
-                Nothing ->
-                  ({
-                    model
-                    | route = newRoute
-                  }
-                  , Cmd.none )
-
-          NotFoundRoute ->
-            ({
-              model
-              | route = newRoute
-            }
-            , Cmd.none )
-
-    ChangeTripName newName ->
-      ({
-        model
-        | tripName = newName
-      }
-      , Cmd.none)
-
-    ChangePlaceName newName ->
-      ({
-        model
-        | placeName = newName
-      }
-      , Cmd.none)
+    ChangePlaceName placeName ->
+      ( { model | placeName = placeName }, Cmd.none)
 
     ChangePlaceDescription description ->
-      ({
-        model
-        | placeDescription = description
-      }
-      , Cmd.none)
+      ( { model | placeDescription = description }, Cmd.none)
 
     AddTrip ->
-      let
-        tripId =
-          toString (List.length model.trips + 1)
-        newTrip =
-          { name = model.tripName
-          , id = tripId
-          , places = []}
-      in
-      ({
-        model
-        | trips = List.append model.trips [newTrip]
-        , tripName = ""
-      }
-      , postTrip newTrip )
+        let
+            newTrip =
+              { id = ""
+              , name = model.tripName
+              , places = []}
+        in
+            ( model, postTrip newTrip )
 
-    RemoveTrip id ->
+    RemoveTrip tripId ->
       let
         updatedTrips =
-          List.filter (\t -> t.id == id) model.trips
+            model.trips
+                |> List.filter (\trip -> trip.id == tripId)
       in
-        ({
-          model
-          | trips = updatedTrips
-        }
-        , deleteTrip id )
+        ( { model | trips = updatedTrips }, deleteTrip tripId )
 
-    OnInsertTrip (Ok insertedTrip) ->
-        ( model, Cmd.none )
+    OnInsertTrip (Ok createdTrip) ->
+        let
+            newTrip =
+              { id = createdTrip.id
+              , name = createdTrip.name
+              , places = createdTrip.places }
+        in
+            ( { model
+                | trips = List.append model.trips [newTrip]
+                , tripName = ""
+            }
+            , Cmd.none )
 
     OnInsertTrip (Err error) ->
         ( model, Cmd.none )
@@ -134,38 +80,27 @@ update msg model =
     OnFetchAllTrips (Ok fetchedTrips) ->
         case model.route of
           TripsRoute ->
-            ({
-              model
-              | trips = fetchedTrips
-            }
-            , Cmd.none )
+            ( { model | trips = fetchedTrips }, Cmd.none )
 
-          TripRoute id ->
+          TripRoute tripId ->
             let
               trip =
-                get (id - 1) (fromList fetchedTrips)
+                model.trips
+                    |> List.filter (\trip -> trip.id == tripId)
+                    |> List.head
             in
               case trip of
                 Just trp ->
-                  ({
-                    model
-                    | trips = fetchedTrips
-                    , places = trp.places
+                  ( { model
+                        | trips = fetchedTrips
+                        , places = trp.places
                   }
                   , Cmd.none )
                 Nothing ->
-                    ({
-                      model
-                      | trips = fetchedTrips
-                    }
-                    , Cmd.none )
+                    ( { model | trips = fetchedTrips }, Cmd.none )
 
           NotFoundRoute ->
-            ({
-              model
-              | trips = fetchedTrips
-            }
-            , Cmd.none )
+            ( { model | trips = fetchedTrips }, Cmd.none )
 
     OnFetchAllTrips (Err error) ->
         ( model, Cmd.none )
@@ -177,98 +112,118 @@ update msg model =
               , id = ""
               , tripId = tripId
               , description = model.placeDescription
-              , order =  List.length model.places }
+              , order = List.length model.places }
         in
             ( model, postPlace newPlace )
 
-    OnInsertPlace (Ok insertedPlace) ->
-      let
-        newPlace =
-          { name = insertedPlace.name
-          , id = insertedPlace.id
-          , tripId = insertedPlace.tripId
-          , description = insertedPlace.description
-          , order = insertedPlace.order }
-      in
-        ({
-          model
-          | places = List.append model.places [newPlace]
-          , placeName = ""
-          , placeDescription = ""
-        }
-        , Cmd.none )
+    OnInsertPlace (Ok createdPlace) ->
+        let
+            newPlace =
+              { name = createdPlace.name
+              , id = createdPlace.id
+              , tripId = createdPlace.tripId
+              , description = createdPlace.description
+              , order = createdPlace.order }
+        in
+            ( { model
+                  | places = List.append model.places [newPlace]
+                  , placeName = ""
+                  , placeDescription = ""
+            }
+            , Cmd.none )
 
     OnInsertPlace (Err error) ->
         ( model, Cmd.none )
 
-    RemovePlace id ->
-      ( model, deletePlace id )
+    RemovePlace placeId ->
+      ( model, deletePlace placeId )
 
     OnRemovePlace placeId (Ok removedPlace) ->
       let
         updatedPlaces =
-          List.filter (\t -> t.id /= placeId) model.places
+            model.places
+                |> List.filter (\place-> place.id /= placeId)
       in
-        ({
-          model
-          | places = updatedPlaces
-        }
-        , Cmd.none )
+        ( { model | places = updatedPlaces }, Cmd.none )
 
     OnRemovePlace placeId (Err error) ->
         ( model, Cmd.none )
 
     OnFetchAllPlaces (Ok fetchedPlaces) ->
-        ({
-          model
-          | places = fetchedPlaces
-        }
-        , Cmd.none )
+        ( { model | places = fetchedPlaces }, Cmd.none )
 
     OnFetchAllPlaces (Err error) ->
         ( model, Cmd.none )
 
+    PlaceDragEnd position ->
+        ( { model | drag = "" }, Cmd.none )
+
+    PlaceDragStart placeId ->
+        ( { model | drag = placeId }, Cmd.none )
+
+    PlaceDrop hoveredPlaceId ->
+        let
+            draggedPlace =
+               model.places
+                    |> List.filter (\place -> place.id == model.drag)
+                    |> List.head
+                    |> valueFromMaybe
+            hoveredPlace =
+               model.places
+                    |> List.filter (\place -> place.id == hoveredPlaceId)
+                    |> List.head
+                    |> valueFromMaybe
+            sortedPlaces =
+                model.places
+                    |> List.map (\place ->
+                        if place.order >= hoveredPlace.order
+                        then { place | order = place.order + 1 }
+                        else place)
+                    |> List.map (\place ->
+                        if place.id == draggedPlace.id
+                        then { place | order = hoveredPlace.order }
+                    else place)
+        in
+            ( { model | places = sortedPlaces } , Cmd.none )
+
     MouseMsg position ->
-        ( {
-            model
+        ( { model
             | mousex = position.x
             , mousey = position.y
         }
         , Cmd.none )
 
-    MouseDragEnd position ->
-        ( {
-            model
-            | drag = ""
-        }
-        , Cmd.none )
+    OnLocationChange location ->
+      let
+        newRoute =
+          parseLocation location
+      in
+        case newRoute of
+          TripsRoute ->
+            ( { model | route = newRoute }, Cmd.none )
 
-    MouseDragStart placeId ->
-        ( {
-            model
-            | drag = placeId
-        }
-        , Cmd.none )
-
-    SwapPlace placeId ->
-        if model.drag /= "" then
+          TripRoute tripId ->
             let
-                draggedPlace =
-                    case List.head (List.filter (\t -> t.id == model.drag) model.places) of
-                        Just y -> y
-                        Nothing -> Debug.crash "error: fromJust Nothing"
-                hoveredPlace =
-                    case List.head (List.filter (\t -> t.id == placeId) model.places) of
-                        Just y -> y
-                        Nothing -> Debug.crash "error: fromJust Nothing"
-                sortedPlaces =
-                    model.places
-                    |> List.map (\place -> if place.order >= hoveredPlace.order then { place | order = place.order + 1 } else place)
-                    |> List.map (\place -> if place.id == draggedPlace.id then { place | order = hoveredPlace.order } else place)
+              trip =
+                model.trips
+                    |> List.filter (\trip -> trip.id == tripId)
+                    |> List.head
             in
-                    ( { model | places = sortedPlaces } , Cmd.none )
-        else
-            ( model, Cmd.none )
+              case trip of
+                Just trp ->
+                  ( { model
+                    | route = newRoute
+                    , places = trp.places
+                  }
+                  , Cmd.none )
+                Nothing ->
+                  ( { model
+                        | route = newRoute
+                  }
+                  , Cmd.none )
+
+          NotFoundRoute ->
+            ( { model | route = newRoute }, Cmd.none )
 
     NoOp ->
         ( model, Cmd.none )
@@ -282,14 +237,3 @@ main =
     , update = update
     , subscriptions = subscriptions
     }
-
--- Utils
-getListElementByString : List a -> String -> Maybe a
-getListElementByString list id =
-    let
-        elementId =
-            Result.withDefault 0 (String.toInt id)
-        element =
-            get elementId (fromList list)
-    in
-        element
