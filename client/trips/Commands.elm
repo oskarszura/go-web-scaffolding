@@ -36,7 +36,7 @@ fetchPlacesUrl tripId =
 
 deletePlaceUrl : String -> String
 deletePlaceUrl placeId =
-  "/api/places/" ++ (toString placeId)
+  "/api/places/" ++ placeId
 
 postPlace : Place -> Cmd Msg
 postPlace newPlace =

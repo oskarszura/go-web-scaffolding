@@ -11,7 +11,7 @@ import (
 
 type TripList []Trip
 
-func Trips(w http.ResponseWriter, r *http.Request, params struct{Params map[string]string}) {
+func CtrTrips(w http.ResponseWriter, r *http.Request, params struct{Params map[string]string}) {
 	var trips []Trip
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")

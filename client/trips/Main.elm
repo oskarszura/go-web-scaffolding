@@ -85,19 +85,19 @@ update msg model =
           TripRoute tripId ->
             let
               trip =
-                model.trips
+                fetchedTrips
                     |> List.filter (\trip -> trip.id == tripId)
                     |> List.head
             in
               case trip of
                 Just trp ->
-                  ( { model
+                  ( ({ model
                         | trips = fetchedTrips
                         , places = trp.places
-                  }
+                  })
                   , Cmd.none )
                 Nothing ->
-                    ( { model | trips = fetchedTrips }, Cmd.none )
+                    ( ({ model | trips = fetchedTrips }), Cmd.none )
 
           NotFoundRoute ->
             ( { model | trips = fetchedTrips }, Cmd.none )
@@ -162,29 +162,32 @@ update msg model =
         ( { model | drag = placeId }, Cmd.none )
 
     PlaceDrop hoveredPlaceId ->
-        let
-            draggedPlace =
-               model.places
-                    |> List.filter (\place -> place.id == model.drag)
-                    |> List.head
-                    |> valueFromMaybe
-            hoveredPlace =
-               model.places
-                    |> List.filter (\place -> place.id == hoveredPlaceId)
-                    |> List.head
-                    |> valueFromMaybe
-            sortedPlaces =
-                model.places
-                    |> List.map (\place ->
-                        if place.order >= hoveredPlace.order
-                        then { place | order = place.order + 1 }
+        if model.drag /= "" then
+            let
+                draggedPlace =
+                   model.places
+                        |> List.filter (\place -> place.id == model.drag)
+                        |> List.head
+                        |> valueFromMaybe
+                hoveredPlace =
+                   model.places
+                        |> List.filter (\place -> place.id == hoveredPlaceId)
+                        |> List.head
+                        |> valueFromMaybe
+                sortedPlaces =
+                    model.places
+                        |> List.map (\place ->
+                            if place.order >= hoveredPlace.order
+                            then { place | order = place.order + 1 }
+                            else place)
+                        |> List.map (\place ->
+                            if place.id == draggedPlace.id
+                            then { place | order = hoveredPlace.order }
                         else place)
-                    |> List.map (\place ->
-                        if place.id == draggedPlace.id
-                        then { place | order = hoveredPlace.order }
-                    else place)
-        in
-            ( { model | places = sortedPlaces } , Cmd.none )
+            in
+                ( { model | places = sortedPlaces } , Cmd.none )
+        else
+            ( model, Cmd.none )
 
     MouseMsg position ->
         ( { model
