@@ -6,13 +6,13 @@ import (
 	"encoding/json"
 	"gopkg.in/mgo.v2/bson"
 	"github.com/oskarszura/trips/utils"
-	"github.com/oskarszura/trips/models"
+	. "github.com/oskarszura/trips/models"
 )
 
-type TripList []models.Trip
+type TripList []Trip
 
-func Trips(w http.ResponseWriter, r *http.Request, params struct{Params map[string]string}) {
-	var trips []models.Trip
+func CtrTrips(w http.ResponseWriter, r *http.Request, params struct{Params map[string]string}) {
+	var trips []Trip
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	ds := utils.GetDataSource()
@@ -44,7 +44,7 @@ func Trips(w http.ResponseWriter, r *http.Request, params struct{Params map[stri
 
 		json.NewEncoder(w).Encode(output)
 	case "POST":
-		var newTrip models.Trip
+		var newTrip Trip
 
 		decoder := json.NewDecoder(r.Body)
 		err := decoder.Decode(&newTrip)
@@ -53,19 +53,20 @@ func Trips(w http.ResponseWriter, r *http.Request, params struct{Params map[stri
 			panic(err)
 		}
 
-		err = c.Insert(&models.Trip{
+		newTrip = Trip{
+			Id: bson.NewObjectId(),
 			UserId: utils.GetUser().Id,
 			Name: newTrip.Name,
-			Id: newTrip.Id,
-		})
+			Places: PlaceList{},
+		}
+
+		err = c.Insert(newTrip)
 
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		output := &utils.HalResponse{
-			Status: 200,
-		}
+		output := newTrip
 
 		json.NewEncoder(w).Encode(output)
 	default:

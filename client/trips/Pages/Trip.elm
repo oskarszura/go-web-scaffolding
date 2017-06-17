@@ -1,17 +1,19 @@
 module Trips.Pages.Trip exposing (..)
 
 import Html exposing (Html, div, h1, text, input, button, ul, li, textarea, label)
-import Html.Attributes exposing (classList, class, value)
-import Html.Events exposing (onClick, onInput)
-import Array exposing (get, fromList)
+import Html.Attributes exposing (classList, class, value, style)
+import Html.Events exposing (onClick, onInput, onMouseDown, onMouseUp, on)
+
 import Trips.Messages exposing (..)
 import Trips.Model exposing (..)
 
-tripPage : Model -> Int -> Html Msg
+tripPage : Model -> String -> Html Msg
 tripPage model tripId =
   let
-    trip =
-      get (tripId - 1) (fromList model.trips)
+      trip =
+        model.trips
+            |> List.filter (\trip -> trip.id == tripId)
+            |> List.head
   in
     case trip of
       Just trp ->
@@ -25,20 +27,34 @@ tripPage model tripId =
             [ div
                 [ class "trip__places"]
                 [ model.places
-                  |> List.map (\l ->
+                  |> List.sortBy .order
+                  |> List.map (\place ->
                       li
-                        [ class "trip__place-item" ]
+                        [ classList
+                            [ ("trip__place-item", True)
+                            , ("trip__place-item--dragging", model.drag == place.id)
+                            ]
+                        , onMouseUp (PlaceDrop tripId place.id)
+                        , style
+                            [ ("left", toString model.mousex ++ "px")
+                            , ("top", toString model.mousey ++ "px")
+                            ]
+                        ]
                         [ div
                             [ class "trip__place-name" ]
-                            [ text l.name
+                            [ text place.name
                             ,  button
                                  [ class "trip__place-remove"
-                                 , onClick (RemovePlace l.id) ]
+                                 , onClick (RemovePlace place.id) ]
                                  [ text "Remove" ]
+                            ,  button
+                                 [ class "trip__place-drag"
+                                 , onMouseDown (PlaceDragStart place.id) ]
+                                 [ text "Drag" ]
                             ]
                         , div
                             [ class "trip__place-description" ]
-                            [ text l.description ]
+                            [ text place.description ]
                         ]
                    )
                   |> ul
@@ -66,7 +82,7 @@ tripPage model tripId =
                     [ class "trip__place-adder-actions" ]
                     [ button
                         [ class "trip__place-adder-add"
-                        , onClick (AddPlace (toString tripId)) ]
+                        , onClick (AddPlace tripId) ]
                         [ text "Add place" ]
                     ]
                 ]

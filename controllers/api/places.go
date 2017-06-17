@@ -12,7 +12,7 @@ import (
 
 type PlaceList []Place
 
-func Places(w http.ResponseWriter, r *http.Request, options struct{Params map[string]string}) {
+func CtrPlaces(w http.ResponseWriter, r *http.Request, options struct{Params map[string]string}) {
 	var places []Place
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
@@ -46,9 +46,10 @@ func Places(w http.ResponseWriter, r *http.Request, options struct{Params map[st
 
 		newPlace = Place{
 			Id: bson.NewObjectId(),
+			TripId: bson.ObjectId(newPlace.TripId),
 			Name: newPlace.Name,
-			TripId: newPlace.TripId,
 			Description: newPlace.Description,
+			Order: newPlace.Order,
 		}
 
 		err = c.Insert(newPlace)
