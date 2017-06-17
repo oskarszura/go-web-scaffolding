@@ -50,7 +50,7 @@ func CtrTrips(w http.ResponseWriter, r *http.Request, params struct{Params map[s
 		err := decoder.Decode(&newTrip)
 
 		if err != nil {
-			panic(err)
+			log.Fatalln(err)
 		}
 
 		newTrip = Trip{
@@ -63,7 +63,7 @@ func CtrTrips(w http.ResponseWriter, r *http.Request, params struct{Params map[s
 		err = c.Insert(newTrip)
 
 		if err != nil {
-			log.Fatal(err)
+			log.Fatalln(err)
 		}
 
 		output := newTrip

@@ -26,7 +26,7 @@ func Register(w http.ResponseWriter, r *http.Request, params struct{Params map[s
 
 		err := c.Insert(newUser)
 		if err != nil {
-			log.Fatal(err)
+			log.Fatalln(err)
 		}
 
 		log.Println("Registered user", newUser)

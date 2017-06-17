@@ -20,7 +20,7 @@ func CtrPlace(w http.ResponseWriter, r *http.Request, options struct{Params map[
 		err := c.Remove(bson.M{"_id": bson.ObjectIdHex(placeId)})
 
 		if err != nil {
-			log.Fatal(err)
+			log.Fatalln(err)
 		}
 
 		output := &utils.HalResponse{
