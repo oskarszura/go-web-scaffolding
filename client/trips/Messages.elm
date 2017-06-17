@@ -12,9 +12,11 @@ type Msg =
 
   | ChangeTripName String
   | AddTrip
+  | UpdateTrip Trip String
   | RemoveTrip String
   | OnInsertTrip (Result Http.Error Trip)
   | OnFetchAllTrips (Result Http.Error (List Trip))
+  | OnUpdateTrip (Result Http.Error Trip)
   | OnRemoveTrip (Result Http.Error String)
 
   | ChangePlaceName String
@@ -24,6 +26,6 @@ type Msg =
   | OnInsertPlace (Result Http.Error Place)
   | OnFetchAllPlaces (Result Http.Error (List Place))
   | OnRemovePlace String (Result Http.Error String)
-  | PlaceDrop String
+  | PlaceDrop String String
   | PlaceDragEnd Mouse.Position
   | PlaceDragStart String

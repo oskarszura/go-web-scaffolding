@@ -5,6 +5,8 @@ import Json.Decode as Decode exposing (field)
 import Trips.Model exposing (Trip, Place)
 import Trips.Messages exposing (..)
 
+import Debug exposing (..)
+
 postTripUrl : String
 postTripUrl =
   "/api/trips"
@@ -12,6 +14,10 @@ postTripUrl =
 fetchTripsUrl : String
 fetchTripsUrl =
   "/api/trips"
+
+updateTripUrl : String -> String
+updateTripUrl tripId =
+  "/api/trips/" ++ tripId
 
 deleteTripUrl : String -> String
 deleteTripUrl tripId =
@@ -21,10 +27,36 @@ postTrip : Trip -> Cmd Msg
 postTrip newTrip =
   let
     payload =
-      Http.stringBody "application/json" ("""{ "name": \""""++newTrip.name++"""\"}""")
+      Http.stringBody "application/json" ("""{ "name": \"""" ++ newTrip.name ++ """\"}""")
   in
     Http.post postTripUrl payload postSuccessDecoder
       |> Http.send OnInsertTrip
+
+updateTrip : Trip -> Cmd Msg
+updateTrip updatedTrip =
+  let
+    places =
+        List.map (\place -> """{"id": \"""" ++ place.id ++ """\",
+                                "tripId": \"""" ++ place.tripId ++ """\",
+                                "name": \"""" ++ place.name ++ """\",
+                                "description": \"""" ++ place.description ++ """\",
+                                "order": """ ++ (toString place.order) ++ """ }""")
+                updatedTrip.places
+    payload =
+      Http.stringBody "application/json" ("""{ "id": \"""" ++ updatedTrip.id ++ """\",
+                                               "name": \"""" ++ updatedTrip.name ++ """\",
+                                               "places": [""" ++ (String.join "," places) ++ """]}""")
+  in
+      Http.request
+        { method = "PATCH"
+        , headers = []
+        , url = updateTripUrl updatedTrip.id
+        , body = payload
+        , expect = Http.expectJson updateSuccessDecoder
+        , timeout = Nothing
+        , withCredentials = False
+        }
+      |> Http.send OnUpdateTrip
 
 postPlaceUrl : String
 postPlaceUrl =
@@ -42,7 +74,10 @@ postPlace : Place -> Cmd Msg
 postPlace newPlace =
   let
     payload =
-      Http.stringBody "application/json" ("""{ "name": \""""++newPlace.name++"""\", "description": \""""++newPlace.description++"""\", "order": """++(toString newPlace.order)++""", "tripId": """++(toString newPlace.tripId)++"""}""")
+      Http.stringBody "application/json" ("""{ "name": \"""" ++ newPlace.name ++ """\",
+                                               "description": \"""" ++ newPlace.description ++ """\",
+                                               "order": """ ++ (toString newPlace.order) ++ """,
+                                               "tripId": """ ++ (toString newPlace.tripId) ++ """}""")
   in
     Http.post postPlaceUrl payload postSuccessPlaceDecoder
       |> Http.send OnInsertPlace
@@ -90,6 +125,13 @@ collectionTripDecoder =
 
 postSuccessDecoder : Decode.Decoder Trip
 postSuccessDecoder =
+  Decode.map3 Trip
+    (field "id" Decode.string)
+    (field "name" Decode.string)
+    (field "places" (Decode.list memberPlaceDecoder))
+
+updateSuccessDecoder : Decode.Decoder Trip
+updateSuccessDecoder =
   Decode.map3 Trip
     (field "id" Decode.string)
     (field "name" Decode.string)

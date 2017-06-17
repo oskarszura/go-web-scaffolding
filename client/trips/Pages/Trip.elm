@@ -34,7 +34,7 @@ tripPage model tripId =
                             [ ("trip__place-item", True)
                             , ("trip__place-item--dragging", model.drag == place.id)
                             ]
-                        , onMouseUp (PlaceDrop place.id)
+                        , onMouseUp (PlaceDrop tripId place.id)
                         , style
                             [ ("left", toString model.mousex ++ "px")
                             , ("top", toString model.mousey ++ "px")

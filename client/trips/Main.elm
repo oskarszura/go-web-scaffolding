@@ -1,13 +1,18 @@
 port module Trips.Main exposing (..)
 
 import Navigation exposing (Location)
+import Task exposing (perform)
+import Time exposing (Time)
+
 import Trips.Model exposing (..)
 import Trips.Routing exposing (parseLocation)
 import Trips.View exposing (view)
 import Trips.Messages exposing (..)
 import Trips.Subscriptions exposing (..)
-import Trips.Commands exposing (postTrip, fetchTrips, deleteTrip, postPlace, fetchPlaces, deletePlace)
+import Trips.Commands exposing (postTrip, fetchTrips, updateTrip, deleteTrip, postPlace, fetchPlaces, deletePlace)
 import Trips.Utilities exposing (valueFromMaybe)
+
+import Debug exposing (..)
 
 init : Location -> ( Model, Cmd Msg )
 init location =
@@ -47,6 +52,9 @@ update msg model =
         in
             ( model, postTrip newTrip )
 
+    UpdateTrip updatedTrip tripId ->
+        ( model, updateTrip updatedTrip )
+
     RemoveTrip tripId ->
       let
         updatedTrips =
@@ -69,6 +77,12 @@ update msg model =
             , Cmd.none )
 
     OnInsertTrip (Err error) ->
+        ( model, Cmd.none )
+
+    OnUpdateTrip (Ok updatedTrip) ->
+        ( model, Cmd.none )
+
+    OnUpdateTrip (Err error) ->
         ( model, Cmd.none )
 
     OnRemoveTrip (Ok removedTrip) ->
@@ -161,7 +175,7 @@ update msg model =
     PlaceDragStart placeId ->
         ( { model | drag = placeId }, Cmd.none )
 
-    PlaceDrop hoveredPlaceId ->
+    PlaceDrop tripId hoveredPlaceId ->
         if model.drag /= "" then
             let
                 draggedPlace =
@@ -184,8 +198,20 @@ update msg model =
                             if place.id == draggedPlace.id
                             then { place | order = hoveredPlace.order }
                         else place)
+                updatingTrip =
+                    model.trips
+                        |> List.filter (\trip -> trip.id == tripId)
+                        |> List.head
             in
-                ( { model | places = sortedPlaces } , Cmd.none )
+                case updatingTrip of
+                    Just trp ->
+                        let
+                            updatedTrip =
+                                { trp | places = log "x" sortedPlaces }
+                        in
+                            ( { model | places = sortedPlaces }, Task.perform (\l -> (UpdateTrip updatedTrip tripId)) Time.now)
+                    Nothing ->
+                        ( model, Cmd.none )
         else
             ( model, Cmd.none )
 
