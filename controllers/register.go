@@ -8,13 +8,13 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-var newUser *models.User
-
 func Register(w http.ResponseWriter, r *http.Request, params struct{Params map[string]string}) {
 	switch r.Method {
 	case "GET":
 		utils.RenderTemplate(w, r, "register")
 	case "POST":
+		var newUser *models.User
+
 		ds := utils.GetDataSource()
 		c := ds.C("users")
 
