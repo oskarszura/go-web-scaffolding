@@ -1,8 +1,6 @@
 port module Trips.Main exposing (..)
 
 import Navigation exposing (Location)
-import Task exposing (perform)
-import Time exposing (Time)
 
 import Trips.Model exposing (..)
 import Trips.Routing exposing (parseLocation)
@@ -11,8 +9,6 @@ import Trips.Messages exposing (..)
 import Trips.Subscriptions exposing (..)
 import Trips.Commands exposing (postTrip, fetchTrips, updateTrip, deleteTrip, postPlace, fetchPlaces, deletePlace)
 import Trips.Utilities exposing (valueFromMaybe)
-
-import Debug exposing (..)
 
 init : Location -> ( Model, Cmd Msg )
 init location =
@@ -52,7 +48,7 @@ update msg model =
         in
             ( model, postTrip newTrip )
 
-    UpdateTrip updatedTrip tripId ->
+    UpdateTrip updatedTripg ->
         ( model, updateTrip updatedTrip )
 
     RemoveTrip tripId ->
@@ -207,9 +203,9 @@ update msg model =
                     Just trp ->
                         let
                             updatedTrip =
-                                { trp | places = log "x" sortedPlaces }
+                                { trp | places = sortedPlaces }
                         in
-                            ( { model | places = sortedPlaces }, Task.perform (\l -> (UpdateTrip updatedTrip tripId)) Time.now)
+                            ( { model | places = sortedPlaces }, updateTrip updatedTrip)
                     Nothing ->
                         ( model, Cmd.none )
         else

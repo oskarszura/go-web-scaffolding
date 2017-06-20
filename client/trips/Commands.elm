@@ -5,8 +5,6 @@ import Json.Decode as Decode exposing (field)
 import Trips.Model exposing (Trip, Place)
 import Trips.Messages exposing (..)
 
-import Debug exposing (..)
-
 postTripUrl : String
 postTripUrl =
   "/api/trips"

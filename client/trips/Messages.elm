@@ -12,7 +12,7 @@ type Msg =
 
   | ChangeTripName String
   | AddTrip
-  | UpdateTrip Trip String
+  | UpdateTrip Trip
   | RemoveTrip String
   | OnInsertTrip (Result Http.Error Trip)
   | OnFetchAllTrips (Result Http.Error (List Trip))
