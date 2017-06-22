@@ -25,6 +25,15 @@
     @extend .panel-heading;
   }
 
+  &__place-drag {
+    border: none;
+    background-color: transparent;
+
+    &::before {
+        content:'\2630';
+    }
+  }
+
   &__place-remove {
     @extend .btn;
     @extend .btn-danger;
