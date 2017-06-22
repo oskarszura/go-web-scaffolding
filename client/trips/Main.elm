@@ -48,7 +48,7 @@ update msg model =
         in
             ( model, postTrip newTrip )
 
-    UpdateTrip updatedTripg ->
+    UpdateTrip updatedTrip ->
         ( model, updateTrip updatedTrip )
 
     RemoveTrip tripId ->
