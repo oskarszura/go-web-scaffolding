@@ -38,7 +38,7 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options struct{Params map[s
 		err := pipe.One(&trip)
 
 		if err != nil {
-			log.Fatal(err)
+			log.Fatalln(err)
 		}
 
 		output := trip
@@ -51,35 +51,21 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options struct{Params map[s
 		err := decoder.Decode(&updatedTrip)
 
 		if err != nil {
-			panic(err)
-		}
-
-		updatedTrip = Trip{
-			Id: updatedTrip.Id,
-			UserId: utils.GetUser().Id,
-			Name: updatedTrip.Name,
-			Places: updatedTrip.Places,
+			log.Fatalln(err)
 		}
 
 		for _, place := range updatedTrip.Places {
-			err = cp.Remove(bson.M{"tripId": updatedTrip.Id})
-
-			if err != nil {
-				log.Fatal(err)
+			updatedPlace := Place{
+				TripId: bson.ObjectId(place.TripId),
+				Name: place.Name,
+				Description: place.Description,
+				Order: place.Order,
 			}
 
-			newPlace := Place{
-					Id: bson.NewObjectId(),
-					TripId: bson.ObjectId(place.TripId),
-					Name: place.Name,
-					Description: place.Description,
-					Order: place.Order,
-				}
-
-			err = cp.Insert(newPlace)
+			err = cp.UpdateId(place.Id, updatedPlace)
 
 			if err != nil {
-				log.Fatal(err)
+				log.Fatalln(err)
 			}
 		}
 

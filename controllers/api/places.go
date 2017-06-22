@@ -41,7 +41,7 @@ func CtrPlaces(w http.ResponseWriter, r *http.Request, options struct{Params map
 		err := decoder.Decode(&newPlace)
 
 		if err != nil {
-			panic(err)
+			log.Fatalln(err)
 		}
 
 		newPlace = Place{
@@ -55,23 +55,10 @@ func CtrPlaces(w http.ResponseWriter, r *http.Request, options struct{Params map
 		err = c.Insert(newPlace)
 
 		if err != nil {
-			log.Fatal(err)
+			log.Fatalln(err)
 		}
 
 		output := newPlace
-
-		json.NewEncoder(w).Encode(output)
-	case "DELETE":
-		placeId := options.Params["id"]
-		err := c.Remove(bson.M{"_id": bson.ObjectIdHex(placeId)})
-
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		output := &utils.HalResponse{
-			Status: 200,
-		}
 
 		json.NewEncoder(w).Encode(output)
 	default:
