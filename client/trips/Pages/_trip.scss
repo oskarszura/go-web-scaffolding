@@ -13,6 +13,7 @@
 
     &--dragging {
         position: absolute;
+        z-index: $zlayer-top;
     }
   }
 
@@ -23,6 +24,15 @@
 
   &__place-name {
     @extend .panel-heading;
+  }
+
+  &__place-drag {
+    border: none;
+    background-color: transparent;
+
+    &::before {
+        content:'\2630';
+    }
   }
 
   &__place-remove {

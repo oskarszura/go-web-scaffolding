@@ -42,15 +42,15 @@ tripPage model tripId =
                         ]
                         [ div
                             [ class "trip__place-name" ]
-                            [ text place.name
-                            ,  button
-                                 [ class "trip__place-remove"
-                                 , onClick (RemovePlace place.id) ]
-                                 [ text "Remove" ]
-                            ,  button
-                                 [ class "trip__place-drag"
-                                 , onMouseDown (PlaceDragStart place.id) ]
-                                 [ text "Drag" ]
+                            [ button
+                                [ class "trip__place-drag"
+                                , onMouseDown (PlaceDragStart place.id) ]
+                                []
+                            , text place.name
+                            , button
+                                [ class "trip__place-remove"
+                                , onClick (RemovePlace place.id) ]
+                                [ text "Remove" ]
                             ]
                         , div
                             [ class "trip__place-description" ]
