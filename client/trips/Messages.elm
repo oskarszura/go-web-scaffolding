@@ -17,7 +17,7 @@ type Msg =
   | OnInsertTrip (Result Http.Error Trip)
   | OnFetchAllTrips (Result Http.Error (List Trip))
   | OnUpdateTrip (Result Http.Error Trip)
-  | OnRemoveTrip (Result Http.Error String)
+  | OnRemoveTrip String (Result Http.Error String)
 
   | ChangePlaceName String
   | ChangePlaceDescription String

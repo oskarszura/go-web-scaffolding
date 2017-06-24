@@ -115,7 +115,7 @@ deleteTrip tripId =
     , timeout = Nothing
     , withCredentials = False
     }
-    |> Http.send OnRemoveTrip
+    |> Http.send (OnRemoveTrip tripId)
 
 collectionTripDecoder : Decode.Decoder (List Trip)
 collectionTripDecoder =

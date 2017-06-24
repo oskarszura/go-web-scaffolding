@@ -72,6 +72,19 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options struct{Params map[s
 		output := updatedTrip
 
 		json.NewEncoder(w).Encode(output)
+	case "DELETE":
+		tripId := options.Params["id"]
+		err := c.Remove(bson.M{"_id": bson.ObjectIdHex(tripId)})
+
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		output := &utils.HalResponse{
+			Status: 200,
+		}
+
+		json.NewEncoder(w).Encode(output)
 	default:
 	}
 }
