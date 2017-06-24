@@ -52,12 +52,7 @@ update msg model =
         ( model, updateTrip updatedTrip )
 
     RemoveTrip tripId ->
-      let
-        updatedTrips =
-            model.trips
-                |> List.filter (\trip -> trip.id == tripId)
-      in
-        ( { model | trips = updatedTrips }, deleteTrip tripId )
+        ( model, deleteTrip tripId )
 
     OnInsertTrip (Ok createdTrip) ->
         let
@@ -81,10 +76,15 @@ update msg model =
     OnUpdateTrip (Err error) ->
         ( model, Cmd.none )
 
-    OnRemoveTrip (Ok removedTrip) ->
-        ( model, Cmd.none )
+    OnRemoveTrip tripId (Ok removedTrip) ->
+      let
+        updatedTrips =
+            model.trips
+                |> List.filter (\trip -> trip.id /= tripId)
+      in
+        ( { model | trips = updatedTrips }, Cmd.none )
 
-    OnRemoveTrip (Err error) ->
+    OnRemoveTrip tripId (Err error) ->
         ( model, Cmd.none )
 
     OnFetchAllTrips (Ok fetchedTrips) ->
