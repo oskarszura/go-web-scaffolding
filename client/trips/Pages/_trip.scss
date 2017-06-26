@@ -3,6 +3,31 @@
   width: 50%;
   margin: 0 auto;
 
+  &__heading {
+    &:hover {
+      .trip__title-edit {
+        display: inline-block;
+      }
+    }
+  }
+
+  &__title {
+    display: inline-block;
+    width: 50%;
+  }
+
+  &__title-toolbox {
+    display: inline-block;
+    width: 50%;
+  }
+
+  &__title-edit {
+    @extend .btn;
+    @extend .btn-info;
+    @extend .pull-right;
+    display: none;
+  }
+
   &__plan {
   }
 

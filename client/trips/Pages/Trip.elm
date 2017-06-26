@@ -1,6 +1,6 @@
 module Trips.Pages.Trip exposing (..)
 
-import Html exposing (Html, div, h1, text, input, button, ul, li, textarea, label)
+import Html exposing (Html, div, h1, text, input, button, ul, li, textarea, label, header)
 import Html.Attributes exposing (classList, class, value, style)
 import Html.Events exposing (onClick, onInput, onMouseDown, onMouseUp, on)
 
@@ -19,9 +19,18 @@ tripPage model tripId =
       Just trp ->
         div
           [ class "trip" ]
-          [ h1
-              []
-              [ text trp.name ]
+          [ header
+            [ class "trip__heading" ]
+            [ h1
+                [ class "trip__title" ]
+                [ text trp.name ]
+            , div
+                [ class "trip__title-toolbox" ]
+                [ div
+                    [ class "trip__title-edit" ]
+                    [ text "Edit" ]
+                ]
+            ]
           , div
             [ class "trip__plan" ]
             [ div
