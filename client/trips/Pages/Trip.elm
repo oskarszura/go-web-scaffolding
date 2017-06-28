@@ -21,14 +21,36 @@ tripPage model tripId =
           [ class "trip" ]
           [ header
             [ class "trip__heading" ]
-            [ h1
-                [ class "trip__title" ]
-                [ text trp.name ]
+            [ if model.mode == "EditTripName" then
+                input
+                    [ classList
+                        [ ("trip__title-input", True)
+                        ]
+                    , value trp.name ]
+                    [ ]
+              else
+                h1
+                    [ classList
+                        [ ("trip__title", True)
+                        ]
+                    ]
+                    [ text trp.name ]
             , div
                 [ class "trip__title-toolbox" ]
-                [ div
-                    [ class "trip__title-edit" ]
-                    [ text "Edit" ]
+                [ if model.mode == "EditTripName" then
+                    div
+                        [ classList
+                            [ ("trip__title-save", True)
+                            ]
+                        , onClick (UpdateTripName trp) ]
+                        [ text "Save" ]
+                  else
+                    div
+                        [ classList
+                            [ ("trip__title-edit", True)
+                            ]
+                        , onClick (EditTripName trp) ]
+                        [ text "Edit" ]
                 ]
             ]
           , div

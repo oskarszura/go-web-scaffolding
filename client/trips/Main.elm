@@ -115,6 +115,12 @@ update msg model =
     OnFetchAllTrips (Err error) ->
         ( model, Cmd.none )
 
+    EditTripName trip ->
+        ( { model | mode = "EditTripName" }, Cmd.none )
+
+    UpdateTripName trip ->
+        ( { model | mode = "" }, Cmd.none )
+
     AddPlace tripId ->
         let
             newPlace =
