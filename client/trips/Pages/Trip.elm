@@ -26,7 +26,8 @@ tripPage model tripId =
                     [ classList
                         [ ("trip__title-input", True)
                         ]
-                    , value trp.name ]
+                    , onInput ChangeTripName
+                    , value model.tripName ]
                     [ ]
               else
                 h1

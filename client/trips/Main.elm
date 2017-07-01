@@ -71,7 +71,15 @@ update msg model =
         ( model, Cmd.none )
 
     OnUpdateTrip (Ok updatedTrip) ->
-        ( model, Cmd.none )
+        let
+            updatedTrips =
+                List.map (\trip ->
+                    if trip.id == updatedTrip.id
+                    then updatedTrip
+                    else trip)
+                model.trips
+        in
+            ( { model | trips = updatedTrips }, Cmd.none )
 
     OnUpdateTrip (Err error) ->
         ( model, Cmd.none )
@@ -116,10 +124,12 @@ update msg model =
         ( model, Cmd.none )
 
     EditTripName trip ->
-        ( { model | mode = "EditTripName" }, Cmd.none )
+        ( { model
+            | mode = "EditTripName"
+            , tripName = trip.name }, Cmd.none )
 
     UpdateTripName trip ->
-        ( { model | mode = "" }, Cmd.none )
+        update (UpdateTrip { trip | name = model.tripName } ) { model | mode = "" }
 
     AddPlace tripId ->
         let
