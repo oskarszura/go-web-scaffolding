@@ -1,6 +1,6 @@
 module Trips.Pages.Trip exposing (..)
 
-import Html exposing (Html, div, h1, text, input, button, ul, li, textarea, label)
+import Html exposing (Html, div, h1, text, input, button, ul, li, textarea, label, header)
 import Html.Attributes exposing (classList, class, value, style)
 import Html.Events exposing (onClick, onInput, onMouseDown, onMouseUp, on)
 
@@ -19,9 +19,41 @@ tripPage model tripId =
       Just trp ->
         div
           [ class "trip" ]
-          [ h1
-              []
-              [ text trp.name ]
+          [ header
+            [ class "trip__heading" ]
+            [ if model.mode == "EditTripName" then
+                input
+                    [ classList
+                        [ ("trip__title-input", True)
+                        ]
+                    , onInput ChangeTripName
+                    , value model.tripName ]
+                    [ ]
+              else
+                h1
+                    [ classList
+                        [ ("trip__title", True)
+                        ]
+                    ]
+                    [ text trp.name ]
+            , div
+                [ class "trip__title-toolbox" ]
+                [ if model.mode == "EditTripName" then
+                    div
+                        [ classList
+                            [ ("trip__title-save", True)
+                            ]
+                        , onClick (UpdateTripName trp) ]
+                        [ text "Save" ]
+                  else
+                    div
+                        [ classList
+                            [ ("trip__title-edit", True)
+                            ]
+                        , onClick (EditTripName trp) ]
+                        [ text "Edit" ]
+                ]
+            ]
           , div
             [ class "trip__plan" ]
             [ div

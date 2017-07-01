@@ -47,6 +47,8 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options struct{Params map[s
 	case "PATCH":
 		var updatedTrip Trip
 
+		tripId := options.Params["id"]
+
 		decoder := json.NewDecoder(r.Body)
 		err := decoder.Decode(&updatedTrip)
 
@@ -67,6 +69,15 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options struct{Params map[s
 			if err != nil {
 				log.Fatalln(err)
 			}
+		}
+
+		err = c.UpdateId(bson.ObjectIdHex(tripId), Trip{
+			Name: updatedTrip.Name,
+			UserId:	utils.GetUser().Id,
+		})
+
+		if err != nil {
+			log.Fatalln(err)
 		}
 
 		output := updatedTrip

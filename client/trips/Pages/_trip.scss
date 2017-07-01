@@ -3,6 +3,44 @@
   width: 50%;
   margin: 0 auto;
 
+  &__title {
+    display: inline-block;
+    width: 50%;
+  }
+
+  &__title-input {
+      &--hidden {
+          display: none;
+      }
+  }
+
+  &__title-toolbox {
+    display: inline-block;
+    width: 50%;
+  }
+
+  &__title-edit {
+    @extend .btn;
+    @extend .btn-info;
+    @extend .pull-right;
+    display: none;
+
+    .trip__heading:hover & {
+        display: inline-block;
+    }
+  }
+
+    &__title-save {
+      @extend .btn;
+      @extend .btn-success;
+      @extend .pull-right;
+      display: none;
+
+      .trip__heading:hover & {
+        display: inline-block;
+      }
+    }
+
   &__plan {
   }
 
