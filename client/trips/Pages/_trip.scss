@@ -73,6 +73,13 @@
     }
   }
 
+  &__place-edit {
+    @extend .btn;
+    @extend .btn-info;
+    @extend .pull-right;
+    @extend .btn-xs;
+  }
+
   &__place-remove {
     @extend .btn;
     @extend .btn-danger;

@@ -24,6 +24,8 @@ type Msg =
   | ChangePlaceName String
   | ChangePlaceDescription String
   | AddPlace String
+  | EditPlace Place
+  | UpdatePlace Place
   | RemovePlace String
   | OnInsertPlace (Result Http.Error Place)
   | OnFetchAllPlaces (Result Http.Error (List Place))

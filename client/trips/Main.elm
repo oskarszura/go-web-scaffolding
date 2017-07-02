@@ -125,11 +125,11 @@ update msg model =
 
     EditTripName trip ->
         ( { model
-            | mode = "EditTripName"
+            | editedTrip = trip
             , tripName = trip.name }, Cmd.none )
 
     UpdateTripName trip ->
-        update (UpdateTrip { trip | name = model.tripName } ) { model | mode = "" }
+        update (UpdateTrip { trip | name = model.tripName } ) { model | editedTrip = { id = "", name = "", places = []} }
 
     AddPlace tripId ->
         let
@@ -160,6 +160,12 @@ update msg model =
 
     OnInsertPlace (Err error) ->
         ( model, Cmd.none )
+
+    EditPlace place ->
+      ( { model | editedPlace = place }, Cmd.none )
+
+    UpdatePlace place ->
+      ( { model | editedPlace = { id = "", tripId = "", name = "", description = "", order = 0 } }, Cmd.none )
 
     RemovePlace placeId ->
       ( model, deletePlace placeId )
