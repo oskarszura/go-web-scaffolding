@@ -80,7 +80,8 @@ tripPage model tripId =
                                 []
                             , if model.editedPlace.id == place.id then
                                 input
-                                    [ value place.name ]
+                                    [ onInput EditPlaceName
+                                    , value model.editedPlace.name ]
                                     []
                               else
                                 text place.name
@@ -101,7 +102,8 @@ tripPage model tripId =
                             ]
                         , if model.editedPlace.id == place.id then
                             textarea
-                                [ value place.description ]
+                                [ onInput EditPlaceDescription
+                                , value model.editedPlace.description ]
                                 []
                           else
                             div

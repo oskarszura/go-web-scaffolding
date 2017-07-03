@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"gopkg.in/mgo.v2/bson"
 	"github.com/oskarszura/trips/utils"
+	. "github.com/oskarszura/trips/models"
 )
 
 
@@ -28,6 +29,34 @@ func CtrPlace(w http.ResponseWriter, r *http.Request, options struct{Params map[
 		}
 
 		json.NewEncoder(w).Encode(output)
+
+	case "PATCH":
+		var updatedPlace Place
+
+		placeId := bson.ObjectIdHex(options.Params["id"])
+
+		decoder := json.NewDecoder(r.Body)
+		err := decoder.Decode(&updatedPlace)
+
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		err = c.UpdateId(placeId, &Place{
+			TripId: bson.ObjectId(updatedPlace.TripId),
+			Name: updatedPlace.Name,
+			Description: updatedPlace.Description,
+			Order: updatedPlace.Order,
+		})
+
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		output := updatedPlace
+
+		json.NewEncoder(w).Encode(output)
+
 	default:
 	}
 }

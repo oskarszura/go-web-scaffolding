@@ -60,6 +60,10 @@ postPlaceUrl : String
 postPlaceUrl =
   "/api/places"
 
+updatePlaceUrl : String -> String
+updatePlaceUrl placeId =
+  "/api/places/" ++ placeId
+
 fetchPlacesUrl : String -> String
 fetchPlacesUrl tripId =
   "/api/places" ++ tripId
@@ -79,6 +83,27 @@ postPlace newPlace =
   in
     Http.post postPlaceUrl payload postSuccessPlaceDecoder
       |> Http.send OnInsertPlace
+
+updatePlace : Place -> Cmd Msg
+updatePlace updatedPlace =
+  let
+    payload =
+      Http.stringBody "application/json" ("""{  "id": \"""" ++ updatedPlace.id ++ """\",
+                                                "name": \"""" ++ updatedPlace.name ++ """\",
+                                                "description": \"""" ++ updatedPlace.description ++ """\",
+                                                "order": """ ++ (toString updatedPlace.order) ++ """,
+                                                "tripId": """ ++ (toString updatedPlace.tripId) ++ """}""")
+  in
+      Http.request
+        { method = "PATCH"
+        , headers = []
+        , url = updatePlaceUrl updatedPlace.id
+        , body = payload
+        , expect = Http.expectJson updatePlaceSuccessDecoder
+        , timeout = Nothing
+        , withCredentials = False
+        }
+      |> Http.send OnUpdatePlace
 
 fetchPlaces : String -> Cmd Msg
 fetchPlaces tripId =
@@ -148,6 +173,15 @@ collectionPlaceDecoder =
 
 postSuccessPlaceDecoder : Decode.Decoder Place
 postSuccessPlaceDecoder =
+  Decode.map5 Place
+    (field "id" Decode.string)
+    (field "tripId" Decode.string)
+    (field "name" Decode.string)
+    (field "description" Decode.string)
+    (field "order" Decode.int)
+
+updatePlaceSuccessDecoder : Decode.Decoder Place
+updatePlaceSuccessDecoder =
   Decode.map5 Place
     (field "id" Decode.string)
     (field "tripId" Decode.string)
