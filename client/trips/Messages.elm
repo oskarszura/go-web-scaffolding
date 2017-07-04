@@ -21,12 +21,17 @@ type Msg =
   | EditTripName Trip
   | UpdateTripName Trip
 
+  | EditPlaceDescription String
+  | EditPlaceName String
   | ChangePlaceName String
   | ChangePlaceDescription String
   | AddPlace String
+  | EditPlace Place
+  | UpdatePlace Place
   | RemovePlace String
   | OnInsertPlace (Result Http.Error Place)
   | OnFetchAllPlaces (Result Http.Error (List Place))
+  | OnUpdatePlace (Result Http.Error Place)
   | OnRemovePlace String (Result Http.Error String)
   | PlaceDrop String String
   | PlaceDragEnd Mouse.Position

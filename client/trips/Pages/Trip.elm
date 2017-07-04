@@ -21,24 +21,19 @@ tripPage model tripId =
           [ class "trip" ]
           [ header
             [ class "trip__heading" ]
-            [ if model.mode == "EditTripName" then
+            [ if model.editedTrip.id == trp.id then
                 input
-                    [ classList
-                        [ ("trip__title-input", True)
-                        ]
+                    [ class "trip__title-editor"
                     , onInput ChangeTripName
                     , value model.tripName ]
                     [ ]
               else
                 h1
-                    [ classList
-                        [ ("trip__title", True)
-                        ]
-                    ]
+                    [ class "trip__title" ]
                     [ text trp.name ]
             , div
                 [ class "trip__title-toolbox" ]
-                [ if model.mode == "EditTripName" then
+                [ if model.editedTrip.id == trp.id then
                     div
                         [ classList
                             [ ("trip__title-save", True)
@@ -78,15 +73,39 @@ tripPage model tripId =
                                 [ class "trip__place-drag"
                                 , onMouseDown (PlaceDragStart place.id) ]
                                 []
-                            , text place.name
+                            , if model.editedPlace.id == place.id then
+                                input
+                                    [ class "trip__place-name-editor"
+                                    , onInput EditPlaceName
+                                    , value model.editedPlace.name ]
+                                    []
+                              else
+                                text place.name
+                            , if model.editedPlace.id == place.id then
+                                button
+                                    [ class "trip__place-save"
+                                    , onClick (UpdatePlace place) ]
+                                    [ text "Save" ]
+                              else
+                                button
+                                    [ class "trip__place-edit"
+                                    , onClick (EditPlace place) ]
+                                    [ text "Edit" ]
                             , button
                                 [ class "trip__place-remove"
                                 , onClick (RemovePlace place.id) ]
                                 [ text "Remove" ]
                             ]
-                        , div
-                            [ class "trip__place-description" ]
-                            [ text place.description ]
+                        , if model.editedPlace.id == place.id then
+                            textarea
+                                [ class "trip__place-description-editor"
+                                , onInput EditPlaceDescription
+                                , value model.editedPlace.description ]
+                                []
+                          else
+                            div
+                                [ class "trip__place-description" ]
+                                [ text place.description ]
                         ]
                    )
                   |> ul

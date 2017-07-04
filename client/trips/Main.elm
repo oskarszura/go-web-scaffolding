@@ -7,7 +7,7 @@ import Trips.Routing exposing (parseLocation)
 import Trips.View exposing (view)
 import Trips.Messages exposing (..)
 import Trips.Subscriptions exposing (..)
-import Trips.Commands exposing (postTrip, fetchTrips, updateTrip, deleteTrip, postPlace, fetchPlaces, deletePlace)
+import Trips.Commands exposing (postTrip, fetchTrips, updateTrip, deleteTrip, postPlace, updatePlace, fetchPlaces, deletePlace)
 import Trips.Utilities exposing (valueFromMaybe)
 
 init : Location -> ( Model, Cmd Msg )
@@ -125,11 +125,11 @@ update msg model =
 
     EditTripName trip ->
         ( { model
-            | mode = "EditTripName"
+            | editedTrip = trip
             , tripName = trip.name }, Cmd.none )
 
     UpdateTripName trip ->
-        update (UpdateTrip { trip | name = model.tripName } ) { model | mode = "" }
+        update (UpdateTrip { trip | name = model.tripName } ) { model | editedTrip = { id = "", name = "", places = []} }
 
     AddPlace tripId ->
         let
@@ -159,6 +159,57 @@ update msg model =
             , Cmd.none )
 
     OnInsertPlace (Err error) ->
+        ( model, Cmd.none )
+
+    EditPlace place ->
+      ( { model | editedPlace = place }, Cmd.none )
+
+    EditPlaceName placename ->
+        let
+            updatedEditedPlace =
+                { id = model.editedPlace.id
+                , tripId = model.editedPlace.tripId
+                , name = placename
+                , description = model.editedPlace.description
+                , order = model.editedPlace.order }
+        in
+        ( { model | editedPlace = updatedEditedPlace }, Cmd.none )
+
+    EditPlaceDescription placedescription ->
+        let
+            updatedEditedPlace =
+                { id = model.editedPlace.id
+                , tripId = model.editedPlace.tripId
+                , name = model.editedPlace.name
+                , description = placedescription
+                , order = model.editedPlace.order }
+        in
+        ( { model | editedPlace = updatedEditedPlace }, Cmd.none )
+
+    UpdatePlace place ->
+        let
+            updatedPlace =
+                { id = place.id
+                , tripId = place.tripId
+                , name = model.editedPlace.name
+                , description = model.editedPlace.description
+                , order = place.order
+                }
+        in
+        ( { model | editedPlace = { id = "", tripId = "", name = "", description = "", order = 0 } }, updatePlace updatedPlace )
+
+    OnUpdatePlace (Ok updatedPlace) ->
+        let
+            updatedPlaces =
+                List.map (\place ->
+                    if place.id == updatedPlace.id
+                    then updatedPlace
+                    else place)
+                model.places
+        in
+            ( { model | places = updatedPlaces }, Cmd.none )
+
+    OnUpdatePlace (Err error) ->
         ( model, Cmd.none )
 
     RemovePlace placeId ->

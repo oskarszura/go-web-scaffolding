@@ -15,7 +15,8 @@ type alias Model =
   , drag: String
   , mousex: Int
   , mousey: Int
-  , mode: String
+  , editedTrip: Trip
+  , editedPlace: Place
   }
 
 type alias Place =
@@ -43,5 +44,15 @@ initModel route =
   , drag = ""
   , mousex = 0
   , mousey = 0
-  , mode = ""
+  , editedPlace =
+    {   id = ""
+      , tripId = ""
+      , name = ""
+      , description = ""
+      , order = 0 }
+  , editedTrip =
+    {   id = ""
+      , name = ""
+      , places = []
+    }
   }
