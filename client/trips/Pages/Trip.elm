@@ -23,18 +23,13 @@ tripPage model tripId =
             [ class "trip__heading" ]
             [ if model.editedTrip.id == trp.id then
                 input
-                    [ classList
-                        [ ("trip__title-input", True)
-                        ]
+                    [ class "trip__title-editor"
                     , onInput ChangeTripName
                     , value model.tripName ]
                     [ ]
               else
                 h1
-                    [ classList
-                        [ ("trip__title", True)
-                        ]
-                    ]
+                    [ class "trip__title" ]
                     [ text trp.name ]
             , div
                 [ class "trip__title-toolbox" ]
@@ -80,7 +75,8 @@ tripPage model tripId =
                                 []
                             , if model.editedPlace.id == place.id then
                                 input
-                                    [ onInput EditPlaceName
+                                    [ class "trip__place-name-editor"
+                                    , onInput EditPlaceName
                                     , value model.editedPlace.name ]
                                     []
                               else
@@ -102,7 +98,8 @@ tripPage model tripId =
                             ]
                         , if model.editedPlace.id == place.id then
                             textarea
-                                [ onInput EditPlaceDescription
+                                [ class "trip__place-description-editor"
+                                , onInput EditPlaceDescription
                                 , value model.editedPlace.description ]
                                 []
                           else

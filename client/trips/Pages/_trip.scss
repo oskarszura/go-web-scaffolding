@@ -6,12 +6,12 @@
   &__title {
     display: inline-block;
     width: 50%;
-  }
 
-  &__title-input {
-      &--hidden {
+    &-editor {
+        &--hidden {
           display: none;
-      }
+        }
+    }
   }
 
   &__title-toolbox {
@@ -62,6 +62,14 @@
 
   &__place-name {
     @extend .panel-heading;
+
+    &-title-editor {
+
+    }
+
+    &-description-editor {
+
+    }
   }
 
   &__place-drag {
@@ -71,6 +79,13 @@
     &::before {
         content:'\2630';
     }
+  }
+
+  &__place-save {
+    @extend .btn;
+    @extend .btn-success;
+    @extend .pull-right;
+    @extend .btn-xs;
   }
 
   &__place-edit {
