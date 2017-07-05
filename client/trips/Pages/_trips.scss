@@ -9,39 +9,57 @@
   margin: 0 auto;
 
   &__list {
-    @extend .list-group;
+        @extend %t-list;
   }
 
   &__list-item {
-    @extend .list-group-item;
+    @extend %t-list__item;
     display: flex;
     padding: 0;
-  }
+    line-height: 50px;
 
-  &__list-item:hover {
-    .trips__list-item-delete {
-      color: $color-white;
-      transition: opacity .2s ease-in-out;
-      opacity: 1;
+    &:hover {
+        .trips__list-item-delete {
+          color: $color-white;
+          transition: all .2s ease-in-out;
+          opacity: 1;
+        }
+    }
+
+    &-name {
+        color: $color-persian-green;
+        font-size: 22px;
+
+        &:hover {
+            color: darken($color-persian-green, 10%);
+            text-decoration: none;
+        }
     }
   }
 
   &__list-item-name {
     @extend %trips__list-item-action;
     flex-basis: auto;
-    flex-basis: 90%;
+    flex-basis: 100%;
   }
 
   &__list-item-delete {
     @extend %trips__list-item-action;
-    transition: opacity .2s ease-in-out;
+    transition: all .2s ease-in-out;
     color: $color-white;
     opacity: 0;
-    background-color: $color-roman;
+    background-color: $color-persian-green;
+    text-align: center;
+    width: 30px;
+    text-indent: 20px;
+    overflow: hidden;
 
     &:hover {
+      transition: all .2s ease-in-out;
       text-decoration: none;
+      width: 150px;
       background-color: $color-fuzzy-wozzy-brown;
+      text-indent: 0px;
     }
   }
 
@@ -51,6 +69,7 @@
 
   &__name {
     @extend .form-control;
+    border-radius: 0px !important;
   }
 
   &__actions {
@@ -58,8 +77,6 @@
   }
 
   &__add {
-    @extend .btn;
-    @extend .btn-default;
-    height: 34px;
+    @extend %t-btn-add;
   }
 }

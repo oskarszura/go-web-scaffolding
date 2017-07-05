@@ -1,0 +1,16 @@
+%t-btn {
+    @extend .btn;
+    border-radius: 0px !important;
+    height: 34px;
+}
+
+%t-btn-add {
+    @extend %t-btn;
+    background-color: $color-persian-green;
+    color: $color-white;
+
+    &:hover {
+        background-color: darken($color-persian-green, 10%);
+        color: $color-white;
+    }
+}
