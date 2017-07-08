@@ -31,6 +31,10 @@ module.exports = {
         exclude: [/elm-stuff/, /node_modules/],
         loader: 'elm-webpack?verbose=true&warn=true',
       },
+      {
+        test: /\.jpg/,
+        loader: 'file-loader',
+      },
     ],
     noParse: /\.elm$/,
   },

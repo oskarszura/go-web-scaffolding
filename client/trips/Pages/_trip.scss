@@ -1,130 +1,47 @@
 .trip {
-  margin-top: 20px;
-  width: 50%;
-  margin: 0 auto;
-
-  &__title {
-    display: inline-block;
+    margin-top: 20px;
     width: 50%;
+    margin: 0 auto;
 
-    &-editor {
-        &--hidden {
-          display: none;
+    &__heading {
+        @extend .input-group;
+        margin-bottom: 10px;
+    }
+
+    &__title {
+        margin-top: 0px;
+        margin-bottom: 0px;
+
+        &-editor {
+            @extend .form-control;
+            border-radius: 0px !important;
+
+            &--hidden {
+                display: none;
+            }
+        }
+
+        &-toolbox {
+            @extend .input-group-btn;
+        }
+
+        &-edit {
+            @extend %t-btn-edit;
+            @extend .pull-right;
+            visibility: hidden;
+
+            .trip__heading:hover & {
+                visibility: visible;
+            }
+        }
+
+        &-save {
+            @extend %t-btn-add;
         }
     }
-  }
 
-  &__title-toolbox {
-    display: inline-block;
-    width: 50%;
-  }
-
-  &__title-edit {
-    @extend .btn;
-    @extend .btn-info;
-    @extend .pull-right;
-    display: none;
-
-    .trip__heading:hover & {
-        display: inline-block;
+    &__place-list {
+        padding: 0;
+        list-style: none;
     }
-  }
-
-    &__title-save {
-      @extend .btn;
-      @extend .btn-success;
-      @extend .pull-right;
-      display: none;
-
-      .trip__heading:hover & {
-        display: inline-block;
-      }
-    }
-
-  &__plan {
-  }
-
-  &__place-item {
-    @extend .panel;
-    @extend .panel-default;
-    min-width: 500px;
-
-    &--dragging {
-        position: absolute;
-        z-index: $zlayer-top;
-    }
-  }
-
-  &__place-list {
-    padding: 0;
-    list-style: none;
-  }
-
-  &__place-name {
-    @extend .panel-heading;
-
-    &-title-editor {
-
-    }
-
-    &-description-editor {
-
-    }
-  }
-
-  &__place-drag {
-    border: none;
-    background-color: transparent;
-
-    &::before {
-        content:'\2630';
-    }
-  }
-
-  &__place-save {
-    @extend .btn;
-    @extend .btn-success;
-    @extend .pull-right;
-    @extend .btn-xs;
-  }
-
-  &__place-edit {
-    @extend .btn;
-    @extend .btn-info;
-    @extend .pull-right;
-    @extend .btn-xs;
-  }
-
-  &__place-remove {
-    @extend .btn;
-    @extend .btn-danger;
-    @extend .pull-right;
-    @extend .btn-xs;
-  }
-
-  &__place-description {
-    @extend .panel-body;
-  }
-
-  &__place-adder-description {
-    @extend .form-control;
-  }
-
-  &__place-adder {
-    @extend .input-group;
-  }
-
-  &__place-adder-actions {
-    @extend .input-group-btn;
-  }
-
-  &__place-adder-name {
-    @extend .form-control;
-  }
-
-  &__place-adder-add {
-    @extend .btn;
-    @extend .btn-default;
-    height: 34px;
-  }
 }

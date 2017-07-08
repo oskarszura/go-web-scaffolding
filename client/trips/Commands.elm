@@ -94,16 +94,16 @@ updatePlace updatedPlace =
                                                 "order": """ ++ (toString updatedPlace.order) ++ """,
                                                 "tripId": """ ++ (toString updatedPlace.tripId) ++ """}""")
   in
-      Http.request
-        { method = "PATCH"
-        , headers = []
-        , url = updatePlaceUrl updatedPlace.id
-        , body = payload
-        , expect = Http.expectJson updatePlaceSuccessDecoder
-        , timeout = Nothing
-        , withCredentials = False
-        }
-      |> Http.send OnUpdatePlace
+    Http.request
+      { method = "PATCH"
+      , headers = []
+      , url = updatePlaceUrl updatedPlace.id
+      , body = payload
+      , expect = Http.expectJson updatePlaceSuccessDecoder
+      , timeout = Nothing
+      , withCredentials = False
+      }
+    |> Http.send OnUpdatePlace
 
 fetchPlaces : String -> Cmd Msg
 fetchPlaces tripId =

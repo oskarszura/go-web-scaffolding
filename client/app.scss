@@ -4,13 +4,19 @@
 @import "common/reset";
 @import "common/tooltip";
 @import "common/small-list";
+@import "common/buttons";
+@import "common/lists";
 
 @import "template/header";
+@import "template/splash";
 @import "template/main-content";
 @import "template/left-menu";
 @import "template/login-box";
 
 @import "./Trips/Pages/trips";
 @import "./Trips/Pages/trip";
+@import "./Trips/Pages/trip-adder";
+@import "./Trips/Pages/place";
+@import "./Trips/Pages/place-adder";
 
 @import "components/trip-map";
