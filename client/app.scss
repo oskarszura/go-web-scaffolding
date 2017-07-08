@@ -4,9 +4,8 @@
 @import "common/reset";
 @import "common/tooltip";
 @import "common/small-list";
-
-@import "components/buttons";
-@import "components/lists";
+@import "common/buttons";
+@import "common/lists";
 
 @import "template/header";
 @import "template/splash";
@@ -16,5 +15,8 @@
 
 @import "./Trips/Pages/trips";
 @import "./Trips/Pages/trip";
+@import "./Trips/Pages/trip-adder";
+@import "./Trips/Pages/place";
+@import "./Trips/Pages/place-adder";
 
 @import "components/trip-map";

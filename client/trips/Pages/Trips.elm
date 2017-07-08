@@ -31,24 +31,28 @@ tripList model =
     |> ul
         [ class "trips__list" ]
 
+tripAdder: Model -> Html Msg
+tripAdder model =
+  div
+    [ class "trip-adder" ]
+    [ input
+        [ class "trip-adder__name"
+        , onInput ChangeTripName
+        , value model.tripName ]
+        []
+    , div
+        [ class "trip-adder__actions" ]
+        [ button
+            [ class "trip-adder__add"
+            , onClick AddTrip ]
+            [ text "Add trip" ]
+        ]
+    ]
+
 tripsPage : Model -> Html Msg
 tripsPage model =
   div
     [ class "trips"]
     [ tripList model
-    , div
-        [ class "trips__adder" ]
-        [ input
-            [ class "trips__name"
-            , onInput ChangeTripName
-            , value model.tripName ]
-            []
-        , div
-            [ class "trips__actions" ]
-            [ button
-                [ class "trips__add"
-                , onClick AddTrip ]
-                [ text "Add trip" ]
-            ]
-        ]
+    , tripAdder model
     ]

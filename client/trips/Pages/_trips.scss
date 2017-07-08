@@ -1,82 +1,65 @@
 %trips__list-item-action {
-  padding: 10px 15px;
-  cursor: pointer;
+    padding: 10px 15px;
+    cursor: pointer;
 }
 
 .trips {
-  margin-top: 20px;
-  width: 50%;
-  margin: 0 auto;
+    margin-top: 20px;
+    width: 50%;
+    margin: 0 auto;
 
-  &__list {
+    &__list {
         @extend %t-list;
-  }
-
-  &__list-item {
-    @extend %t-list__item;
-    display: flex;
-    padding: 0;
-    line-height: 50px;
-
-    &:hover {
-        .trips__list-item-delete {
-          color: $color-white;
-          transition: all .2s ease-in-out;
-          opacity: 1;
-        }
     }
 
-    &-name {
-        color: $color-persian-green;
-        font-size: 22px;
+    &__list-item {
+        @extend %t-list__item;
+        display: flex;
+        padding: 0;
+        line-height: 50px;
 
         &:hover {
-            color: darken($color-persian-green, 10%);
-            text-decoration: none;
+            .trips__list-item-delete {
+              color: $color-white;
+              transition: all .2s ease-in-out;
+              opacity: 1;
+            }
+        }
+
+        &-name {
+            color: $color-persian-green;
+            font-size: 22px;
+
+            &:hover {
+                color: darken($color-persian-green, 10%);
+                text-decoration: none;
+            }
         }
     }
-  }
 
-  &__list-item-name {
-    @extend %trips__list-item-action;
-    flex-basis: auto;
-    flex-basis: 100%;
-  }
-
-  &__list-item-delete {
-    @extend %trips__list-item-action;
-    transition: all .2s ease-in-out;
-    color: $color-white;
-    opacity: 0;
-    width: 30px;
-    background-color: $color-persian-green;
-    text-align: center;
-    text-indent: 20px;
-    overflow: hidden;
-
-    &:hover {
-      transition: all .2s ease-in-out;
-      text-decoration: none;
-      width: 150px;
-      background-color: $color-fuzzy-wozzy-brown;
-      text-indent: 0px;
+    &__list-item-name {
+        @extend %trips__list-item-action;
+        flex-basis: auto;
+        flex-basis: 100%;
     }
-  }
 
-  &__adder {
-    @extend .input-group;
-  }
+    &__list-item-delete {
+        @extend %trips__list-item-action;
+        transition: all .2s ease-in-out;
+        color: $color-white;
+        opacity: 0;
+        width: 30px;
+        background-color: $color-persian-green;
+        text-align: center;
+        text-indent: 20px;
+        overflow: hidden;
 
-  &__name {
-    @extend .form-control;
-    border-radius: 0px !important;
-  }
-
-  &__actions {
-    @extend .input-group-btn;
-  }
-
-  &__add {
-    @extend %t-btn-add;
-  }
+        &:hover {
+            transition: all .2s ease-in-out;
+            text-decoration: none;
+            width: 150px;
+            background-color: $color-fuzzy-wozzy-brown;
+            text-indent: 0px;
+        }
+    }
 }

@@ -1,137 +1,47 @@
 .trip {
-  margin-top: 20px;
-  width: 50%;
-  margin: 0 auto;
+    margin-top: 20px;
+    width: 50%;
+    margin: 0 auto;
 
-  &__heading {
-    @extend .input-group;
-    margin-bottom: 10px;
-  }
-
-  &__title {
-    margin-top: 0px;
-    margin-bottom: 0px;
-
-    &-editor {
-        @extend .form-control;
-        border-radius: 0px !important;
-
-        &--hidden {
-          display: none;
-        }
+    &__heading {
+        @extend .input-group;
+        margin-bottom: 10px;
     }
 
-    &-toolbox {
-      @extend .input-group-btn;
-    }
-
-    &-edit {
-      @extend %t-btn-edit;
-      @extend .pull-right;
-      visibility: hidden;
-
-      .trip__heading:hover & {
-          visibility: visible;
-      }
-    }
-
-    &-save {
-      @extend %t-btn-add;
-    }
-  }
-
-  &__place {
-      &-item {
-        @extend .panel;
-        @extend .panel-default;
-        min-width: 500px;
-        border-radius: 0px !important;
-
-        &--dragging {
-            position: absolute;
-            z-index: $zlayer-top;
-        }
-      }
-
-      &-list {
-        padding: 0;
-        list-style: none;
-      }
-
-      &-name {
-        @extend .panel-heading;
-        border-radius: 0 !important;
-        background-color: $color-persian-green !important;
-        color: $color-white !important;
+    &__title {
+        margin-top: 0px;
+        margin-bottom: 0px;
 
         &-editor {
-            color: $color-black;
+            @extend .form-control;
+            border-radius: 0px !important;
+
+            &--hidden {
+                display: none;
+            }
         }
-      }
 
-     &-drag {
-       border: none;
-       background-color: transparent;
+        &-toolbox {
+            @extend .input-group-btn;
+        }
 
-       &::before {
-           content:'\2630';
-       }
-     }
+        &-edit {
+            @extend %t-btn-edit;
+            @extend .pull-right;
+            visibility: hidden;
 
-   &-toolbox {
-     @extend .btn-group;
-     @extend .pull-right;
-     opacity: 0;
+            .trip__heading:hover & {
+                visibility: visible;
+            }
+        }
 
-     .trip__place-name:hover & {
-         opacity: 1;
-     }
-   }
+        &-save {
+            @extend %t-btn-add;
+        }
+    }
 
-  &-save {
-    @extend .btn;
-    @extend .btn-success;
-    @extend .btn-xs;
-  }
-
-  &-edit {
-    @extend .btn;
-    @extend .btn-info;
-    @extend .btn-xs;
-  }
-
-  &-remove {
-    @extend .btn;
-    @extend .btn-danger;
-    @extend .pull-right;
-    @extend .btn-xs;
-  }
-
-  &-description {
-    @extend .panel-body;
-  }
-
-  &-adder-description {
-    @extend .form-control;
-    border-radius: 0px !important;
-  }
-
-  &-adder {
-    @extend .input-group;
-  }
-
-  &-adder-actions {
-    @extend .input-group-btn;
-  }
-
-  &-adder-name {
-    @extend .form-control;
-    border-radius: 0px !important;
-  }
-
-  &-adder-add {
-    @extend %t-btn-add;
-    height: 34px;
-  }
-  }
+    &__place-list {
+        padding: 0;
+        list-style: none;
+    }
 }

@@ -11,8 +11,8 @@ placeItem : Model -> Place -> String -> Html Msg
 placeItem model place tripId =
   li
     [ classList
-        [ ("trip__place-item", True)
-        , ("trip__place-item--dragging", model.drag == place.id)
+        [ ("place", True)
+        , ("place--dragging", model.drag == place.id)
         ]
     , onMouseUp (PlaceDrop tripId place.id)
     , style
@@ -21,47 +21,65 @@ placeItem model place tripId =
         ]
     ]
     [ div
-        [ class "trip__place-name" ]
+        [ class "place__name" ]
         [ button
-            [ class "trip__place-drag"
+            [ class "place__drag"
             , onMouseDown (PlaceDragStart place.id) ]
             []
         , if model.editedPlace.id == place.id then
             input
-              [ class "trip__place-name-editor"
+              [ class "place__name-editor"
               , onInput EditPlaceName
               , value model.editedPlace.name ]
               []
           else
             text place.name
         , div
-            [ class "trip__place-toolbox" ]
+            [ class "place__toolbox" ]
             [ if model.editedPlace.id == place.id then
                   button
-                    [ class "trip__place-save"
+                    [ class "place__save"
                     , onClick (UpdatePlace place) ]
                     [ text "Save" ]
               else
                   button
-                    [ class "trip__place-edit"
+                    [ class "place__edit"
                     , onClick (EditPlace place) ]
                     [ text "Edit" ]
             , button
-                [ class "trip__place-remove"
+                [ class "place__remove"
                 , onClick (RemovePlace place.id) ]
                 [ text "Remove" ]
             ]
         ]
     , if model.editedPlace.id == place.id then
         textarea
-          [ class "trip__place-description-editor"
+          [ class "place__description-editor"
           , onInput EditPlaceDescription
           , value model.editedPlace.description ]
           []
       else
         div
-          [ class "trip__place-description" ]
+          [ class "place__description" ]
           [ text place.description ]
+    ]
+
+placeAdder : Model -> String -> Html Msg
+placeAdder model tripId =
+  div
+    [ class "place-adder" ]
+    [ input
+        [ class "place-adder__name"
+        , onInput ChangePlaceName
+        , value model.placeName ]
+        []
+    , div
+        [ class "place-adder__actions" ]
+        [ button
+            [ class "place-adder__add"
+            , onClick (AddPlace tripId) ]
+            [ text "Add place" ]
+        ]
     ]
 
 tripPlan : Model -> String -> Html Msg
@@ -80,28 +98,14 @@ tripPlan model tripId =
       []
       [ text "Description" ]
   , textarea
-      [ class "trip__place-adder-description"
+      [ class "place-adder__description"
       , onInput ChangePlaceDescription
       , value model.placeDescription ]
       []
   , label
       []
       [ text "Name" ]
-  , div
-      [ class "trip__place-adder" ]
-      [ input
-          [ class "trip__place-adder-name"
-          , onInput ChangePlaceName
-          , value model.placeName ]
-          []
-      , div
-          [ class "trip__place-adder-actions" ]
-          [ button
-              [ class "trip__place-adder-add"
-              , onClick (AddPlace tripId) ]
-              [ text "Add place" ]
-          ]
-      ]
+  , placeAdder model tripId
   ]
 
 tripHeader : Model -> Trip -> Html Msg
