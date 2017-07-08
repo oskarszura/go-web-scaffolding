@@ -24,7 +24,7 @@ func CtrTrips(w http.ResponseWriter, r *http.Request, params struct{Params map[s
 			{"$match": bson.M{"userid": utils.GetUser().Id}},
 			{"$lookup": bson.M{
 			"from":"places",
-			"localField": "id",
+			"localField": "_id",
 			"foreignField": "tripid",
 			"as": "places",
 		}}})

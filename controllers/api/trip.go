@@ -28,7 +28,7 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options struct{Params map[s
 			}},
 			{"$lookup": bson.M{
 				"from":"places",
-				"localField": "id",
+				"localField": "_id",
 				"foreignField": "tripid",
 				"as": "places",
 			}}})
