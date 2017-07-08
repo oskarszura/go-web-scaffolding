@@ -14,3 +14,14 @@
         color: $color-white;
     }
 }
+
+%t-btn-edit {
+    @extend %t-btn;
+    background-color: $color-viking;
+    color: $color-white;
+
+    &:hover {
+        background-color: darken($color-viking, 10%);
+        color: $color-white;
+    }
+}

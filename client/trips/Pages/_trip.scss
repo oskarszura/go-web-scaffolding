@@ -3,128 +3,135 @@
   width: 50%;
   margin: 0 auto;
 
+  &__heading {
+    @extend .input-group;
+    margin-bottom: 10px;
+  }
+
   &__title {
-    display: inline-block;
-    width: 50%;
+    margin-top: 0px;
+    margin-bottom: 0px;
 
     &-editor {
+        @extend .form-control;
+        border-radius: 0px !important;
+
         &--hidden {
           display: none;
         }
     }
-  }
 
-  &__title-toolbox {
-    display: inline-block;
-    width: 50%;
-  }
-
-  &__title-edit {
-    @extend .btn;
-    @extend .btn-info;
-    @extend .pull-right;
-    display: none;
-
-    .trip__heading:hover & {
-        display: inline-block;
+    &-toolbox {
+      @extend .input-group-btn;
     }
-  }
 
-    &__title-save {
-      @extend .btn;
-      @extend .btn-success;
+    &-edit {
+      @extend %t-btn-edit;
       @extend .pull-right;
-      display: none;
+      visibility: hidden;
 
       .trip__heading:hover & {
-        display: inline-block;
+          visibility: visible;
       }
     }
 
-  &__plan {
-  }
-
-  &__place-item {
-    @extend .panel;
-    @extend .panel-default;
-    min-width: 500px;
-
-    &--dragging {
-        position: absolute;
-        z-index: $zlayer-top;
+    &-save {
+      @extend %t-btn-add;
     }
   }
 
-  &__place-list {
-    padding: 0;
-    list-style: none;
-  }
+  &__place {
+      &-item {
+        @extend .panel;
+        @extend .panel-default;
+        min-width: 500px;
+        border-radius: 0px !important;
 
-  &__place-name {
-    @extend .panel-heading;
+        &--dragging {
+            position: absolute;
+            z-index: $zlayer-top;
+        }
+      }
 
-    &-title-editor {
+      &-list {
+        padding: 0;
+        list-style: none;
+      }
 
-    }
+      &-name {
+        @extend .panel-heading;
+        border-radius: 0 !important;
+        background-color: $color-persian-green !important;
+        color: $color-white !important;
 
-    &-description-editor {
+        &-editor {
+            color: $color-black;
+        }
+      }
 
-    }
-  }
+     &-drag {
+       border: none;
+       background-color: transparent;
 
-  &__place-drag {
-    border: none;
-    background-color: transparent;
+       &::before {
+           content:'\2630';
+       }
+     }
 
-    &::before {
-        content:'\2630';
-    }
-  }
+   &-toolbox {
+     @extend .btn-group;
+     @extend .pull-right;
+     opacity: 0;
 
-  &__place-save {
+     .trip__place-name:hover & {
+         opacity: 1;
+     }
+   }
+
+  &-save {
     @extend .btn;
     @extend .btn-success;
-    @extend .pull-right;
     @extend .btn-xs;
   }
 
-  &__place-edit {
+  &-edit {
     @extend .btn;
     @extend .btn-info;
-    @extend .pull-right;
     @extend .btn-xs;
   }
 
-  &__place-remove {
+  &-remove {
     @extend .btn;
     @extend .btn-danger;
     @extend .pull-right;
     @extend .btn-xs;
   }
 
-  &__place-description {
+  &-description {
     @extend .panel-body;
   }
 
-  &__place-adder-description {
+  &-adder-description {
     @extend .form-control;
+    border-radius: 0px !important;
   }
 
-  &__place-adder {
+  &-adder {
     @extend .input-group;
   }
 
-  &__place-adder-actions {
+  &-adder-actions {
     @extend .input-group-btn;
   }
 
-  &__place-adder-name {
+  &-adder-name {
     @extend .form-control;
+    border-radius: 0px !important;
   }
 
-  &__place-adder-add {
-    @extend .btn;
-    @extend .btn-default;
+  &-adder-add {
+    @extend %t-btn-add;
     height: 34px;
+  }
   }
 }

@@ -6,31 +6,36 @@ import Html.Events exposing (onClick, onInput)
 import Trips.Messages exposing (..)
 import Trips.Model exposing (..)
 
+tripItem : Trip -> Html Msg
+tripItem trip =
+  let
+    tripUrl =
+      "#/trips/" ++ trip.id
+  in
+    li
+      [ class "trips__list-item" ]
+      [ a
+          [ class "trips__list-item-name"
+          , href tripUrl ]
+          [ text trip.name ]
+      , a
+          [ class "trips__list-item-delete"
+          , onClick (RemoveTrip trip.id) ]
+          [ text "Delete" ]
+      ]
+
+tripList : Model -> Html Msg
+tripList model =
+  model.trips
+    |> List.map (\trip -> tripItem trip)
+    |> ul
+        [ class "trips__list" ]
+
 tripsPage : Model -> Html Msg
 tripsPage model =
   div
     [ class "trips"]
-    [ model.trips
-      |> List.map (\trip ->
-        let
-          tripUrl =
-            "#/trips/" ++ trip.id
-        in
-          li
-            [ class "trips__list-item" ]
-            [ a
-                [ class "trips__list-item-name"
-                , href tripUrl ]
-                [ text trip.name ]
-            , a
-                [ class "trips__list-item-delete"
-                , onClick (RemoveTrip trip.id) ]
-                [ text "Delete" ]
-            ]
-       )
-      |> ul
-          [ class "trips__list" ]
-
+    [ tripList model
     , div
         [ class "trips__adder" ]
         [ input
