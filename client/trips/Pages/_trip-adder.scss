@@ -1,0 +1,16 @@
+.trip-adder {
+    @extend .input-group;
+
+    &__name {
+        @extend .form-control;
+        border-radius: 0px !important;
+    }
+
+    &__actions {
+        @extend .input-group-btn;
+    }
+
+    &__add {
+        @extend %t-btn-add;
+    }
+}
