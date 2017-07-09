@@ -16,8 +16,16 @@ before_script:
  - npm run build
 
 deploy:
-  provider: heroku
-  api_key: $HEROKU_AUTH_KEY
-  app: golang-scaffolding
-  on:
-    all_branches: true
+  - provider: releases
+    user: $GITHUB_USERNAME
+    password: $GITHUB_PASSWORD
+    file_glob: true
+    file: ./*
+    skip_cleanup: true
+    on:
+      tags: true
+  - provider: heroku
+    api_key: $HEROKU_AUTH_KEY
+    app: golang-scaffolding
+    on:
+      all_branches: true
