@@ -17,8 +17,7 @@ before_script:
 
 deploy:
   - provider: releases
-    user: $GITHUB_USERNAME
-    password: $GITHUB_PASSWORD
+    api_key: $GITHUB_AUTH_TOKEN
     file_glob: true
     file: ./*
     skip_cleanup: true
