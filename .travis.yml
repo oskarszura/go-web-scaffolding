@@ -11,7 +11,7 @@ install:
   - nvm install stable
   - nvm use stable
   - npm install
-  - elm-package install
+  - elm-package install --yes
 
 before_script:
  - npm run build
