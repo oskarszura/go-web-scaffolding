@@ -3,7 +3,11 @@ language: go
 go:
   - 1.x
 
-deploy:
-  provider: heroku
-  api_key: $HEROKU_AUTH_KEY
-  app: golang-scaffolding
+jobs:
+  include:
+  - stage: deploy to production
+    script: skip
+    deploy:
+      provider: heroku
+      api_key: $HEROKU_AUTH_KEY
+      app: golang-scaffolding
