@@ -3,6 +3,9 @@ language: go
 go:
   - 1.x
 
+env:
+  - TRAVIS_NODE_VERSION="6.1.0"
+
 install:
   - npm install
 
