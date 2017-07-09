@@ -9,5 +9,5 @@ jobs:
     script: skip
     deploy:
       provider: heroku
-      api_key: $HEROKU_AUTH_KEY
+      api_key: Nwyhf4y9M/m5Xn7WfrSXGW6I8K+w6RWpKeGs1j6aCELWYdbeDW5q0BvPDbTk4J3ntxSnJAZsAkrI37s6R8IqTNjS+poUpsgeqw8XAZsr/78R+OaFpQKudpyQE3Wh7K66Z7Zk1i5p88LjVKAFv1pC/aN0UzWKPHzza7gcc2E/hPafITz9BT2smFu3UoO3ZJd8qEHYhLcMX4abBgwsbLlWKgr0qIcS8Hg4LUENIpM3WaBREEh6YL8/ZUSFjzz8+Yyi+/SEfq7WKuUCQHfZ24/X1jbOQuvZhaOD1SNJwrlKBK6ARx5d6f+uJicdSO8umbtoxYHYU2guJX8B/0lFjUgHuH3RS07XwT91GZQj4NGmlTgVN0IHMHgYH56JAD0U1z5tITVE+mgyGVaesvSfyTRUAwBlURWaT8EfaGXcn8PaBG5s4QWFNE9X6VpNXisBs2U4fCdjsKSaSPWkfKx6k4JsJtyBObTj3uFqVsSX77xqLnWbeYE91ObAuxGMJqAWFFZSc+YFR+n5Jks3UwkOYNSdlAyvQvGyb6W5CcvwInzQiECrwy+h7dC/nRbDQ7C41vml0gU7efnDPdK8ICgtJ4U9xp19ydh/RxpI9Bkt3qC7ycE8ITBT/cZo0OMlemfidl4BDgqMbtNPlQNpSBQQQkJAesZBnJziidCvH3v1RKZA+yE=
       app: golang-scaffolding
