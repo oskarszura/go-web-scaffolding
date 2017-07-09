@@ -26,5 +26,6 @@ deploy:
   - provider: heroku
     api_key: $HEROKU_AUTH_KEY
     app: golang-scaffolding
+    skip_cleanup: true
     on:
       all_branches: true
