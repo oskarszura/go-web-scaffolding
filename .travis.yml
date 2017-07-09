@@ -3,12 +3,15 @@ language: go
 go:
   - 1.x
 
-jobs:
-  include:
-  - stage: deploy to production
-    deploy:
-      provider: heroku
-      api_key: $HEROKU_AUTH_KEY
-      app: golang-scaffolding
-      on:
-        all_branches: true
+install:
+  - npm install
+
+before_script:
+ - npm run build
+
+deploy:
+  provider: heroku
+  api_key: $HEROKU_AUTH_KEY
+  app: golang-scaffolding
+  on:
+    all_branches: true
