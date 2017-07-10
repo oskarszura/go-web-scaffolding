@@ -15,14 +15,10 @@ before_script:
 deploy:
   - provider: releases
     api_key: $GITHUB_AUTH_TOKEN
-    file_glob: true
-    file: ./public/*
-    skip_cleanup: true
     on:
       tags: true
   - provider: heroku
     api_key: $HEROKU_AUTH_KEY
     app: golang-scaffolding
-    skip_cleanup: true
     on:
       all_branches: true
