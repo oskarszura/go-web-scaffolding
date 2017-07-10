@@ -11,6 +11,7 @@ install:
   - nvm install stable
   - nvm use stable
   - npm install
+  - elm upgrade
   - elm-package install --yes
 
 before_script:
