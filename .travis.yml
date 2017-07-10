@@ -3,13 +3,9 @@ language: go
 go:
   - 1.x
 
-env:
-  - TRAVIS_NODE_VERSION="6.1.0"
-
 install:
   - . $HOME/.nvm/nvm.sh
-  - nvm install stable
-  - nvm use stable
+  - nvm install
   - npm install
   - elm-package install --yes
 
