@@ -2,7 +2,7 @@
 // import { render } from 'react-dom';
 // import TripMap from './components/TripMap';
 
-const Elm = require('./trips/Main.elm');
+const Elm = require('./Trips/Main.elm');
 
 const tripNode = document.querySelector('.js-trips');
 
