@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/oskarszura/gowebscaffolding.svg?branch=master)](https://travis-ci.org/oskarszura/gowebscaffolding)
+[![Build Status](https://travis-ci.org/oskarszura/trips.svg?branch=master)](https://travis-ci.org/oskarszura/trips)
 
 # Golang Web Scaffolding
 
