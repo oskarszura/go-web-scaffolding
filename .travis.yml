@@ -2,3 +2,24 @@ language: go
 
 go:
   - 1.x
+
+install:
+  - . $HOME/.nvm/nvm.sh
+  - nvm install
+  - npm install
+  - elm-package install --yes
+
+before_script:
+ - npm run build
+
+deploy:
+  - provider: heroku
+    api_key: $HEROKU_AUTH_KEY
+    app: golang-scaffolding
+    skip_cleanup: true
+    on:
+      all_branches: true
+  - provider: releases
+    api_key: $GITHUB_AUTH_TOKEN
+    on:
+      tags: true
