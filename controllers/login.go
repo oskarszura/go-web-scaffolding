@@ -1,10 +1,11 @@
 package controllers
 
 import (
-	"net/http"
+    "log"
+    "errors"
 	"time"
+    "net/http"
 	"gopkg.in/mgo.v2/bson"
-	"log"
 	"github.com/oskarszura/trips/utils"
 	"github.com/oskarszura/trips/models"
 )
@@ -23,11 +24,18 @@ func Authenticate(w http.ResponseWriter, r *http.Request, params struct{Params m
 			password := r.PostFormValue("password")
 			expiration := time.Now().Add(365 * 24 * time.Hour)
 
-			if authenticateUser(user, password) {
+            authenticatedUser, authErr := authenticateUser(user, password)
+
+			if authErr == nil {
+                cookieValue := user + password
+
 				cookie := http.Cookie {
 					Name: "sid",
-					Value: user + password,
+					Value: cookieValue,
 					Expires: expiration }
+
+                session := utils.CreateSession(cookieValue)
+                session.Set("user", authenticatedUser)
 
 				http.SetCookie(w, &cookie)
 				http.Redirect(w, r, "/", http.StatusSeeOther)
@@ -39,7 +47,7 @@ func Authenticate(w http.ResponseWriter, r *http.Request, params struct{Params m
 	}
 }
 
-func authenticateUser(user string, password string) bool {
+func authenticateUser(user string, password string) (models.User, error) {
 	var loggedUser models.User
 
 	ds := utils.GetDataSource()
@@ -52,11 +60,10 @@ func authenticateUser(user string, password string) bool {
 
 	if err != nil {
 		log.Println("User not found err=", err)
-		return false
+		return models.User{}, errors.New("foobar")
 	}
 
 	log.Println("Logged in as user", loggedUser)
-	utils.SetUser(loggedUser)
 
-	return true
+	return loggedUser, nil
 }

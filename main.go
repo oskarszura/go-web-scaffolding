@@ -41,6 +41,7 @@ func main() {
     session.SetMode(mgo.Monotonic, true)
 
     utils.SetSession(session)
+    utils.InitializeSessions()
 
     server.Router.AddRoute("/login/register", controllers.Register)
     server.Router.AddRoute("/login/logout", controllers.AuthenticateLogout)
