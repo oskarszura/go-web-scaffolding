@@ -3,29 +3,18 @@ package utils
 import (
 	"os"
 	"gopkg.in/mgo.v2"
-	"github.com/oskarszura/trips/models"
 )
 
 var (
 	dBSession *mgo.Session
-	loggedUser models.User
 )
 
 func SetSession(session *mgo.Session) {
-	dBSession = session
+    dBSession = session
 }
 
 func GetSession() *mgo.Session {
-	return dBSession
-}
-
-func SetUser(user models.User) {
-	loggedUser.Username = user.Username
-	loggedUser.Id = user.Id
-}
-
-func GetUser() models.User {
-	return loggedUser
+    return dBSession
 }
 
 func GetDataSource() *mgo.Database {

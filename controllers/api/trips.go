@@ -20,8 +20,12 @@ func CtrTrips(w http.ResponseWriter, r *http.Request, params struct{Params map[s
 
 	switch r.Method {
 	case "GET":
+        cookie, _ := r.Cookie("sid")
+        session := utils.CreateSession(cookie.Value)
+        user := session.Get("user").(User)
+
 		pipe := c.Pipe([]bson.M{
-			{"$match": bson.M{"userid": utils.GetUser().Id}},
+			{"$match": bson.M{"userid": user.Id}},
 			{"$lookup": bson.M{
 			"from":"places",
 			"localField": "_id",
@@ -46,6 +50,10 @@ func CtrTrips(w http.ResponseWriter, r *http.Request, params struct{Params map[s
 	case "POST":
 		var newTrip Trip
 
+        cookie, _ := r.Cookie("sid")
+        session := utils.CreateSession(cookie.Value)
+        user := session.Get("user").(User)
+
 		decoder := json.NewDecoder(r.Body)
 		err := decoder.Decode(&newTrip)
 
@@ -55,7 +63,7 @@ func CtrTrips(w http.ResponseWriter, r *http.Request, params struct{Params map[s
 
 		newTrip = Trip{
 			Id: bson.NewObjectId(),
-			UserId: utils.GetUser().Id,
+			UserId: user.Id,
 			Name: newTrip.Name,
 			Places: PlaceList{},
 		}

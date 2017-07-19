@@ -21,10 +21,14 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options struct{Params map[s
 	case "GET":
 		tripId := options.Params["id"]
 
+        cookie, _ := r.Cookie("sid")
+        session := utils.CreateSession(cookie.Value)
+        user := session.Get("user").(User)
+
 		pipe := c.Pipe([]bson.M{
 			{"$match": bson.M{
 				"_id": bson.ObjectIdHex(tripId),
-				"userid": utils.GetUser().Id,
+				"userid": user.Id,
 			}},
 			{"$lookup": bson.M{
 				"from":"places",
@@ -48,6 +52,10 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options struct{Params map[s
 		var updatedTrip Trip
 
 		tripId := options.Params["id"]
+
+        cookie, _ := r.Cookie("sid")
+        session := utils.CreateSession(cookie.Value)
+        user := session.Get("user").(User)
 
 		decoder := json.NewDecoder(r.Body)
 		err := decoder.Decode(&updatedTrip)
@@ -73,7 +81,7 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options struct{Params map[s
 
 		err = c.UpdateId(bson.ObjectIdHex(tripId), Trip{
 			Name: updatedTrip.Name,
-			UserId:	utils.GetUser().Id,
+			UserId: user.Id,
 		})
 
 		if err != nil {
