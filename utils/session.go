@@ -3,6 +3,7 @@ package utils
 import (
 	"net/http"
     "github.com/oskarszura/trips/models"
+    "log"
 )
 
 type Session struct {
@@ -33,15 +34,13 @@ func CreateSession(sessionId string) Session {
 }
 
 func (session *Session) Get(key string) interface{} {
+    log.Println("----- session.Get", session.Variables[key])
     return session.Variables[key]
 }
 
 func (session *Session) Set(key string, value interface{}) {
+    log.Println("----- session.Set", value)
     session.Variables[key] = value
-}
-
-func GetUser() models.User {
-    return loggedUser
 }
 
 func IsLogged(r *http.Request) bool {
