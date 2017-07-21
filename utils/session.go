@@ -3,7 +3,6 @@ package utils
 import (
 	"net/http"
     "github.com/oskarszura/trips/models"
-    "log"
 )
 
 type Session struct {
