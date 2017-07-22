@@ -1,6 +1,11 @@
-GO := go
-NPM := npm
-ELMPKG := elm-package
+GOCMD=go
+GOBUILD=$(GOCMD) build
+
+NPM=npm
+NPMBUILD=$(NPM) run build
+
+ELMPKG=elm-package
+
 VERSION = $$(git tag | tail -n 1)
 
 .DEFAULT_GOAL := all
@@ -12,8 +17,8 @@ install:
 
 .PHONY: all
 all:
-	@GO build
-	@NPM run build
+	$(GOBUILD)
+	$(NPMBUILD)
 
 .PHONY: version
 version:
