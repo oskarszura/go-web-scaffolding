@@ -6,11 +6,6 @@ go:
 install:
   - . $HOME/.nvm/nvm.sh
   - nvm install
-  - npm install
-  - elm-package install --yes
-
-before_script:
- - npm run build
 
 deploy:
   - provider: heroku
