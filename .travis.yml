@@ -6,6 +6,7 @@ go:
 install:
   - . $HOME/.nvm/nvm.sh
   - nvm install
+  - make install
 
 deploy:
   - provider: heroku
