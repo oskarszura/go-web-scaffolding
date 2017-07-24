@@ -1,12 +1,12 @@
 package utils
 
 import (
-	"net/http"
-	"html/template"
-	"os"
-	"path/filepath"
-	"log"
-	"github.com/oskarszura/trips/gowebserver/models"
+    "os"
+    "log"
+    "net/http"
+    "path/filepath"
+    "html/template"
+    "github.com/oskarszura/trips/gowebserver/models"
 )
 
 func RenderTemplate(w http.ResponseWriter, r *http.Request, name string) {
@@ -18,6 +18,6 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, name string) {
 
 	template := template.Must(template.ParseFiles(dir + "/views/" + name + ".html",
 		dir + "/views/navigation.html", dir + "/views/view.html"))
-	templateModel := models.Page{name, IsLogged(r)}
+	templateModel := models.Page{VERSION,name, IsLogged(r)}
 	template.ExecuteTemplate(w, "base", templateModel)
 }

@@ -1,6 +1,7 @@
 package models
 
 type Page struct {
-	Title string
-	IsLogged bool
+    Version string
+    Title string
+    IsLogged bool
 }

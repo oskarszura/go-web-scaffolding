@@ -1,5 +1,7 @@
+VERSION=$(shell git tag | tail -n 1)
+
 GOCMD=go
-GOBUILD=$(GOCMD) build
+GOBUILD=$(GOCMD) build -ldflags '-X main.VERSION=$(VERSION)'
 
 NPM=npm
 NPMINSTALL=$(NPM) install
@@ -7,8 +9,6 @@ NPMBUILD=$(NPM) run build
 
 ELMPKG=elm-package
 ELMPKGINSTALL=$(ELMPKG) install --yes
-
-VERSION = $$(git tag | tail -n 1)
 
 .DEFAULT_GOAL := all
 
@@ -24,5 +24,5 @@ all:
 
 .PHONY: version
 version:
-	@echo "Version: ${VERSION}"
+	@echo "Version: $(VERSION)"
 

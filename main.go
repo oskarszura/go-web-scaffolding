@@ -20,11 +20,17 @@ func determineListenAddress() (string, error) {
     return ":" + port, nil
 }
 
-var server goWebServer.WebServer
+var (
+    VERSION string
+    server goWebServer.WebServer
+)
 
 func main() {
     dbUri := os.Getenv("MONGOLAB_URI")
     addr, err := determineListenAddress()
+
+    utils.VERSION = VERSION
+    log.Println("Starting trips version:", utils.VERSION)
 
     log.Println("Connecting to mgo with URI = " + dbUri)
 
