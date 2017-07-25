@@ -1,6 +1,6 @@
 {
   "name": "gowebscaffolding",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "## About the project A complete, full-stack, generic website scaffolding project for Go based websites.",
   "main": "index.js",
   "scripts": {
