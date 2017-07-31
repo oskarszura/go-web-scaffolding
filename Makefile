@@ -1,4 +1,4 @@
-VERSION=$(shell git tag | tail -n 1)
+VERSION=0.0.3 #$(shell git tag | tail -n 1)
 
 GOCMD=go
 GOBUILD=$(GOCMD) build -ldflags '-X main.VERSION=$(VERSION)'
