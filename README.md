@@ -3,6 +3,5 @@
 # Golang Web Scaffolding
 
 ## About the project
-
-
-See [Demo page](https://golang-scaffolding.herokuapp.com)
+* [Project board](https://trello.com/b/CgTjQgmf/project-trips)
+* [Stage ENV](https://golang-scaffolding.herokuapp.com)
