@@ -17,7 +17,8 @@ deploy:
       all_branches: true
   - provider: releases
     api_key: $GITHUB_AUTH_TOKEN
-    file:
-      - "trips"
+    file_glob: true
+    file: ./trips
+    skip_cleanup: true
     on:
       tags: true
