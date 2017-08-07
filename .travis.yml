@@ -11,8 +11,10 @@ install:
 deploy:
   - provider: heroku
     api_key: $HEROKU_AUTH_KEY
-    app: trips
+    app: golang-scaffolding
     skip_cleanup: true
+    run:
+      - "make all"
     on:
       all_branches: true
   - provider: releases
