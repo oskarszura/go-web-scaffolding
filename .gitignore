@@ -7,4 +7,6 @@ elm-stuff/
 
 public/
 
+version.go
+
 trips

@@ -1,7 +1,8 @@
 VERSION=$(shell git tag | tail -n 1)
 
 GOCMD=go
-GOBUILD=$(GOCMD) build -ldflags '-X main.VERSION=$(VERSION)' -o trips
+GOGENERATE=$(GOCMD) generate
+GOBUILD=$(GOCMD) build -o trips
 
 NPM=npm
 NPMINSTALL=$(NPM) install
@@ -19,6 +20,7 @@ install:
 
 .PHONY: all
 all:
+	$(GOGENERATE)
 	$(GOBUILD)
 	$(NPMBUILD)
 

@@ -21,9 +21,10 @@ func determineListenAddress() (string, error) {
 }
 
 var (
-    VERSION string
     server goWebServer.WebServer
 )
+
+//go:generate bash ./scripts/version.sh ./scripts/version_tpl.txt ./version.go
 
 func main() {
     dbUri := os.Getenv("MONGOLAB_URI")
