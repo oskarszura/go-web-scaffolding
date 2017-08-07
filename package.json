@@ -1,6 +1,6 @@
 {
   "name": "trips",
-  "version": "0.0.3",
+  "version": "0.0.9",
   "description": "## About the project A complete, full-stack, generic website scaffolding project for Go based websites.",
   "main": "index.js",
   "scripts": {
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oskarszura/gowebscaffolding.git"
+    "url": "https://github.com/oskarszura/trips.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/oskarszura/gowebscaffolding/issues"
+    "url": "https://github.com/oskarszura/trips/issues"
   },
-  "homepage": "https://github.com/oskarszura/gowebscaffolding",
+  "homepage": "https://github.com/oskarszura/trips",
   "dependencies": {
     "autoprefixer": "^6.5.0",
     "babel-core": "^6.23.1",
