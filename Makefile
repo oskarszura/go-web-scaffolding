@@ -1,7 +1,7 @@
 VERSION=$(shell git tag | tail -n 1)
 
 GOCMD=go
-GOBUILD=$(GOCMD) build -ldflags '-X main.VERSION=$(VERSION)'
+GOBUILD=$(GOCMD) build -ldflags '-X main.VERSION=$(VERSION)' -o trips
 
 NPM=npm
 NPMINSTALL=$(NPM) install
