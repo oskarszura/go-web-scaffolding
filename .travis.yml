@@ -13,10 +13,11 @@ deploy:
     api_key: $HEROKU_AUTH_KEY
     app: golang-scaffolding
     skip_cleanup: true
-    file: "trips"
     on:
       all_branches: true
   - provider: releases
     api_key: $GITHUB_AUTH_TOKEN
+    file:
+      - "trips"
     on:
       tags: true
