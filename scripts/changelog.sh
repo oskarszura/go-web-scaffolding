@@ -8,4 +8,4 @@ LOGFILE=./docs/changelogs/CHANGELOG_$NEWER_TAG.md
 
 echo $HEADER > $LOGFILE
 
-git log $OLDER_TAG..$NEWER_TAG --pretty=format:'[[%s]('$REPOSITORY'/commit/%H)]' >> $LOGFILE
+git log $OLDER_TAG..$NEWER_TAG --pretty=format:'[[%H]('$REPOSITORY'/commit/%H)] - %s' >> $LOGFILE
