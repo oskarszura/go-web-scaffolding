@@ -9,4 +9,9 @@ LOGFILE=./docs/changelogs/CHANGELOG_$NEWER_TAG.md
 echo $HEADER > $LOGFILE
 echo "### Commits" >> $LOGFILE
 
-git log $OLDER_TAG..$NEWER_TAG --pretty=format:'* [[`%h`]('$REPOSITORY'/commit/%H)] - %s (%an)' >> $LOGFILE
+if [ -z "$OLDER_TAG" ]
+then
+    git log $NEWER_TAG --pretty=format:'* [[`%h`]('$REPOSITORY'/commit/%H)] - %s (%an)' >> $LOGFILE
+else
+    git log $OLDER_TAG..$NEWER_TAG --pretty=format:'* [[`%h`]('$REPOSITORY'/commit/%H)] - %s (%an)' >> $LOGFILE
+fi
