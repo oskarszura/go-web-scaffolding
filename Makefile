@@ -1,5 +1,7 @@
 VERSION=$(shell git tag | tail -n 1)
 
+CHANGELOG=$(shell ./scripts/changelog.sh)
+
 GOCMD=go
 GOGENERATE=$(GOCMD) generate
 GOBUILD=$(GOCMD) build -o trips
@@ -23,6 +25,11 @@ all:
 	$(GOGENERATE)
 	$(GOBUILD)
 	$(NPMBUILD)
+
+.PHONY: changelog
+changelog:
+	$(CHANGELOG)
+	@echo "Changelog generated for version $(VERSION)"
 
 .PHONY: version
 version:
