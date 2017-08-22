@@ -32,7 +32,7 @@ module.exports = {
         loader: 'elm-webpack?verbose=true&warn=true',
       },
       {
-        test: /\.jpg/,
+        test: /\.jpg|.png/,
         loader: 'file-loader',
       },
     ],
