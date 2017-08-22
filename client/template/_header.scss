@@ -6,6 +6,10 @@ $header-archor-padding: 15px 10px;
     border-bottom: 1px solid $color-mercury;
 
     &__logo {
+        background-image: url('./assets/trips-logo.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 70%;
         flex-basis: 10%;
         flex-grow: 1;
         display: block;
