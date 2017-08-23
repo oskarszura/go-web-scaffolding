@@ -38,15 +38,15 @@ changelog:
 
 .PHONY: version
 version:
-	$(GITTAG) --delete $(V)
+	$(GITTAG) --delete $(V) || true
 	$(GITTAG) $(V)
 	$(CHANGELOG)
 	$(GITADD) ./docs/changelogs/CHANGELOG_$(V)
-	$(GITCOMMIT) -m "Generate changelog for $(V)"
+	$(GITCOMMIT) -m "Generate changelog for $(V)" || true
 	$(GOGENERATE)
 	$(GITADD) ./version.go
-	$(GITCOMMIT) -m "Build $(V)"
-	$(GITTAG) --delete $(V)
+	$(GITCOMMIT) -m "Build $(V)" || true
+	$(GITTAG) --delete $(V) || true
 	$(GITTAG) $(V)
 
 
