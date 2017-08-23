@@ -42,7 +42,7 @@ version:
 	$(CHANGELOG)
 	$(GITADD)
 	$(GITCOMMIT) -m "Generate changelog for $(V)"
-	$(GITTAG) -delete $(V)
+	$(GITTAG) --delete $(V)
 	$(GOGENERATE)
 	$(GITADD)
 	$(GITCOMMIT) -m "Build $(V)"
