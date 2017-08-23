@@ -1,5 +1,6 @@
 # Changelog from v0.0.2
 ### Commits
+* [[`e0fbc43`](http://github.com/oskarszura/trips/commit/e0fbc4345d817c9c4904bb000aad1caccf862562)] - Build v0.0.2 (oskarszura)
 * [[`0eb084f`](http://github.com/oskarszura/trips/commit/0eb084f3556242534c451e806f802bc55c159de6)] - Merge pull request #28 from oskarszura/TRIPS-32 (Oskar Szura)
 * [[`1ed7812`](http://github.com/oskarszura/trips/commit/1ed78128b1d6dd360eda1320eddc0bfc88f0f309)] - Merge pull request #27 from oskarszura/TRIPS-31 (Oskar Szura)
 * [[`d45cb98`](http://github.com/oskarszura/trips/commit/d45cb9892da6e9b91fcfaa1816834111f45f0885)] - TRIPS-32 - Design and implement footer with semver (oskarszura)

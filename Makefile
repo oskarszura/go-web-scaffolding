@@ -2,6 +2,11 @@ VERSION=$(shell git tag | tail -n 1)
 
 CHANGELOG=$(shell ./scripts/changelog.sh)
 
+GIT=git
+GITTAG=$(GIT) tag
+GITADD=$(GIT) add -A
+GITCOMMIT=$(GIT) commit
+
 GOCMD=go
 GOGENERATE=$(GOCMD) generate
 GOBUILD=$(GOCMD) build -o trips
@@ -33,5 +38,14 @@ changelog:
 
 .PHONY: version
 version:
-	@echo "Version: $(VERSION)"
+	$(GITTAG) $(V)
+	$(CHANGELOG)
+	$(GITADD)
+	$(GITCOMMIT) -m "Generate changelog for $(V)"
+	$(GITTAG) -delete $(V)
+	$(GOGENERATE)
+	$(GITADD)
+	$(GITCOMMIT) -m "Build $(V)"
+	$(GITTAG) $(V)
+
 
