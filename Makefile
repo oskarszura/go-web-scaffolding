@@ -41,10 +41,10 @@ version:
 	$(GITTAG) --delete $(V) || true
 	$(GITTAG) $(V)
 	$(CHANGELOG)
-	$(GITADD) ./docs/changelogs/CHANGELOG_$(V)
+	$(GITADD) ./docs/changelogs/CHANGELOG_$(V) || true
 	$(GITCOMMIT) -m "Generate changelog for $(V)" || true
 	$(GOGENERATE)
-	$(GITADD) ./version.go
+	$(GITADD) ./version.go || true
 	$(GITCOMMIT) -m "Build $(V)" || true
 	$(GITTAG) --delete $(V) || true
 	$(GITTAG) $(V)
