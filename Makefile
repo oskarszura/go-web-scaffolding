@@ -38,14 +38,15 @@ changelog:
 
 .PHONY: version
 version:
+	$(GITTAG) --delete $(V)
 	$(GITTAG) $(V)
 	$(CHANGELOG)
 	$(GITADD)
 	$(GITCOMMIT) -m "Generate changelog for $(V)"
-	$(GITTAG) --delete $(V)
 	$(GOGENERATE)
 	$(GITADD)
 	$(GITCOMMIT) -m "Build $(V)"
+	$(GITTAG) --delete $(V)
 	$(GITTAG) $(V)
 
 
