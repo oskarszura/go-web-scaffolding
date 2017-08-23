@@ -1,5 +1,8 @@
 # Changelog from v0.0.3
 ### Commits
+* [[`f6959f3`](http://github.com/oskarszura/trips/commit/f6959f3188936384d41975ad827d81957c525670)] - TRIPS-33 - Implement script which does versioning automatically (oskarszura)
+* [[`1e47336`](http://github.com/oskarszura/trips/commit/1e473360f6d3a7d5049722ef8bbc17d4d2c6d56d)] - TRIPS-33 - Implement script which does versioning automatically (oskarszura)
+* [[`c4fc73c`](http://github.com/oskarszura/trips/commit/c4fc73c79651488d60c8a5a30b12849980132c5c)] - TRIPS-33 - Implement script which does versioning automatically (oskarszura)
 * [[`279fd8a`](http://github.com/oskarszura/trips/commit/279fd8a58a0ee3a93b95dad8ffd2c48881dd0d6a)] - Generate changelog for v0.0.3 (oskarszura)
 * [[`7d29346`](http://github.com/oskarszura/trips/commit/7d2934679c972eb1051dccee464ef0f749f83606)] - Generate changelog for (oskarszura)
 * [[`dec1a38`](http://github.com/oskarszura/trips/commit/dec1a386f38cce851f722546ad3aa4cb42b9d019)] - Generate changelog for (oskarszura)
