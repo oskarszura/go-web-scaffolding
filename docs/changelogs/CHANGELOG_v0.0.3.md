@@ -1,5 +1,6 @@
 # Changelog from v0.0.3
 ### Commits
+* [[`279fd8a`](http://github.com/oskarszura/trips/commit/279fd8a58a0ee3a93b95dad8ffd2c48881dd0d6a)] - Generate changelog for v0.0.3 (oskarszura)
 * [[`7d29346`](http://github.com/oskarszura/trips/commit/7d2934679c972eb1051dccee464ef0f749f83606)] - Generate changelog for (oskarszura)
 * [[`dec1a38`](http://github.com/oskarszura/trips/commit/dec1a386f38cce851f722546ad3aa4cb42b9d019)] - Generate changelog for (oskarszura)
 * [[`360f4c0`](http://github.com/oskarszura/trips/commit/360f4c06fdd4cb1328a70eb9d7b180b00fe9b13e)] - Merge pull request #29 from oskarszura/TRIPS-34 (Oskar Szura)

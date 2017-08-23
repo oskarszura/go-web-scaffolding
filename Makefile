@@ -4,7 +4,7 @@ CHANGELOG=$(shell ./scripts/changelog.sh)
 
 GIT=git
 GITTAG=$(GIT) tag
-GITADD=$(GIT) add -A
+GITADD=$(GIT) add
 GITCOMMIT=$(GIT) commit
 
 GOCMD=go
@@ -41,10 +41,10 @@ version:
 	$(GITTAG) --delete $(V)
 	$(GITTAG) $(V)
 	$(CHANGELOG)
-	$(GITADD)
+	$(GITADD) ./docs/changelogs/CHANGELOG_$(V)
 	$(GITCOMMIT) -m "Generate changelog for $(V)"
 	$(GOGENERATE)
-	$(GITADD)
+	$(GITADD) ./version.go
 	$(GITCOMMIT) -m "Build $(V)"
 	$(GITTAG) --delete $(V)
 	$(GITTAG) $(V)
