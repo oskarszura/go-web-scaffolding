@@ -1,7 +1,9 @@
+$splash-height: 350px;
+
 .splash {
     background-image: url('./assets/main-theme-bg.jpg');
     background-attachment: fixed;
     background-size: cover;
-    height: 350px;
+    height: $splash-height;
     width: 100%;
 }
