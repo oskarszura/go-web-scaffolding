@@ -47,7 +47,7 @@ func TestIsLogged(t *testing.T) {
         isLogged := IsLogged(req)
 
         if !isLogged {
-            t.Errorf("User shouldn't be recognised as logged")
+            t.Errorf("User shouldn be recognised as logged")
         }
     })
 
@@ -57,7 +57,7 @@ func TestIsLogged(t *testing.T) {
         req := &http.Request{}
         isLogged := IsLogged(req)
 
-        if !isLogged {
+        if isLogged {
             t.Errorf("User shouldn't be recognised as logged")
         }
     })
