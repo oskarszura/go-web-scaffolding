@@ -2,7 +2,6 @@ package utils
 
 import (
 	"net/http"
-    "github.com/oskarszura/trips/models"
 )
 
 type Session struct {
@@ -10,12 +9,15 @@ type Session struct {
 }
 
 var (
-    loggedUser models.User
     sessions map[string]Session
 )
 
 func InitializeSessions() {
     sessions = make(map[string]Session)
+}
+
+func GetSessions() map[string]Session {
+    return sessions
 }
 
 func CreateSession(sessionId string) Session {
@@ -41,13 +43,18 @@ func (session *Session) Set(key string, value interface{}) {
 }
 
 func IsLogged(r *http.Request) bool {
-	_, err := r.Cookie("sid")
-	isLogged := false
+	sessionCookie, err := r.Cookie("sid")
 
-	if err != nil {
-		isLogged = true
-	}
+    if err == http.ErrNoCookie {
+        return false
+    } else if err != nil {
+        return false
+    }
 
-	return isLogged
+    if _, ok := sessions[sessionCookie.Value]; ok {
+        return true
+    }
+
+	return false
 }
 

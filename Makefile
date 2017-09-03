@@ -10,6 +10,7 @@ GITCOMMIT=$(GIT) commit
 GOCMD=go
 GOGENERATE=$(GOCMD) generate
 GOBUILD=$(GOCMD) build -o trips
+GOTEST=$(GOCMD) test ./...
 
 NPM=npm
 NPMINSTALL=$(NPM) install
@@ -30,6 +31,10 @@ all:
 	$(GOGENERATE)
 	$(GOBUILD)
 	$(NPMBUILD)
+
+.PHONY: test
+test:
+	$(GOTEST)
 
 .PHONY: changelog
 changelog:
@@ -59,6 +64,9 @@ help:
 	@echo  '* Build:'
 	@echo  '- all (default)   - Default phony task that builds (client and'
 	@echo  '                    and server - sided) binaries'
+	@echo  ''
+	@echo  '* Tests:'
+	@echo  '- test (default)   - Phony task that runs all unit tests'
 	@echo  ''
 	@echo  '* Release:'
 	@echo  '- version         - Phony task. Creates changelog from latest'
