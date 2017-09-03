@@ -54,7 +54,7 @@ func TestIsLogged(t *testing.T) {
     t.Run("Should return false if user doesn't have session cookie",
         func(t *testing.T) {
 
-        req := &http.Request{}g
+        req := &http.Request{}
         isLogged := IsLogged(req)
 
         if !isLogged {
