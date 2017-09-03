@@ -6,11 +6,12 @@ import (
     "net/http"
     "path/filepath"
     "html/template"
-    "github.com/oskarszura/trips/gowebserver/models"
+    . "github.com/oskarszura/trips/models"
+    gwsSession "github.com/oskarszura/trips/gowebserver/session"
 )
 
 func RenderTemplate(w http.ResponseWriter, r *http.Request, name string) {
-    isLogged := IsLogged(r)
+    isLogged := gwsSession.IsLogged(r)
 
     if !isLogged && r.URL.Path != "/login" {
         http.Redirect(w, r, "/login", http.StatusSeeOther)
@@ -24,6 +25,6 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, name string) {
 
 	template := template.Must(template.ParseFiles(dir + "/views/" + name + ".html",
 		dir + "/views/navigation.html", dir + "/views/view.html"))
-	templateModel := models.Page{VERSION,name, isLogged}
+	templateModel := Page{VERSION,name, isLogged}
 	template.ExecuteTemplate(w, "base", templateModel)
 }

@@ -5,16 +5,10 @@ import (
 	"gopkg.in/mgo.v2"
 )
 
-var (
-	dBSession *mgo.Session
-)
+var dBSession *mgo.Session
 
 func SetSession(session *mgo.Session) {
     dBSession = session
-}
-
-func GetSession() *mgo.Session {
-    return dBSession
 }
 
 func GetDataSource() *mgo.Database {

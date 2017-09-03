@@ -1,4 +1,4 @@
-package gowebserver
+package router
 
 import (
 	"regexp"
@@ -8,19 +8,9 @@ import (
 	"github.com/oskarszura/trips/gowebserver/utils"
 )
 
-type ControllerHandler func(http.ResponseWriter, *http.Request,
-    struct{Params map[string]string})
-
-type UrlRoute struct {
-	urlRegExp string
-	method    string
-	handler	  ControllerHandler
-	params	  map[string]int
-}
-
 type UrlRouter struct {
-	urlRoutes 		[]UrlRoute
-	pageNotFoundController	ControllerHandler
+    urlRoutes 		[]UrlRoute
+    pageNotFoundController	ControllerHandler
 }
 
 func (router *UrlRouter) findRoute (path string) UrlRoute {
@@ -36,7 +26,7 @@ func (router *UrlRouter) findRoute (path string) UrlRoute {
 	}
 }
 
-func (router *UrlRouter) route(w http.ResponseWriter, r *http.Request)  {
+func (router *UrlRouter) Route(w http.ResponseWriter, r *http.Request)  {
 	urlPath := r.URL.Path
 	route := router.findRoute(urlPath)
 	params := make(map[string]string)
@@ -48,9 +38,9 @@ func (router *UrlRouter) route(w http.ResponseWriter, r *http.Request)  {
 		}
 	}
 
-	urlOptions := &struct{
-		Params map[string]string
-	}{params}
+	urlOptions := &UrlOptions{
+		 params,
+	}
 
 	log.Println("Navigating to url = " + urlPath + " vs route = " +
         route.urlRegExp)

@@ -6,11 +6,13 @@ import (
 	"time"
     "net/http"
 	"gopkg.in/mgo.v2/bson"
-	"github.com/oskarszura/trips/utils"
 	"github.com/oskarszura/trips/models"
+    "github.com/oskarszura/trips/utils"
+    gwsSession "github.com/oskarszura/trips/gowebserver/session"
+    gwsRouter "github.com/oskarszura/trips/gowebserver/router"
 )
 
-func Authenticate(w http.ResponseWriter, r *http.Request, params struct{Params map[string]string}) {
+func Authenticate(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions) {
 	defer r.Body.Close()
 
 	switch r.Method {
@@ -34,7 +36,7 @@ func Authenticate(w http.ResponseWriter, r *http.Request, params struct{Params m
 					Value: cookieValue,
 					Expires: expiration }
 
-                session := utils.CreateSession(cookieValue)
+                session := gwsSession.CreateSession(cookieValue)
                 session.Set("user", authenticatedUser)
 
 				http.SetCookie(w, &cookie)

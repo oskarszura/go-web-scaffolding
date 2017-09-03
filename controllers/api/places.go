@@ -7,12 +7,13 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"github.com/oskarszura/trips/utils"
 	. "github.com/oskarszura/trips/models"
+    gwsRouter "github.com/oskarszura/trips/gowebserver/router"
 )
 
 
 type PlaceList []Place
 
-func CtrPlaces(w http.ResponseWriter, r *http.Request, options struct{Params map[string]string}) {
+func CtrPlaces(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions) {
 	var places []Place
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")

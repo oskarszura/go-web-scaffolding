@@ -1,23 +1,33 @@
 package gowebserver
 
 import (
+    "log"
 	"net/http"
-	"log"
+    "github.com/oskarszura/trips/gowebserver/router"
+    "github.com/oskarszura/trips/gowebserver/session"
 )
 
-type WebServer struct {
-	Router		UrlRouter
+type WebServerOptions struct {
+    Port            string
+    StaticFilesUrl  string
+    StaticFilesDir  string
 }
 
-func (s *WebServer) Run(port string) {
-	staticFileServer := http.FileServer(http.Dir("public"))
+type WebServer struct {
+	Router		router.UrlRouter
+}
 
-	http.Handle("/static/", http.StripPrefix("/static/", staticFileServer))
-	http.HandleFunc("/", s.Router.route)
+func (s *WebServer) Run(options WebServerOptions) {
+    session.InitializeSessions()
+	staticFileServer := http.FileServer(http.Dir(options.StaticFilesDir))
 
-	log.Println("Server listening on port = " + port + " ...")
+	http.Handle(options.StaticFilesUrl,
+        http.StripPrefix(options.StaticFilesUrl, staticFileServer))
+	http.HandleFunc("/", s.Router.Route)
 
-	err := http.ListenAndServe(port, nil)
+	log.Println("Server listening on port = " + options.Port + " ...")
+
+	err := http.ListenAndServe(options.Port, nil)
 
 	if err != nil {
 		log.Fatal("Server failed: ", err)

@@ -7,10 +7,11 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"github.com/oskarszura/trips/utils"
 	. "github.com/oskarszura/trips/models"
+    gwsRouter "github.com/oskarszura/trips/gowebserver/router"
 )
 
 
-func CtrPlace(w http.ResponseWriter, r *http.Request, options struct{Params map[string]string}) {
+func CtrPlace(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	ds := utils.GetDataSource()
 	c := ds.C("places")
@@ -24,7 +25,7 @@ func CtrPlace(w http.ResponseWriter, r *http.Request, options struct{Params map[
 			log.Fatalln(err)
 		}
 
-		output := &utils.HalResponse{
+		output := &HalResponse{
 			Status: 200,
 		}
 

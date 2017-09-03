@@ -1,16 +1,10 @@
-package utils
+package session
 
 import (
 	"net/http"
 )
 
-type Session struct {
-    Variables map[string]interface{}
-}
-
-var (
-    sessions map[string]Session
-)
+var sessions map[string]Session
 
 func InitializeSessions() {
     sessions = make(map[string]Session)
@@ -32,14 +26,6 @@ func CreateSession(sessionId string) Session {
     sessions[sessionId] = session
 
     return session
-}
-
-func (session *Session) Get(key string) interface{} {
-    return session.Variables[key]
-}
-
-func (session *Session) Set(key string, value interface{}) {
-    session.Variables[key] = value
 }
 
 func IsLogged(r *http.Request) bool {

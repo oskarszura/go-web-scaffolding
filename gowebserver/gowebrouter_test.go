@@ -2,6 +2,6 @@ package gowebserver
 
 import "testing"
 
-func TestAddRoute(t *testing.T) {
+func TestWebServer(t *testing.T) {
 
 }
