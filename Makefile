@@ -10,6 +10,7 @@ GITCOMMIT=$(GIT) commit
 GOCMD=go
 GOGENERATE=$(GOCMD) generate
 GOBUILD=$(GOCMD) build -o trips
+GOTEST=$(GOCMD) test ./...
 
 NPM=npm
 NPMINSTALL=$(NPM) install
@@ -30,6 +31,10 @@ all:
 	$(GOGENERATE)
 	$(GOBUILD)
 	$(NPMBUILD)
+
+.PHONY: test
+test:
+	$(GOTEST)
 
 .PHONY: changelog
 changelog:
