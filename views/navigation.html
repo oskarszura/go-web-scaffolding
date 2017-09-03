@@ -10,7 +10,7 @@
                     Home
                 </a>
             </li>
-            {{if .IsLogged}}
+            {{if not .IsLogged}}
             <li class="header__navigation-option"
                 role="presentation">
                 <a href="/login">
@@ -18,7 +18,7 @@
                 </a>
             </li>
             {{end}}
-            {{if not .IsLogged}}
+            {{if .IsLogged}}
             <li class="header__navigation-option"
                 role="presentation">
                 <a href="/trips">

@@ -45,9 +45,11 @@ func (session *Session) Set(key string, value interface{}) {
 func IsLogged(r *http.Request) bool {
 	sessionCookie, err := r.Cookie("sid")
 
-	if err != nil {
-        return true
-	}
+    if err == http.ErrNoCookie {
+        return false
+    } else if err != nil {
+        return false
+    }
 
     if _, ok := sessions[sessionCookie.Value]; ok {
         return true

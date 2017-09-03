@@ -12,7 +12,7 @@ import (
 func RenderTemplate(w http.ResponseWriter, r *http.Request, name string) {
     isLogged := IsLogged(r)
 
-    if !isLogged {
+    if !isLogged && r.URL.Path != "/login" {
         http.Redirect(w, r, "/login", http.StatusSeeOther)
     }
 
