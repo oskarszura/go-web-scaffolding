@@ -1,4 +1,4 @@
-package utils
+package models
 
 type HalResponse struct {
 	Status	int

@@ -5,10 +5,10 @@ import (
     "log"
     "fmt"
     "gopkg.in/mgo.v2"
-    goWebServer "github.com/oskarszura/trips/gowebserver"
     "github.com/oskarszura/trips/controllers"
     "github.com/oskarszura/trips/controllers/api"
     "github.com/oskarszura/trips/utils"
+    gws "github.com/oskarszura/gowebserver"
 )
 
 func determineListenAddress() (string, error) {
@@ -21,7 +21,7 @@ func determineListenAddress() (string, error) {
 }
 
 var (
-    server goWebServer.WebServer
+    server gws.WebServer
 )
 
 //go:generate bash ./scripts/version.sh ./scripts/version_tpl.txt ./version.go
@@ -29,28 +29,21 @@ var (
 func main() {
     dbUri := os.Getenv("MONGOLAB_URI")
     addr, err := determineListenAddress()
+    if err != nil {
+        panic(err)
+    }
 
     utils.VERSION = VERSION
     log.Println("Starting trips version:", utils.VERSION)
 
     log.Println("Connecting to mgo with URI = " + dbUri)
-
+    dbSession, err := mgo.Dial(dbUri)
     if err != nil {
         panic(err)
     }
-
-    session, err := mgo.Dial(dbUri)
-    if err != nil {
-        panic(err)
-    }
-    defer session.Close()
-
-    session.SetMode(mgo.Monotonic, true)
-
-    utils.SetSession(session)
-    utils.InitializeSessions()
-
-
+    defer dbSession.Close()
+    dbSession.SetMode(mgo.Monotonic, true)
+    utils.SetSession(dbSession)
 
     server.Router.AddRoute("/login/register", controllers.Register)
     server.Router.AddRoute("/login/logout",
@@ -64,5 +57,11 @@ func main() {
     server.Router.AddRoute("/api/places/{id}", api.CtrPlace)
     server.Router.AddNotFoundRoute(controllers.NotFound)
 
-    server.Run(addr)
+    serverOptions := gws.WebServerOptions{
+        addr,
+        "/static/",
+        "public",
+    }
+
+    server.Run(serverOptions)
 }

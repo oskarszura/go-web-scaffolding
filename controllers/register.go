@@ -6,9 +6,10 @@ import (
 	"github.com/oskarszura/trips/utils"
 	"github.com/oskarszura/trips/models"
 	"gopkg.in/mgo.v2/bson"
+    gwsRouter "github.com/oskarszura/gowebserver/router"
 )
 
-func Register(w http.ResponseWriter, r *http.Request, params struct{Params map[string]string}) {
+func Register(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions) {
 	switch r.Method {
 	case "GET":
 		utils.RenderTemplate(w, r, "register")

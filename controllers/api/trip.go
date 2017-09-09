@@ -6,10 +6,12 @@ import (
 	"encoding/json"
 	"gopkg.in/mgo.v2/bson"
 	"github.com/oskarszura/trips/utils"
-	. "github.com/oskarszura/trips/models"
+    . "github.com/oskarszura/trips/models"
+    gwsSession "github.com/oskarszura/gowebserver/session"
+    gwsRouter "github.com/oskarszura/gowebserver/router"
 )
 
-func CtrTrip(w http.ResponseWriter, r *http.Request, options struct{Params map[string]string}) {
+func CtrTrip(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions) {
 	var trip Trip
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
@@ -22,7 +24,7 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options struct{Params map[s
 		tripId := options.Params["id"]
 
         cookie, _ := r.Cookie("sid")
-        session := utils.CreateSession(cookie.Value)
+        session := gwsSession.CreateSession(cookie.Value)
         user := session.Get("user").(User)
 
 		pipe := c.Pipe([]bson.M{
@@ -54,7 +56,7 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options struct{Params map[s
 		tripId := options.Params["id"]
 
         cookie, _ := r.Cookie("sid")
-        session := utils.CreateSession(cookie.Value)
+        session := gwsSession.CreateSession(cookie.Value)
         user := session.Get("user").(User)
 
 		decoder := json.NewDecoder(r.Body)
@@ -99,7 +101,7 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options struct{Params map[s
 			log.Fatalln(err)
 		}
 
-		output := &utils.HalResponse{
+		output := &HalResponse{
 			Status: 200,
 		}
 
