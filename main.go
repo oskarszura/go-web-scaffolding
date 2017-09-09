@@ -8,7 +8,7 @@ import (
     "github.com/oskarszura/trips/controllers"
     "github.com/oskarszura/trips/controllers/api"
     "github.com/oskarszura/trips/utils"
-    gws "github.com/oskarszura/trips/gowebserver"
+    gws "github.com/oskarszura/gowebserver"
 )
 
 func determineListenAddress() (string, error) {

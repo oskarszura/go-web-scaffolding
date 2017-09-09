@@ -7,7 +7,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"github.com/oskarszura/trips/utils"
 	. "github.com/oskarszura/trips/models"
-    gwsRouter "github.com/oskarszura/trips/gowebserver/router"
+    gwsRouter "github.com/oskarszura/gowebserver/router"
 )
 
 

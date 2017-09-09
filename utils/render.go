@@ -7,7 +7,7 @@ import (
     "path/filepath"
     "html/template"
     . "github.com/oskarszura/trips/models"
-    gwsSession "github.com/oskarszura/trips/gowebserver/session"
+    gwsSession "github.com/oskarszura/gowebserver/session"
 )
 
 func RenderTemplate(w http.ResponseWriter, r *http.Request, name string) {

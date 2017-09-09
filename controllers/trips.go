@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 	"github.com/oskarszura/trips/utils"
-    gwsRouter "github.com/oskarszura/trips/gowebserver/router"
+    gwsRouter "github.com/oskarszura/gowebserver/router"
 )
 
 func Trips(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions) {

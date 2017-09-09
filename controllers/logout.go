@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 	"time"
-    gwsRouter "github.com/oskarszura/trips/gowebserver/router"
+    gwsRouter "github.com/oskarszura/gowebserver/router"
 )
 
 func AuthenticateLogout(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions) {

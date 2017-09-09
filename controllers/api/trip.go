@@ -7,8 +7,8 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"github.com/oskarszura/trips/utils"
     . "github.com/oskarszura/trips/models"
-    gwsSession "github.com/oskarszura/trips/gowebserver/session"
-    gwsRouter "github.com/oskarszura/trips/gowebserver/router"
+    gwsSession "github.com/oskarszura/gowebserver/session"
+    gwsRouter "github.com/oskarszura/gowebserver/router"
 )
 
 func CtrTrip(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions) {
