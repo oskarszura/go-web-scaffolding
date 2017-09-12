@@ -16,7 +16,7 @@ NPM=npm
 NPMINSTALL=$(NPM) install
 NPMBUILD=$(NPM) run build
 
-ELMPKG=elm-package
+ELMPKG=elm package
 ELMPKGINSTALL=$(ELMPKG) install --yes
 
 .DEFAULT_GOAL := all
