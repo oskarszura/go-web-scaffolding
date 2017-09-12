@@ -4,7 +4,7 @@
   "description": "## About the project A complete, full-stack, generic website scaffolding project for Go based websites.",
   "main": "index.js",
   "scripts": {
-    "elm:package:install": "elm package install",
+    "elm:package:install": "elm package install --yes",
     "build": "webpack",
     "develop": "webpack --watch -d",
     "lint": "eslint --ext .js .",
