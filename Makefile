@@ -8,6 +8,7 @@ GITADD=$(GIT) add
 GITCOMMIT=$(GIT) commit
 
 GOCMD=go
+GOGET=$(GOCMD) get
 GOGENERATE=$(GOCMD) generate
 GOBUILD=$(GOCMD) build -o trips
 GOTEST=$(GOCMD) test ./...
@@ -24,6 +25,7 @@ ELMPKGINSTALL=npm run elm:package:install --yes
 install:
 	$(NPMINSTALL)
 	$(ELMPKGINSTALL)
+	$(GOGET) github.com/oskarszura/gowebserver
 
 .PHONY: all
 all:
