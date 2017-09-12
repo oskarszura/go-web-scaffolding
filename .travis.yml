@@ -3,8 +3,6 @@ language: go
 go:
   - 1.x
 
-go_import_path: github.com/oskarszura/src
-
 install:
   - . $HOME/.nvm/nvm.sh
   - nvm install

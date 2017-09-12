@@ -26,6 +26,7 @@ install:
 	$(NPMINSTALL)
 	$(ELMPKGINSTALL)
 	$(GOGET) github.com/oskarszura/gowebserver
+	$(GOGET) gopkg.in/mgo.v2
 
 .PHONY: all
 all:
