@@ -34,5 +34,6 @@ type Msg =
   | OnUpdatePlace (Result Http.Error Place)
   | OnRemovePlace String (Result Http.Error String)
   | PlaceDrop String String
+  | PlaceDragThrough String
   | PlaceDragEnd Mouse.Position
   | PlaceDragStart String

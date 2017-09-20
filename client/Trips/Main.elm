@@ -232,6 +232,12 @@ update msg model =
     OnFetchAllPlaces (Err error) ->
       ( model, Cmd.none )
 
+    PlaceDragThrough placeId ->
+      if placeId /= model.drag then
+        ( { model | hoveredPlace = placeId }, Cmd.none )
+      else
+        ( model, Cmd.none )
+
     PlaceDragEnd position ->
       ( { model | drag = "" }, Cmd.none )
 
@@ -248,7 +254,7 @@ update msg model =
               |> valueFromMaybe
           hoveredPlace =
             model.places
-              |> List.filter (\place -> place.id == hoveredPlaceId)
+              |> List.filter (\place -> place.id == model.hoveredPlace)
               |> List.head
               |> valueFromMaybe
           sortedPlaces =
@@ -272,7 +278,9 @@ update msg model =
                 updatedTrip =
                     { trp | places = sortedPlaces }
               in
-                ( { model | places = sortedPlaces }, updateTrip updatedTrip)
+                ( { model
+                    | places = sortedPlaces
+                    , hoveredPlace = "" }, updateTrip updatedTrip)
             Nothing ->
               ( model, Cmd.none )
       else
