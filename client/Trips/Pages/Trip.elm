@@ -2,7 +2,7 @@ module Trips.Pages.Trip exposing (..)
 
 import Html exposing (Html, div, h1, text, input, button, ul, li, textarea, label, header)
 import Html.Attributes exposing (classList, class, value, style)
-import Html.Events exposing (onClick, onInput, onMouseDown, onMouseUp, on)
+import Html.Events exposing (onClick, onInput, onMouseDown, onMouseUp, onMouseEnter, on)
 
 import Trips.Messages exposing (..)
 import Trips.Model exposing (..)
@@ -14,6 +14,7 @@ placeItem model place tripId =
         [ ("place", True)
         , ("place--dragging", model.drag == place.id)
         ]
+    , onMouseEnter (PlaceDragThrough place.id)
     , onMouseUp (PlaceDrop tripId place.id)
     , style
         [ ("left", toString model.mousex ++ "px")

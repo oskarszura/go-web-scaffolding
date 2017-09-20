@@ -15,6 +15,7 @@ type alias Model =
   , drag: String
   , mousex: Int
   , mousey: Int
+  , hoveredPlace: String
   , editedTrip: Trip
   , editedPlace: Place
   }
@@ -55,4 +56,5 @@ initModel route =
       , name = ""
       , places = []
     }
+  , hoveredPlace = ""
   }
