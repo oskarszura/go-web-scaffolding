@@ -33,7 +33,7 @@ type Msg =
   | OnFetchAllPlaces (Result Http.Error (List Place))
   | OnUpdatePlace (Result Http.Error Place)
   | OnRemovePlace String (Result Http.Error String)
-  | PlaceDrop String String
+  | PlaceDrop String
   | PlaceDragThrough String
   | PlaceDragEnd Mouse.Position
   | PlaceDragStart String

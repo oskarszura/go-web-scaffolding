@@ -15,7 +15,7 @@ placeItem model place tripId =
         , ("place--dragging", model.drag == place.id)
         ]
     , onMouseEnter (PlaceDragThrough place.id)
-    , onMouseUp (PlaceDrop tripId place.id)
+    , onMouseUp (PlaceDrop tripId)
     , style
         [ ("left", toString model.mousex ++ "px")
         , ("top", toString model.mousey ++ "px")

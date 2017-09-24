@@ -244,7 +244,7 @@ update msg model =
     PlaceDragStart placeId ->
       ( { model | drag = placeId }, Cmd.none )
 
-    PlaceDrop tripId hoveredPlaceId ->
+    PlaceDrop tripId ->
       if model.drag /= "" then
         let
           draggedPlace =
