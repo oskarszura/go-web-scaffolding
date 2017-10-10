@@ -17,6 +17,8 @@ NPM=npm
 NPMINSTALL=$(NPM) install
 NPMBUILD=$(NPM) run build
 
+TESTCUCUMBER=$(NPM) run test:cucumber
+
 ELMPKGINSTALL=npm run elm:package:install --yes
 
 .DEFAULT_GOAL := all
@@ -37,6 +39,7 @@ all:
 .PHONY: test
 test:
 	$(GOTEST)
+	$(TESTCUCUMBER)
 
 .PHONY: changelog
 changelog:

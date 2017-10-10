@@ -8,7 +8,8 @@
     "build": "webpack",
     "develop": "webpack --watch -d",
     "lint": "eslint --ext .js .",
-    "lint-fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "test:cucumber": "cucumber-js -r ./features/stepdefinitions"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "babel-preset-react": "^6.23.0",
     "bootstrap-sass": "^3.3.7",
     "css-loader": "^0.25.0",
+    "cucumber": "^3.0.3",
     "elm": "^0.18.0",
     "elm-webpack-loader": "^4.2.0",
     "eslint": "^3.8.1",
@@ -48,6 +50,7 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "sass-loader": "^4.0.1",
+    "selenium-webdriver": "^3.5.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.14.3"
   }
