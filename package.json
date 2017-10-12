@@ -6,10 +6,11 @@
   "scripts": {
     "elm:package:install": "elm package install --yes",
     "build": "webpack",
-    "develop": "webpack --watch -d",
+    "build:watch": "webpack --watch -d",
     "lint": "eslint --ext .js .",
     "lint:fix": "eslint --fix .",
-    "test:cucumber": "cucumber-js -r ./features/stepdefinitions"
+    "test:cucumber": "cucumber-js -r ./features/stepdefinitions",
+    "test:cucumber:webdriver": "selenium-standalone start --config=./seleniumConfig.js"
   },
   "repository": {
     "type": "git",
