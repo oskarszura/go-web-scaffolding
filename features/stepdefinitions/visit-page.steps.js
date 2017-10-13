@@ -1,25 +1,19 @@
 const Cucumber = require('cucumber');
-const { Builder, By } = require('selenium-webdriver');
 
 Cucumber.defineSupportCode((context) => {
-  const setWorldConstructor = context.setWorldConstructor;
   const given = context.Given;
   const when = context.When;
   const then = context.Then;
 
   let url = '';
 
-  const CustomWorld = function () {
-    this.driver = new Builder()
-      .usingServer('http://localhost:4444/wd/hub')
-      .forBrowser('chrome')
-      .build();
-  };
+  given(/^I'm not logged in$/, function (callback) {
+    const cookies = this.driver.manage().getCookies();
+    const sessionCookie = cookies.sid;
 
-  setWorldConstructor(CustomWorld);
-
-  given(/^I'm not logged in$/, () => {
-
+    if (!sessionCookie) {
+      callback();
+    }
   });
 
   when(/^I visit random page$/, function (callback) {
