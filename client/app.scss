@@ -15,13 +15,13 @@
 @import "template/left-menu";
 @import "template/login-box";
 
-@import "Trips/Pages/trips";
-@import "Trips/Pages/trip";
-@import "Trips/Pages/trip-adder";
-@import "Trips/Pages/place";
-@import "Trips/Pages/place-adder";
+@import "./modules/Trips/Pages/trips";
+@import "./modules/Trips/Pages/trip";
+@import "./modules/Trips/Pages/trip-adder";
+@import "./modules/Trips/Pages/place";
+@import "./modules/Trips/Pages/place-adder";
 
-@import "components/trip-map";
+@import "./components/TravelMap/styles";
 
 $app-content-height: calc(100vh - #{$splash-height} - #{$header-height} - #{$footer-height});
 
