@@ -39,7 +39,6 @@ all:
 .PHONY: test
 test:
 	$(GOTEST)
-	$(TESTCUCUMBER)
 
 .PHONY: changelog
 changelog:
