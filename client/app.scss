@@ -1,27 +1,11 @@
-@import "common/bootstrap";
-@import "common/colors";
-@import "common/z-layers";
-@import "common/reset";
-@import "common/tooltip";
-@import "common/small-list";
-@import "common/buttons";
-@import "common/lists";
-@import "common/panels";
+@import "./components/Color/styles";
 
-@import "template/header";
-@import "template/splash";
-@import "template/footer";
-@import "template/main-content";
-@import "template/left-menu";
-@import "template/login-box";
-
+@import "./components/Button/styles";
+@import "./components/Panel/styles";
+@import "./components/List/styles";
 @import "./components/Loader/styles";
 @import "./components/TravelMap/styles";
+@import "./components/ZIndex/styles";
 
 @import "./modules/Trips/styles";
-
-$app-content-height: calc(100vh - #{$splash-height} - #{$header-height} - #{$footer-height});
-
-.app {
-    min-height: $app-content-height;
-}
+@import "./modules/Template/styles";
