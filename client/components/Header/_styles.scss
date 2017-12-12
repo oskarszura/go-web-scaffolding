@@ -1,0 +1,13 @@
+$header-archor-padding: 15px 10px;
+$header-height: 50px;
+
+.t-header {
+    @include c-header($header-height, $header-archor-padding);
+
+    &__logo {
+        background-image: url('./assets/trips-logo.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 70%;
+    }
+}

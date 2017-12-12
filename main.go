@@ -50,6 +50,7 @@ func main() {
         controllers.AuthenticateLogout)
     server.Router.AddRoute("/login", controllers.Authenticate)
     server.Router.AddRoute("/trips", controllers.Trips)
+    server.Router.AddRoute("/travel-map", controllers.TravelMap)
     server.Router.AddRoute("/", controllers.Front)
     server.Router.AddRoute("/api/trips", api.CtrTrips)
     server.Router.AddRoute("/api/trips/{id}", api.CtrTrip)

@@ -1,5 +1,9 @@
 # Changelog from v0.0.4
 ### Commits
+* [[`7b610a4`](http://github.com/oskarszura/trips/commit/7b610a4ce7d559b9eb3a599120a0008298fc3013)] - Build v0.0.4 (oskarszura)
+* [[`1af60f3`](http://github.com/oskarszura/trips/commit/1af60f3c026cace1b54800a3f055165f6e9c3f36)] - Generate changelog for v0.0.4 (oskarszura)
+* [[`548ec3c`](http://github.com/oskarszura/trips/commit/548ec3ce9b6d03d49d0577c6e9888b3bd549093d)] - Build v0.0.0 (oskarszura)
+* [[`ba4855a`](http://github.com/oskarszura/trips/commit/ba4855a1530e62efd59cc05ed0709d15da1103fb)] - Build v0.0.0 (oskarszura)
 * [[`86d6eb5`](http://github.com/oskarszura/trips/commit/86d6eb5b9442aca8c58c3e10f27ed26f0a0b38ef)] - Build v0.0.4 (oskarszura)
 * [[`d25e8ba`](http://github.com/oskarszura/trips/commit/d25e8bac7d3e6688e8f830482688a847603b7d7f)] - TRIPS-FIX - Fix CI build (oskarszura)
 * [[`5bfdf58`](http://github.com/oskarszura/trips/commit/5bfdf586f04182c10055211832a426febaac3566)] - TRIPS-FIX - Fix CI build (oskarszura)
