@@ -1,9 +1,0 @@
-%t-btn-add {
-    @extend %c-btn;
-    @include c-btn($color-persian-green, $color-white);
-}
-
-%t-btn-edit {
-    @extend %c-btn;
-    @include c-btn($color-viking, $color-white);
-}
