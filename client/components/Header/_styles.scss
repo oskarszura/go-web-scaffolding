@@ -3,40 +3,9 @@ $header-height: 50px;
 
 .c-header {
     &__logo {
-        flex-basis: 10%;
-        flex-grow: 1;
-        display: block;
-        padding: $header-archor-padding;
         background-image: url('./assets/trips-logo.png');
         background-position: center;
         background-repeat: no-repeat;
         background-size: 70%;
-    }
-
-    &__navigation {
-        flex-basis: 90%;
-        flex-grow: 9;
-    }
-
-    &__navigation-list {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    &__navigation-option {
-        display: inline-block;
-
-        a {
-            display: block;
-            color: $color-mine-shaft;
-            padding: $header-archor-padding;
-            font-weight: 600;
-
-            &:hover {
-                color: $color-persian-green;
-                text-decoration: none;
-            }
-        }
     }
 }
