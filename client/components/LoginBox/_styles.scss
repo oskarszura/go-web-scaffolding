@@ -5,4 +5,14 @@
     &__title {
         text-align: center;
     }
+
+    &__submit {
+        @extend .c-btn;
+        @extend .c-btn--accept;
+    }
+
+    &__signup {
+        @extend .c-btn;
+        @extend .c-btn--edit;
+    }
 }
