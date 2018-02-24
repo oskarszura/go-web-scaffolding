@@ -8,16 +8,17 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"github.com/oskarszura/trips/models"
     "github.com/oskarszura/trips/utils"
-    gwsSession "github.com/oskarszura/gowebserver/session"
-    gwsRouter "github.com/oskarszura/gowebserver/router"
+    . "github.com/oskarszura/gowebserver/session"
+    . "github.com/oskarszura/gowebserver/router"
 )
 
-func Authenticate(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions) {
+func Authenticate(w http.ResponseWriter, r *http.Request, o UrlOptions, sm ISessionManager) {
 	defer r.Body.Close()
 
 	switch r.Method {
 	case "GET":
-		utils.RenderTemplate(w, r, "login")
+		utils.RenderTemplate(w, r, "login", sm)
+
 	case "POST":
 		_, err := r.Cookie("sid")
 
@@ -36,7 +37,7 @@ func Authenticate(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlO
 					Value: cookieValue,
 					Expires: expiration }
 
-                session := gwsSession.CreateSession(cookieValue)
+                session := sm.Create(cookieValue)
                 session.Set("user", authenticatedUser)
 
 				http.SetCookie(w, &cookie)
@@ -45,6 +46,7 @@ func Authenticate(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlO
 		}
 
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
+
 	default:
 	}
 }

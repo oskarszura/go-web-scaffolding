@@ -3,10 +3,11 @@ package controllers
 import (
 	"net/http"
 	"time"
-    gwsRouter "github.com/oskarszura/gowebserver/router"
+    . "github.com/oskarszura/gowebserver/router"
+    . "github.com/oskarszura/gowebserver/session"
 )
 
-func AuthenticateLogout(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions) {
+func AuthenticateLogout(w http.ResponseWriter, r *http.Request, o UrlOptions, sm ISessionManager) {
 	cookie := http.Cookie {
 		Path: "/",
 		Name: "sid",

@@ -8,12 +8,13 @@ import (
 	"github.com/oskarszura/trips/utils"
 	. "github.com/oskarszura/trips/models"
     gwsRouter "github.com/oskarszura/gowebserver/router"
+    . "github.com/oskarszura/gowebserver/session"
 )
 
 
 type PlaceList []Place
 
-func CtrPlaces(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions) {
+func CtrPlaces(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions, sm ISessionManager) {
 	var places []Place
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")

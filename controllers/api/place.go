@@ -8,10 +8,11 @@ import (
 	"github.com/oskarszura/trips/utils"
 	. "github.com/oskarszura/trips/models"
     gwsRouter "github.com/oskarszura/gowebserver/router"
+    . "github.com/oskarszura/gowebserver/session"
 )
 
 
-func CtrPlace(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions) {
+func CtrPlace(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions, sm ISessionManager) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	ds := utils.GetDataSource()
 	c := ds.C("places")

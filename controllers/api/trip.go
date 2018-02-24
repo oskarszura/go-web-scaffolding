@@ -7,11 +7,11 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"github.com/oskarszura/trips/utils"
     . "github.com/oskarszura/trips/models"
-    gwsSession "github.com/oskarszura/gowebserver/session"
+    . "github.com/oskarszura/gowebserver/session"
     gwsRouter "github.com/oskarszura/gowebserver/router"
 )
 
-func CtrTrip(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions) {
+func CtrTrip(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions, sm ISessionManager) {
 	var trip Trip
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
@@ -24,7 +24,7 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOption
 		tripId := options.Params["id"]
 
         cookie, _ := r.Cookie("sid")
-        session := gwsSession.CreateSession(cookie.Value)
+        session := sm.Create(cookie.Value)
         user := session.Get("user").(User)
 
 		pipe := c.Pipe([]bson.M{
@@ -56,7 +56,7 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOption
 		tripId := options.Params["id"]
 
         cookie, _ := r.Cookie("sid")
-        session := gwsSession.CreateSession(cookie.Value)
+        session := sm.Create(cookie.Value)
         user := session.Get("user").(User)
 
 		decoder := json.NewDecoder(r.Body)

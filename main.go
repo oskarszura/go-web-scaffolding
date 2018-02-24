@@ -46,8 +46,7 @@ func main() {
     utils.SetSession(dbSession)
 
     server.Router.AddRoute("/login/register", controllers.Register)
-    server.Router.AddRoute("/login/logout",
-        controllers.AuthenticateLogout)
+    server.Router.AddRoute("/login/logout", controllers.AuthenticateLogout)
     server.Router.AddRoute("/login", controllers.Authenticate)
     server.Router.AddRoute("/trips", controllers.Trips)
     server.Router.AddRoute("/travel-map", controllers.TravelMap)

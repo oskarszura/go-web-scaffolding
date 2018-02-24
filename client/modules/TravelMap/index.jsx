@@ -11,9 +11,20 @@ export default class TravelMap extends Component {
     this.map = new google.maps.Map(node, settings);
   }
 
+  addMarker(e) {
+    console.log(e, e.latLng);
+
+    /*var marker = new google.maps.Marker({
+      position: position,
+      map: this.map,
+    });*/
+
+  }
+
   render() {
     return (<div className="travel-map">
-      <div className="js-map travel-map__board" />
+      <div className="js-map travel-map__board"
+        onClick={this.addMarker} />
     </div>);
   }
 }
