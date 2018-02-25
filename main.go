@@ -20,10 +20,6 @@ func determineListenAddress() (string, error) {
     return ":" + port, nil
 }
 
-var (
-    server gws.WebServer
-)
-
 //go:generate bash ./scripts/version.sh ./scripts/version_tpl.txt ./version.go
 
 func main() {
@@ -32,6 +28,14 @@ func main() {
     if err != nil {
         panic(err)
     }
+
+    serverOptions := gws.WebServerOptions{
+        addr,
+        "/static/",
+        "public",
+    }
+
+    server := gws.New(serverOptions, controllers.NotFound)
 
     utils.VERSION = VERSION
     log.Println("Starting trips version:", utils.VERSION)
@@ -55,13 +59,6 @@ func main() {
     server.Router.AddRoute("/api/trips/{id}", api.CtrTrip)
     server.Router.AddRoute("/api/places", api.CtrPlaces)
     server.Router.AddRoute("/api/places/{id}", api.CtrPlace)
-    server.Router.AddNotFoundRoute(controllers.NotFound)
 
-    serverOptions := gws.WebServerOptions{
-        addr,
-        "/static/",
-        "public",
-    }
-
-    server.Run(serverOptions)
+    server.Run()
 }

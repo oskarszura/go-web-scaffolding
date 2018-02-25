@@ -8,11 +8,11 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"github.com/oskarszura/trips/models"
     "github.com/oskarszura/trips/utils"
-    . "github.com/oskarszura/gowebserver/session"
-    . "github.com/oskarszura/gowebserver/router"
+    "github.com/oskarszura/gowebserver/session"
+    "github.com/oskarszura/gowebserver/router"
 )
 
-func Authenticate(w http.ResponseWriter, r *http.Request, o UrlOptions, sm ISessionManager) {
+func Authenticate(w http.ResponseWriter, r *http.Request, o router.UrlOptions, sm session.ISessionManager) {
 	defer r.Body.Close()
 
 	switch r.Method {

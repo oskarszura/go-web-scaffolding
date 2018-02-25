@@ -7,11 +7,11 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"github.com/oskarszura/trips/utils"
     . "github.com/oskarszura/trips/models"
-    . "github.com/oskarszura/gowebserver/session"
-    gwsRouter "github.com/oskarszura/gowebserver/router"
+    "github.com/oskarszura/gowebserver/session"
+    "github.com/oskarszura/gowebserver/router"
 )
 
-func CtrTrip(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions, sm ISessionManager) {
+func CtrTrip(w http.ResponseWriter, r *http.Request, options router.UrlOptions, sm session.ISessionManager) {
 	var trip Trip
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")

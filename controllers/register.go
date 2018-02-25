@@ -6,11 +6,11 @@ import (
 	"github.com/oskarszura/trips/utils"
 	"github.com/oskarszura/trips/models"
 	"gopkg.in/mgo.v2/bson"
-    . "github.com/oskarszura/gowebserver/router"
-    . "github.com/oskarszura/gowebserver/session"
+    "github.com/oskarszura/gowebserver/router"
+    "github.com/oskarszura/gowebserver/session"
 )
 
-func Register(w http.ResponseWriter, r *http.Request, o UrlOptions, sm ISessionManager) {
+func Register(w http.ResponseWriter, r *http.Request, o router.UrlOptions, sm session.ISessionManager) {
 	switch r.Method {
 	case "GET":
 		utils.RenderTemplate(w, r, "register", sm)

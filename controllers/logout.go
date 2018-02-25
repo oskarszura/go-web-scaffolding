@@ -3,11 +3,11 @@ package controllers
 import (
 	"net/http"
 	"time"
-    . "github.com/oskarszura/gowebserver/router"
-    . "github.com/oskarszura/gowebserver/session"
+    "github.com/oskarszura/gowebserver/router"
+    "github.com/oskarszura/gowebserver/session"
 )
 
-func AuthenticateLogout(w http.ResponseWriter, r *http.Request, o UrlOptions, sm ISessionManager) {
+func AuthenticateLogout(w http.ResponseWriter, r *http.Request, o router.UrlOptions, sm session.ISessionManager) {
 	cookie := http.Cookie {
 		Path: "/",
 		Name: "sid",
