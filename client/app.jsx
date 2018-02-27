@@ -1,10 +1,22 @@
 import React from 'react';
 import { render } from 'react-dom';
 import Trips from './modules/Trips';
+import TravelMap from './modules/TravelMap';
 
-const jsTripsContainer = document.querySelector('.js-trips');
+const tripsContainer = document.querySelector('.js-trips');
+const mapContainer = document.querySelector('.js-travel-map');
 
-render(
-  <Trips />,
-  jsTripsContainer
-);
+if (tripsContainer) {
+  render(
+    <Trips />,
+    tripsContainer
+  );
+}
+
+if (mapContainer) {
+  render(
+    <TravelMap />,
+    mapContainer
+  );
+}
+

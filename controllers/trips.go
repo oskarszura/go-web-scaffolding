@@ -3,9 +3,10 @@ package controllers
 import (
 	"net/http"
 	"github.com/oskarszura/trips/utils"
-    gwsRouter "github.com/oskarszura/gowebserver/router"
+    "github.com/oskarszura/gowebserver/router"
+    "github.com/oskarszura/gowebserver/session"
 )
 
-func Trips(w http.ResponseWriter, r *http.Request, options gwsRouter.UrlOptions) {
-	utils.RenderTemplate(w, r, "trips")
+func Trips(w http.ResponseWriter, r *http.Request, opt router.UrlOptions, sm session.ISessionManager) {
+	utils.RenderTemplate(w, r, "trips", sm)
 }

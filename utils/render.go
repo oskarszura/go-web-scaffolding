@@ -7,11 +7,13 @@ import (
     "path/filepath"
     "html/template"
     . "github.com/oskarszura/trips/models"
-    gwsSession "github.com/oskarszura/gowebserver/session"
+    . "github.com/oskarszura/gowebserver/session"
 )
 
-func RenderTemplate(w http.ResponseWriter, r *http.Request, name string) {
-    isLogged := gwsSession.IsLogged(r)
+func RenderTemplate(w http.ResponseWriter, r *http.Request, name string, sm ISessionManager) {
+    sessionId := GetSessionId(r)
+    isLogged := sm.IsExist(sessionId)
+
 
     if !isLogged && r.URL.Path != "/login" {
         http.Redirect(w, r, "/login", http.StatusSeeOther)

@@ -11,7 +11,7 @@ import (
     gws "github.com/oskarszura/gowebserver"
 )
 
-func determineListenAddress() (string, error) {
+func getServerAddress() (string, error) {
     port := os.Getenv("PORT")
 
     if port == "" {
@@ -20,18 +20,22 @@ func determineListenAddress() (string, error) {
     return ":" + port, nil
 }
 
-var (
-    server gws.WebServer
-)
-
 //go:generate bash ./scripts/version.sh ./scripts/version_tpl.txt ./version.go
 
 func main() {
     dbUri := os.Getenv("MONGOLAB_URI")
-    addr, err := determineListenAddress()
+    addr, err := getServerAddress()
     if err != nil {
         panic(err)
     }
+
+    serverOptions := gws.WebServerOptions{
+        addr,
+        "/static/",
+        "public",
+    }
+
+    server := gws.New(serverOptions, controllers.NotFound)
 
     utils.VERSION = VERSION
     log.Println("Starting trips version:", utils.VERSION)
@@ -46,8 +50,7 @@ func main() {
     utils.SetSession(dbSession)
 
     server.Router.AddRoute("/login/register", controllers.Register)
-    server.Router.AddRoute("/login/logout",
-        controllers.AuthenticateLogout)
+    server.Router.AddRoute("/login/logout", controllers.AuthenticateLogout)
     server.Router.AddRoute("/login", controllers.Authenticate)
     server.Router.AddRoute("/trips", controllers.Trips)
     server.Router.AddRoute("/travel-map", controllers.TravelMap)
@@ -56,13 +59,6 @@ func main() {
     server.Router.AddRoute("/api/trips/{id}", api.CtrTrip)
     server.Router.AddRoute("/api/places", api.CtrPlaces)
     server.Router.AddRoute("/api/places/{id}", api.CtrPlace)
-    server.Router.AddNotFoundRoute(controllers.NotFound)
 
-    serverOptions := gws.WebServerOptions{
-        addr,
-        "/static/",
-        "public",
-    }
-
-    server.Run(serverOptions)
+    server.Run()
 }
