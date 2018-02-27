@@ -12,7 +12,7 @@ import (
     "github.com/oskarszura/gowebserver/router"
 )
 
-func Authenticate(w http.ResponseWriter, r *http.Request, o router.UrlOptions, sm session.ISessionManager) {
+func Authenticate(w http.ResponseWriter, r *http.Request, opt router.UrlOptions, sm session.ISessionManager) {
 	defer r.Body.Close()
 
 	switch r.Method {

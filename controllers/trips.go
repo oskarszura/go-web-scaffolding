@@ -7,6 +7,6 @@ import (
     "github.com/oskarszura/gowebserver/session"
 )
 
-func Trips(w http.ResponseWriter, r *http.Request, o router.UrlOptions, sm session.ISessionManager) {
+func Trips(w http.ResponseWriter, r *http.Request, opt router.UrlOptions, sm session.ISessionManager) {
 	utils.RenderTemplate(w, r, "trips", sm)
 }

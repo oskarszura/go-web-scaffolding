@@ -11,7 +11,7 @@ import (
     gws "github.com/oskarszura/gowebserver"
 )
 
-func determineListenAddress() (string, error) {
+func getServerAddress() (string, error) {
     port := os.Getenv("PORT")
 
     if port == "" {
@@ -24,7 +24,7 @@ func determineListenAddress() (string, error) {
 
 func main() {
     dbUri := os.Getenv("MONGOLAB_URI")
-    addr, err := determineListenAddress()
+    addr, err := getServerAddress()
     if err != nil {
         panic(err)
     }

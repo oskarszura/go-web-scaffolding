@@ -10,7 +10,7 @@ import (
     "github.com/oskarszura/gowebserver/session"
 )
 
-func Register(w http.ResponseWriter, r *http.Request, o router.UrlOptions, sm session.ISessionManager) {
+func Register(w http.ResponseWriter, r *http.Request, opt router.UrlOptions, sm session.ISessionManager) {
 	switch r.Method {
 	case "GET":
 		utils.RenderTemplate(w, r, "register", sm)

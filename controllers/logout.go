@@ -7,7 +7,7 @@ import (
     "github.com/oskarszura/gowebserver/session"
 )
 
-func AuthenticateLogout(w http.ResponseWriter, r *http.Request, o router.UrlOptions, sm session.ISessionManager) {
+func AuthenticateLogout(w http.ResponseWriter, r *http.Request, opt router.UrlOptions, sm session.ISessionManager) {
 	cookie := http.Cookie {
 		Path: "/",
 		Name: "sid",

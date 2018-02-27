@@ -13,7 +13,7 @@ import (
 
 type TripList []Trip
 
-func CtrTrips(w http.ResponseWriter, r *http.Request, options router.UrlOptions, sm session.ISessionManager) {
+func CtrTrips(w http.ResponseWriter, r *http.Request, opt router.UrlOptions, sm session.ISessionManager) {
 	var trips []Trip
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")

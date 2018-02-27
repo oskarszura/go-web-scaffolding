@@ -14,7 +14,7 @@ import (
 
 type PlaceList []Place
 
-func CtrPlaces(w http.ResponseWriter, r *http.Request, options router.UrlOptions, sm session.ISessionManager) {
+func CtrPlaces(w http.ResponseWriter, r *http.Request, opt router.UrlOptions, sm session.ISessionManager) {
 	var places []Place
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")

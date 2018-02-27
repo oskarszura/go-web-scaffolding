@@ -11,7 +11,7 @@ import (
     "github.com/oskarszura/gowebserver/router"
 )
 
-func CtrTrip(w http.ResponseWriter, r *http.Request, options router.UrlOptions, sm session.ISessionManager) {
+func CtrTrip(w http.ResponseWriter, r *http.Request, opt router.UrlOptions, sm session.ISessionManager) {
 	var trip Trip
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
@@ -21,7 +21,7 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options router.UrlOptions, 
 
 	switch r.Method {
 	case "GET":
-		tripId := options.Params["id"]
+		tripId := opt.Params["id"]
 
         cookie, _ := r.Cookie("sid")
         session := sm.Create(cookie.Value)
@@ -53,7 +53,7 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options router.UrlOptions, 
 	case "PATCH":
 		var updatedTrip Trip
 
-		tripId := options.Params["id"]
+		tripId := opt.Params["id"]
 
         cookie, _ := r.Cookie("sid")
         session := sm.Create(cookie.Value)
@@ -94,7 +94,7 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, options router.UrlOptions, 
 
 		json.NewEncoder(w).Encode(output)
 	case "DELETE":
-		tripId := options.Params["id"]
+		tripId := opt.Params["id"]
 		err := c.Remove(bson.M{"_id": bson.ObjectIdHex(tripId)})
 
 		if err != nil {
