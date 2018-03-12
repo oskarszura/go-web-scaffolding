@@ -15,7 +15,9 @@ if (tripsContainer) {
 
 if (mapContainer) {
   render(
-    <TravelMap />,
+    <TravelMap
+      countries={['GB', 'DE', 'US']}
+    />,
     mapContainer
   );
 }
