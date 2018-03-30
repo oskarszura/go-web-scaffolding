@@ -2,10 +2,10 @@
 
 # Trips
 
-## Important places
-* [Project board](https://trello.com/b/CgTjQgmf/project-trips)
-* [TravisCI](https://travis-ci.org/oskarszura/trips)
-* [Stage ENV](https://golang-scaffolding.herokuapp.com)
+[[Documentation]]()
+[[Tasks board]](https://trello.com/b/CgTjQgmf/project-trips)
+[[TravisCI]](https://travis-ci.org/oskarszura/trips)
+[[Stage ENV]](https://golang-scaffolding.herokuapp.com)
 
 ## Development flow
 
