@@ -6,6 +6,11 @@ const ElmTravelMapApp = require('./Main.elm');
 
 const COUNTRIES_BOUNDARIES_TABLE = '1N2LBk4JHwWpOY4d9fobIn27lfnZ5MDy-NoqqRpk';
 
+const countriesToString = countries => _.chain(countries)
+  .map(country => `'${country}'`)
+  .join(', ')
+  .value();
+
 export default class TravelMap extends Component {
   constructor(props) {
     super(props);
@@ -26,9 +31,7 @@ export default class TravelMap extends Component {
 
     this.map = new google.maps.Map(this.mapContainer, settings);
 
-    const countriesString = _.chain(countries)
-        .map(country => `'${country}'`)
-        .join(', ');
+    const countriesString = countriesToString(countries);
 
     this.map = new google.maps.FusionTablesLayer({
       query: {
@@ -46,7 +49,7 @@ export default class TravelMap extends Component {
 
     return (<div className="travel-map">
       <div>
-        Countries: {countries}
+        Countries: {countriesToString(countries)}
       </div>
       <div
         className="travel-map__board"
