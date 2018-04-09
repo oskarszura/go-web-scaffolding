@@ -18,7 +18,7 @@ export default class TravelMap extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidUpdate() {
     const { countries } = this.props;
     const { settings } = this.state;
 
@@ -42,9 +42,11 @@ export default class TravelMap extends Component {
   }
 
   render() {
+    const { countries } = this.props;
+
     return (<div className="travel-map">
       <div>
-        Countries: {this.props.countries}
+        Countries: {countries}
       </div>
       <div
         className="travel-map__board"

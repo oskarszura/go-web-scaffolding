@@ -3,7 +3,8 @@
   "extends": "airbnb",
   "globals": {
     "document": true,
-    "google": true
+    "google": true,
+    "fetch": true
   },
   "rules": {
     "no-underscore-dangle": "off",

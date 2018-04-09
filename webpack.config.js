@@ -3,7 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   context: `${__dirname}/client`,
   entry: {
-    scripts: './app.jsx',
+    scripts: ['regenerator-runtime/runtime', './app.jsx'],
     css: './app.scss',
   },
   output: {
