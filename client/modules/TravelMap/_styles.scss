@@ -1,4 +1,8 @@
 .travel-map {
+    &__countries {
+        margin-bottom: 10px;
+    }
+
     &__board {
         width: 600px;
         height: 400px;

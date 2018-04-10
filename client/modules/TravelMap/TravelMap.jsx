@@ -48,8 +48,8 @@ export default class TravelMap extends Component {
     const { countries } = this.props;
 
     return (<div className="travel-map">
-      <div>
-        Countries: {countriesToString(countries)}
+      <div className="travel-map__countries">
+        Visited countries: { countriesToString(countries) }
       </div>
       <div
         className="travel-map__board"
