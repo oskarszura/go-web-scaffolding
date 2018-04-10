@@ -9,4 +9,3 @@ type Place struct {
 	Description string    	    `json:"description"`
 	Order    	int	    	    `json:"order"`
 }
-

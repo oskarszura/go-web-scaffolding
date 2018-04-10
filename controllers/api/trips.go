@@ -67,6 +67,7 @@ func CtrTrips(w http.ResponseWriter, r *http.Request, opt router.UrlOptions, sm 
 			Id: bson.NewObjectId(),
 			UserId: user.Id,
 			Name: newTrip.Name,
+            Code: newTrip.Code,
 			Places: PlaceList{},
 		}
 

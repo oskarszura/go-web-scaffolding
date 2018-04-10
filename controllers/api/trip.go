@@ -83,6 +83,7 @@ func CtrTrip(w http.ResponseWriter, r *http.Request, opt router.UrlOptions, sm s
 
 		err = c.UpdateId(bson.ObjectIdHex(tripId), Trip{
 			Name: updatedTrip.Name,
+            Code: updatedTrip.Code,
 			UserId: user.Id,
 		})
 

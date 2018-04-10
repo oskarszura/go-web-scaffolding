@@ -1,12 +1,3 @@
-VERSION=$(shell git tag | tail -n 1)
-
-CHANGELOG=$(shell ./scripts/changelog.sh)
-
-GIT=git
-GITTAG=$(GIT) tag
-GITADD=$(GIT) add
-GITCOMMIT=$(GIT) commit
-
 GOCMD=go
 GOGET=$(GOCMD) get
 GOGENERATE=$(GOCMD) generate
@@ -40,23 +31,16 @@ all:
 test:
 	$(GOTEST)
 
-.PHONY: changelog
-changelog:
-	$(CHANGELOG)
-	@echo "Changelog generated for version $(VERSION)"
-
 .PHONY: version
 version:
-	$(GITTAG) --delete $(V) || true
-	$(GITTAG) $(V)
-	$(CHANGELOG)
-	$(GITADD) ./docs/changelogs/CHANGELOG_$(V).md || true
-	$(GITCOMMIT) -m "Generate changelog for $(V)" || true
-	$(GOGENERATE)
-	$(GITADD) ./version.go || true
-	$(GITCOMMIT) --allow-empty -m "Build $(V)" || true
-	$(GITTAG) --delete $(V) || true
-	$(GITTAG) $(V)
+	git tag $(V)
+	./scripts/changelog.sh
+	go generate
+	git add ./version.go || true
+	git add ./docs/changelogs/CHANGELOG_$(V).md
+	git commit --allow-empty -m "Build $(V)"
+	git tag --delete $(V)
+	git tag $(V)
 
 .PHONY: help
 help:
@@ -79,10 +63,6 @@ help:
 	@echo  '                    this commit with this version. Version has to'
 	@echo  '                    be passed as `V` argument with ex. `v0.0.0`'
 	@echo  '                    format'
-	@echo  ''
-	@echo  '* Miscellaneous'
-	@echo  '- changelog       - Phony task. Creates changelog from latest'
-	@echo  '                    git tag till the latest commit.'
 	@echo  ''
 
 

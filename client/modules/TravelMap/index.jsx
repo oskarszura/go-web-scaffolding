@@ -1,30 +1,13 @@
-import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import TravelMap from './TravelMap';
 
-export default class TravelMap extends Component {
-  componentDidMount() {
-    const node = document.querySelector('.js-map');
-    const settings = {
-      center: { lat: 0, lng: 0 },
-      zoom: 1,
-    };
+const mapStateToProps = state => ({
+  countries: state.countries,
+});
 
-    this.map = new google.maps.Map(node, settings);
-  }
+const mapDispatchToProps = () => ({});
 
-  addMarker(e) {
-    console.log(e, e.latLng);
-
-    /*var marker = new google.maps.Marker({
-      position: position,
-      map: this.map,
-    });*/
-
-  }
-
-  render() {
-    return (<div className="travel-map">
-      <div className="js-map travel-map__board"
-        onClick={this.addMarker} />
-    </div>);
-  }
-}
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TravelMap);

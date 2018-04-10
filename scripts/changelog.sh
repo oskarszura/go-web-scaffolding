@@ -1,10 +1,17 @@
 #!/bin/bash
 
-REPOSITORY=http://github.com/oskarszura/trips
+REPOSITORY=http://github.com/oskarszura/sh-changelog
 NEWER_TAG=$(git tag | tail -r | sed -n 1p)
 OLDER_TAG=$(git tag | tail -r | sed -n 2p)
 HEADER="# Changelog from $NEWER_TAG"
-LOGFILE=./docs/changelogs/CHANGELOG_$NEWER_TAG.md
+DIR=./docs/changelogs
+
+if [ ! -d $DIR ]
+    then
+    mkdir -p $DIR
+fi
+
+LOGFILE=$DIR/CHANGELOG_$NEWER_TAG.md
 
 echo $HEADER > $LOGFILE
 echo "### Commits" >> $LOGFILE
