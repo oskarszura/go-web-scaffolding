@@ -3,7 +3,7 @@
 # Trips
 
 [[Documentation]]()
-[[Tasks board]](https://trello.com/b/CgTjQgmf/project-trips)
+[[Tasks board]](https://trello.com/b/CgTjQgmf/project-oskarszura)
 [[TravisCI]](https://travis-ci.org/oskarszura/trips)
 [[Stage ENV]](https://golang-scaffolding.herokuapp.com)
 
