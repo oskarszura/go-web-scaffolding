@@ -1,0 +1,63 @@
+.place {
+    @extend .c-panel;
+    @extend .c-panel--bordered;
+    min-width: 500px;
+    margin-bottom: 20px;
+
+    &--dragging {
+        position: absolute;
+        z-index: $zlayer-top;
+    }
+
+    &__name {
+        @extend .c-panel__title;
+        border-radius: 0 !important;
+        background-color: $color-persian-green;
+        color: $color-white;
+
+        &-editor {
+            color: $color-black;
+        }
+    }
+
+    &__drag {
+        border: none;
+        background-color: transparent;
+
+        &::before {
+            content:'\2630';
+        }
+    }
+
+    &__toolbox {
+        @extend .m-pull-right;
+        opacity: 0;
+
+        .place__name:hover & {
+            opacity: 1;
+        }
+    }
+
+    &__save {
+        @extend .c-btn;
+        @extend .c-btn--small;
+        @extend .c-btn--accept;
+    }
+
+    &__edit {
+        @extend .c-btn;
+        @extend .c-btn--small;
+        @extend .c-btn--edit;
+    }
+
+    &__remove {
+        @extend .c-btn;
+        @extend .c-btn--small;
+        @extend .c-btn--remove;
+        @extend .m-pull-right;
+    }
+
+    &__description {
+        @extend .c-panel__content;
+    }
+}

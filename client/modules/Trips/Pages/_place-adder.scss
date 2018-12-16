@@ -1,0 +1,23 @@
+.place-adder {
+    &__description {
+        @extend .c-textarea;
+    }
+
+    &__actions {
+
+    }
+
+    &__name {
+        @extend .c-input__field;
+    }
+
+    &__code {
+        @extend .c-input__field;
+    }
+
+    &__add {
+        @extend .c-btn;
+        @extend .c-btn--accept;
+        height: 34px;
+    }
+}

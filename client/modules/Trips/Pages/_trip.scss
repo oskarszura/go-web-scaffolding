@@ -1,0 +1,47 @@
+.trip {
+    width: 50%;
+    margin: 20px auto 0px auto;
+
+    &__heading {
+        margin-bottom: 10px;
+    }
+
+    &__title {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        display: inline-block;
+
+        &__editor {
+            width: 50%;
+        }
+
+        &__code {
+            width: 50%;
+        }
+
+        &-toolbox {
+            display: inline-block;
+        }
+
+        &-edit {
+            @extend .c-btn;
+            @extend .c-btn--edit;
+            @extend .m-pull-right;
+            visibility: hidden;
+
+            .trip__heading:hover & {
+                visibility: visible;
+            }
+        }
+
+        &-save {
+            @extend .c-btn;
+            @extend .c-btn--accept;
+        }
+    }
+
+    &__place-list {
+        padding: 0;
+        list-style: none;
+    }
+}

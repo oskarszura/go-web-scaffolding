@@ -1,0 +1,15 @@
+.trip-adder {
+    &__editor {
+        width: 50%;
+    }
+
+    &__code {
+        width: 50%;
+    }
+
+    &__add {
+        @extend .c-btn;
+        @extend .c-btn--accept;
+        @extend .c-btn--full;
+    }
+}
